@@ -76,7 +76,10 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
   padding:120px 0 80px;
 }
 .hero h1{
-  font-weight:900; font-size:clamp(42px,9vw,104px); line-height:.92;
+  /* piso 32px: 14 caracteres de Montserrat 900 a ~0,645em cabem em 323px,
+     que e o util de uma tela de 375. Em 42px estourava e a pagina rolava
+     de lado. */
+  font-weight:900; font-size:clamp(29px,8.4vw,104px); line-height:.92;
   letter-spacing:-.035em; margin:0; text-shadow:0 0 46px rgba(55,200,255,.28);
 }
 .hero h1 .thin{
@@ -357,7 +360,27 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
   .cmp tbody th{width:auto}
   .cmp th,.cmp td{padding:12px 10px; font-size:14px}
 }
+/* A tabela de 3 colunas nao cabe em 375. Rolar de lado seria a saida
+   preguicosa; aqui cada linha vira um bloco com os rotulos das colunas. */
+@media (max-width:640px){
+  .cmp, .cmp tbody, .cmp tr, .cmp th, .cmp td{display:block; width:auto}
+  .cmp thead{display:none}
+  .cmp tr{padding:14px 0; border-bottom:1px solid var(--line2)}
+  .cmp tr:last-child{border-bottom:0}
+  .cmp tbody th{padding:0 0 8px; font-size:16px; border:0}
+  .cmp td{padding:0 0 8px; border:0; position:relative}
+  .cmp td::before{
+    content:attr(data-col); display:block; font-family:var(--mono);
+    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--txt3); margin-bottom:3px;
+  }
+  .cmp td:last-child::before{color:var(--acc)}
+}
+/* abaixo de 380 a margem de 18px ainda deixava o titulo estourar por
+   poucos pixels numa tela de 320 */
+@media (max-width:380px){ .wrap{padding:0 16px} }
 @media (max-width:560px){
+  .wrap{padding:0 18px}
   .g4,.g3{grid-template-columns:1fr}
   .step{flex:1 1 100%}
 }
@@ -518,13 +541,13 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
       <table class="cmp">
         <thead><tr><th>&nbsp;</th><th>Reconstituição filmada</th><th>Com IA</th></tr></thead>
         <tbody>
-          <tr><th>Locação</th><td>Local original ou similar, com autorização e janela de acesso</td><td>Reconstruída a partir das fotos que já existem no inquérito</td></tr>
-          <tr><th>Elenco</th><td>Atores, direção, figurino, caracterização</td><td>Character sheets derivados das fotos, consistentes entre planos</td></tr>
-          <tr><th>Equipe em campo</th><td>Câmera, luz, som, produção, transporte</td><td>Nenhuma</td></tr>
-          <tr><th>Refazer um plano</th><td>Nova diária, reagendar local e elenco</td><td>Novo frame a partir do mesmo cenário e do mesmo personagem</td></tr>
-          <tr><th>Exposição de pessoas</th><td>Atores reencenam o crime; o local é ocupado de novo</td><td>Ninguém é filmado e ninguém volta ao local</td></tr>
-          <tr><th>Onde não ganha</th><td>Movimento longo e contínuo, plano-sequência, ação física complexa</td><td>Cada plano nasce curto; continuidade longa exige montagem</td></tr>
-          <tr><th>Prazo</th><td class="fill">— preencha com seu número</td><td class="fill">— preencha com seu número</td></tr>
+          <tr><th>Locação</th><td data-col="Filmada">Local original ou similar, com autorização e janela de acesso</td><td data-col="Com IA">Reconstruída a partir das fotos que já existem no inquérito</td></tr>
+          <tr><th>Elenco</th><td data-col="Filmada">Atores, direção, figurino, caracterização</td><td data-col="Com IA">Character sheets derivados das fotos, consistentes entre planos</td></tr>
+          <tr><th>Equipe em campo</th><td data-col="Filmada">Câmera, luz, som, produção, transporte</td><td data-col="Com IA">Nenhuma</td></tr>
+          <tr><th>Refazer um plano</th><td data-col="Filmada">Nova diária, reagendar local e elenco</td><td data-col="Com IA">Novo frame a partir do mesmo cenário e do mesmo personagem</td></tr>
+          <tr><th>Exposição de pessoas</th><td data-col="Filmada">Atores reencenam o crime; o local é ocupado de novo</td><td data-col="Com IA">Ninguém é filmado e ninguém volta ao local</td></tr>
+          <tr><th>Onde não ganha</th><td data-col="Filmada">Movimento longo e contínuo, plano-sequência, ação física complexa</td><td data-col="Com IA">Cada plano nasce curto; continuidade longa exige montagem</td></tr>
+          <tr><th>Prazo</th><td class="fill" data-col="Filmada">— preencha com seu número</td><td class="fill" data-col="Com IA">— preencha com seu número</td></tr>
         </tbody>
       </table>
       <p class="panel-note"><b>A última linha é sua.</b> Deixei os prazos em branco de
