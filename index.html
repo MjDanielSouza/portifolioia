@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reconstituição com IA — estudo de caso</title>
+<meta name="description" content="De fotos de inquérito e um depoimento a um filme de reconstituição. Estudo de caso em cinco etapas.">
+<!-- A pagina fica acessivel por link, mas fora de buscadores. Foi escolha
+     deliberada: o caso e recente e ha fotos de inquerito na pagina. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304142E'/%3E%3Crect x='7' y='9' width='18' height='13' rx='2.5' fill='none' stroke='%2337C8FF' stroke-width='2.4'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reconstituição com IA — estudo de caso">
+<meta property="og:description" content="De fotos de inquérito e um depoimento a um filme de reconstituição.">
+<meta property="og:image" content="assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:300;font-display:swap;src:url(assets/fonts/Montserrat-300.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/Montserrat-500.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/Montserrat-700.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/Montserrat-900.woff2) format('woff2')}
+@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/RobotoMono-400.woff2) format('woff2')}
+@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/RobotoMono-500.woff2) format('woff2')}
+</style>
+<style>
+
+:root{
+  --bg0:#020A18; --bg1:#04142E; --glow:#0C3E85;
+  --panel:#061B39; --panel2:#0A2A52;
+  --line:#1E63A8; --line2:#103A66;
+  --txt:#EAF6FF; --txt2:#9FC8EE; --txt3:#5A85B6;
+  --acc:#37C8FF; --rim:#6FE0FF;
+  --glass:rgba(30,127,214,.26);
+  --disp:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'Roboto Mono','Consolas',ui-monospace,monospace;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg0); color:var(--txt);
+  font-family:var(--disp); font-weight:500; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* grade técnica ao fundo, como no filme */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(1200px 800px at 50% 22%, rgba(12,62,133,.55), transparent 70%),
+    linear-gradient(var(--bg1),var(--bg1));
+}
+body::after{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(16,58,102,.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,58,102,.6) 1px, transparent 1px);
+  background-size:74px 74px;
+  mask-image:radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
+}
+main{position:relative; z-index:1}
+.wrap{max-width:var(--max); margin:0 auto; padding:0 26px}
+section{padding:96px 0; scroll-margin-top:70px}
+
+/* ---------- tipografia ---------- */
+.kicker{
+  font-family:var(--mono); font-size:12px; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--acc); margin:0 0 20px;
+}
+h2{
+  font-weight:900; font-size:clamp(30px,4.4vw,46px); line-height:1.04;
+  letter-spacing:-.02em; margin:0 0 10px;
+}
+h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
+.lead{color:var(--txt2); font-size:18px; max-width:66ch; margin:14px 0 0}
+.rule{height:1px; background:linear-gradient(90deg,var(--acc),transparent); margin:26px 0 40px}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:92vh; display:flex; flex-direction:column; justify-content:center;
+  padding:120px 0 80px;
+}
+.hero h1{
+  font-weight:900; font-size:clamp(42px,9vw,104px); line-height:.92;
+  letter-spacing:-.035em; margin:0; text-shadow:0 0 46px rgba(55,200,255,.28);
+}
+.hero h1 .thin{
+  display:block; font-weight:300; color:#8FD6FF;
+  letter-spacing:.05em; font-size:.62em; margin-top:.06em;
+}
+.hero .lead{font-size:clamp(17px,2.1vw,22px); color:var(--txt2); margin-top:30px}
+.meta{
+  display:flex; flex-wrap:wrap; gap:12px; margin-top:42px;
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase;
+}
+.meta span{
+  border:1px solid var(--line2); background:rgba(6,27,57,.72);
+  padding:8px 15px; border-radius:999px; color:var(--txt2);
+}
+.cue{
+  margin-top:56px; font-family:var(--mono); font-size:12px;
+  letter-spacing:.24em; color:var(--txt3); text-transform:uppercase;
+  display:flex; align-items:center; gap:12px;
+}
+.cue i{
+  width:34px; height:1px; background:var(--acc); display:block;
+  animation:slide 2.4s ease-in-out infinite;
+}
+@keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(10px);opacity:1}}
+
+/* ---------- caixa de vidro ---------- */
+.glass{
+  position:relative; background:var(--panel);
+  border:1px solid var(--line2); border-radius:16px;
+}
+.glass::before{
+  content:''; position:absolute; inset:0; border-radius:inherit;
+  background:var(--glass); pointer-events:none;
+}
+.glass > *{position:relative}
+
+/* ---------- o caso ---------- */
+.caso{padding:34px 34px 30px}
+.caso p{margin:0 0 14px; color:var(--txt2); max-width:70ch}
+.caso p strong{color:var(--txt); font-weight:700}
+.fonte{
+  font-family:var(--mono); font-size:12.5px; color:var(--txt3);
+  margin-top:20px; padding-top:18px; border-top:1px solid var(--line2);
+}
+.fonte a{color:var(--acc); text-decoration:none; border-bottom:1px solid rgba(55,200,255,.35)}
+.fonte a:hover{border-bottom-color:var(--acc)}
+
+/* ---------- stepper ---------- */
+.steps{display:flex; gap:10px; margin:0 0 34px; flex-wrap:wrap}
+.step{
+  flex:1 1 150px; min-width:150px; text-align:left; cursor:pointer;
+  background:rgba(6,27,57,.66); border:1px solid var(--line2);
+  border-radius:12px; padding:15px 16px 14px; color:var(--txt3);
+  font-family:inherit; transition:.22s; position:relative; overflow:hidden;
+}
+.step:hover{border-color:var(--line); color:var(--txt2)}
+.step .n{
+  font-family:var(--mono); font-size:12px; letter-spacing:.18em;
+  display:block; margin-bottom:7px; color:var(--txt3); transition:.22s;
+}
+.step .t{display:block; font-weight:700; font-size:15px; letter-spacing:.01em; line-height:1.25}
+.step .c{
+  display:block; font-family:var(--mono); font-size:11.5px;
+  color:var(--txt3); margin-top:6px; letter-spacing:.06em;
+}
+.step[aria-selected="true"]{
+  background:linear-gradient(180deg, rgba(30,127,214,.34), rgba(6,27,57,.9));
+  border-color:var(--rim); color:var(--txt);
+  box-shadow:0 0 0 1px rgba(111,224,255,.28), 0 10px 34px -12px rgba(55,200,255,.6);
+}
+.step[aria-selected="true"] .n{color:var(--acc)}
+.step[aria-selected="true"] .c{color:var(--txt2)}
+
+.panel{padding:32px 32px 34px}
+.panel-head{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap}
+.panel-head .tag{
+  font-family:var(--mono); font-size:34px; font-weight:500;
+  color:var(--acc); letter-spacing:-.02em; line-height:1;
+}
+.panel-head h3{font-size:27px; font-weight:900; letter-spacing:-.01em; margin:0}
+.panel-sub{color:var(--txt2); margin:14px 0 0; max-width:70ch}
+.panel-note{
+  margin:18px 0 0; padding:14px 16px; border-left:2px solid var(--acc);
+  background:rgba(2,10,24,.5); border-radius:0 8px 8px 0;
+  font-size:14.5px; color:var(--txt2);
+}
+.panel-note b{color:var(--txt); font-weight:700}
+
+.grid{display:grid; gap:12px; margin-top:26px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g1{grid-template-columns:1fr}
+.shot{
+  position:relative; border:1px solid var(--line2); border-radius:10px;
+  overflow:hidden; background:#0C2E5C; cursor:zoom-in; aspect-ratio:16/9;
+}
+.shot img{width:100%; height:100%; object-fit:cover; display:block; transition:.3s}
+.shot:hover img{transform:scale(1.045)}
+.shot figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:16px 10px 7px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.11em;
+  text-transform:uppercase; color:#BFDEFF;
+  background:linear-gradient(transparent, rgba(2,10,24,.92));
+}
+.shot.tall{aspect-ratio:auto}
+.shot.tall img{object-fit:contain; background:#050F22}
+
+/* ---------- player ---------- */
+.player{margin-top:26px}
+.screen{
+  max-width:800px; margin:0 auto; border-radius:14px; overflow:hidden;
+  border:1px solid var(--line); background:#020A18;
+  box-shadow:0 0 0 1px rgba(111,224,255,.16), 0 30px 80px -40px rgba(55,200,255,.5);
+}
+.screen{position:relative}
+.screen video{width:100%; display:block; aspect-ratio:16/9; background:#020A18}
+/* Se o navegador recusar o autoplay - politica de economia de dados, iOS
+   em baixo consumo - o quadro congelado pareceria erro. Este botao aparece
+   sozinho sempre que o video estiver pausado. */
+.playbtn{
+  position:absolute; left:0; right:0; top:0; bottom:44px; padding:0; border:0;
+  display:none; align-items:center; justify-content:center; cursor:pointer;
+  background:rgba(2,10,24,.42);
+}
+.playbtn.on{display:flex}
+.playbtn i{
+  width:68px; height:68px; border-radius:50%; font-style:normal;
+  border:1px solid var(--rim); background:rgba(4,20,46,.82);
+  box-shadow:0 0 26px -6px var(--acc);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--rim); font-size:21px; padding-left:5px;
+}
+.screenbar{
+  display:flex; align-items:center; gap:10px; padding:9px 14px;
+  border-top:1px solid var(--line2); background:rgba(6,27,57,.9);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--txt3);
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none;
+  box-shadow:0 0 10px var(--acc); animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.32}}
+.takes{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(86px,1fr)); gap:8px;
+  max-width:800px; margin:14px auto 0;
+}
+.take{
+  border:1px solid var(--line2); border-radius:7px; overflow:hidden;
+  background:#0C2E5C; cursor:pointer; aspect-ratio:16/9; padding:0;
+  position:relative; transition:.2s;
+}
+.take img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.take:hover{border-color:var(--line)}
+.take[aria-current="true"]{
+  border-color:var(--rim);
+  box-shadow:0 0 0 1px var(--rim), 0 0 18px -4px var(--acc);
+}
+.take span{
+  position:absolute; left:4px; bottom:3px; font-family:var(--mono);
+  font-size:9px; color:#BFDEFF; letter-spacing:.08em;
+  text-shadow:0 1px 3px #000;
+}
+
+/* ---------- antes / depois ---------- */
+.ba{
+  position:relative; border-radius:14px; overflow:hidden;
+  border:1px solid var(--line2); user-select:none; touch-action:none;
+  cursor:ew-resize; aspect-ratio:16/9; background:#050F22;
+}
+.ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+.ba .after{clip-path:inset(0 0 0 var(--pos,50%))}
+.ba .handle{
+  position:absolute; top:0; bottom:0; left:var(--pos,50%);
+  width:2px; background:var(--rim); box-shadow:0 0 16px var(--acc);
+  transform:translateX(-1px); pointer-events:none;
+}
+.ba .knob{
+  position:absolute; top:50%; left:var(--pos,50%); width:42px; height:42px;
+  margin:-21px 0 0 -21px; border-radius:50%; pointer-events:none;
+  background:rgba(4,20,46,.88); border:1px solid var(--rim);
+  box-shadow:0 0 22px -4px var(--acc);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:13px; color:var(--rim);
+}
+.ba .lbl{
+  position:absolute; top:12px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.16em; text-transform:uppercase; padding:5px 11px;
+  border-radius:999px; background:rgba(2,10,24,.8); border:1px solid var(--line2);
+  color:var(--txt2); pointer-events:none;
+}
+.ba .lbl.l{left:12px} .ba .lbl.r{right:12px}
+.batabs{display:flex; gap:8px; margin:0 0 16px; flex-wrap:wrap}
+.batab{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.13em;
+  text-transform:uppercase; padding:8px 15px; border-radius:999px;
+  background:rgba(6,27,57,.7); border:1px solid var(--line2);
+  color:var(--txt3); cursor:pointer; transition:.2s;
+}
+.batab:hover{color:var(--txt2); border-color:var(--line)}
+.batab[aria-selected="true"]{color:var(--txt); border-color:var(--rim); background:rgba(30,127,214,.3)}
+
+/* ---------- derivação ---------- */
+.deriv{display:grid; gap:22px}
+.pair{
+  display:grid; grid-template-columns:minmax(0,.34fr) 46px minmax(0,1fr);
+  gap:0; align-items:center;
+}
+.pair .from,.pair .to{
+  border:1px solid var(--line2); border-radius:12px; overflow:hidden; background:#050F22;
+}
+.pair img{width:100%; display:block}
+.pair .to{background:#0B1B2E}
+.arrow{
+  display:flex; align-items:center; justify-content:center; color:var(--acc);
+  font-family:var(--mono); font-size:20px;
+}
+.pair .cap{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--txt3); padding:7px 10px;
+  border-top:1px solid var(--line2);
+}
+
+/* ---------- comparativo ---------- */
+.cmp{width:100%; border-collapse:collapse; margin-top:10px; font-size:15px}
+.cmp th,.cmp td{padding:15px 18px; text-align:left; vertical-align:top;
+  border-bottom:1px solid var(--line2)}
+.cmp thead th{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--txt3); font-weight:500;
+  border-bottom:1px solid var(--line);
+}
+.cmp thead th:last-child{color:var(--acc)}
+.cmp tbody th{
+  font-weight:700; color:var(--txt); width:24%; font-size:14.5px;
+}
+.cmp td{color:var(--txt2)}
+.cmp td:last-child{color:var(--txt)}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
+.fill{color:var(--acc); font-family:var(--mono); font-size:12.5px}
+
+/* ---------- fecho ---------- */
+.fecho{text-align:center; padding:110px 0 130px}
+.fecho h2{font-size:clamp(28px,5vw,52px)}
+.assin{
+  margin-top:36px; font-family:var(--mono); font-size:13px;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--txt3);
+}
+.assin b{display:block; font-family:var(--disp); font-weight:900; font-size:34px;
+  letter-spacing:-.02em; color:var(--txt); text-transform:none; margin-bottom:8px}
+.assin a{color:var(--acc); text-decoration:none}
+
+/* ---------- lightbox ---------- */
+.lb{
+  position:fixed; inset:0; z-index:60; background:rgba(2,6,14,.94);
+  display:none; align-items:center; justify-content:center; padding:34px;
+  cursor:zoom-out; backdrop-filter:blur(6px);
+}
+.lb.on{display:flex}
+.lb img{max-width:100%; max-height:100%; border-radius:10px;
+  border:1px solid var(--line2); box-shadow:0 40px 100px -30px #000}
+.lb .x{
+  position:absolute; top:20px; right:26px; font-family:var(--mono);
+  font-size:13px; letter-spacing:.16em; color:var(--txt2); text-transform:uppercase;
+}
+
+/* ---------- revelação ---------- */
+.rv{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1; transform:none}
+
+@media (max-width:900px){
+  section{padding:70px 0}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .panel{padding:24px 20px 26px}
+  .caso{padding:24px 20px}
+  .pair{grid-template-columns:1fr; gap:10px}
+  .arrow{transform:rotate(90deg); height:30px}
+  .cmp tbody th{width:auto}
+  .cmp th,.cmp td{padding:12px 10px; font-size:14px}
+}
+@media (max-width:560px){
+  .g4,.g3{grid-template-columns:1fr}
+  .step{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important}
+  .rv{opacity:1; transform:none}
+  html{scroll-behavior:auto}
+}
+
+
+/* ---------- o filme ---------- */
+.filmes{display:grid; grid-template-columns:minmax(0,1.9fr) minmax(0,1fr); gap:18px; margin-top:26px}
+.filme{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#020A18;
+  box-shadow:0 0 0 1px rgba(111,224,255,.14), 0 30px 80px -46px rgba(55,200,255,.5)}
+.filme video{width:100%; display:block; background:#020A18}
+.filme .cap{display:flex; gap:10px; align-items:center; padding:10px 14px;
+  border-top:1px solid var(--line2); background:rgba(6,27,57,.9);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--txt3)}
+.filme .cap b{color:var(--txt); font-weight:500}
+.filme .cap span{margin-left:auto}
+@media (max-width:860px){ .filmes{grid-template-columns:1fr} }
+/* aviso de uso */
+.aviso{margin-top:26px; font-family:var(--mono); font-size:12px; color:var(--txt3);
+  border-top:1px solid var(--line2); padding-top:16px; line-height:1.7}
+
+</style>
+</head>
+<body>
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Estudo de caso · Reconstituição forense</p>
+    <h1>RECONSTITUIÇÃO<span class="thin">COM IA</span></h1>
+    <p class="lead">
+      Fotos de inquérito, um depoimento e a reconstituição feita pelo próprio acusado.
+      Sem locação, sem elenco, sem equipe em campo — e um filme no fim.
+    </p>
+    <div class="meta">
+      <span>São José dos Pinhais · PR</span>
+      <span>Crime em maio de 2023</span>
+      <span>Júri em janeiro de 2026</span>
+      <span>5 etapas · 140 arquivos</span>
+    </div>
+    <div class="cue"><i></i> role para ver o processo</div>
+  </div>
+</section>
+
+<section id="caso">
+  <div class="wrap rv">
+    <p class="kicker">O caso</p>
+    <h2>Uma dívida de R$&nbsp;400<span class="thin">e um corpo enterrado em frente à casa</span></h2>
+    <div class="rule"></div>
+    <div class="glass caso">
+      <p>Uma mulher de 35 anos desapareceu no fim de maio de 2023, numa área rural da
+      Região Metropolitana de Curitiba. Em 1º de junho, um morador encontrou o corpo
+      <strong>enterrado num terreno</strong> da localidade.</p>
+      <p>A investigação apontou que ela foi morta dentro da casa de um vizinho, com quem
+      tinha uma dívida de <strong>R$ 400</strong> referente a um celular. Com ajuda de um
+      segundo homem, o corpo foi retirado do local e levado até o terreno em frente, onde
+      foi enterrado. Em janeiro de 2026, o júri popular condenou o autor a
+      <strong>oito anos e quatro meses</strong> por homicídio e ocultação de cadáver.</p>
+      <p>O material desta página é a reconstituição visual desse percurso, montada a partir
+      das fotos do inquérito e do relato do próprio acusado.
+      <strong>Nenhuma pessoa foi filmada.</strong></p>
+      <p class="fonte">Fonte pública do caso:
+      <a href="https://www.bandab.com.br/seguranca/vizinho-condenado-matar-ocultar-corpo-mulher-grande-curitiba/" target="_blank" rel="noopener">Banda B — 21/01/2026</a>
+      · Nomes omitidos por escolha editorial.</p>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap rv">
+    <p class="kicker">O método</p>
+    <h2>Cinco etapas<span class="thin">da foto de inquérito ao plano em movimento</span></h2>
+    <p class="lead">Toque numa etapa para ver o que entra e o que sai dela.
+    No computador as setas ← → também funcionam.</p>
+    <div class="rule"></div>
+    <div class="steps" role="tablist" id="steps"></div>
+    <div class="glass panel" id="panel"></div>
+  </div>
+</section>
+
+<section id="antesdepois">
+  <div class="wrap rv">
+    <p class="kicker">Etapa 02 · em detalhe</p>
+    <h2>Antes e depois<span class="thin">a mesma foto, esvaziada de gente</span></h2>
+    <p class="lead">A perícia sai de quadro e o local permanece. É esta chapa limpa que vira
+    cenário para os personagens — por isso a geometria, a luz e a textura do lugar real
+    continuam ali. Arraste.</p>
+    <div class="rule"></div>
+    <div class="batabs" id="batabs"></div>
+    <div class="ba" id="ba">
+      <img id="baBefore" alt="Foto original do local, com a perícia em quadro">
+      <img id="baAfter" class="after" alt="O mesmo local reconstruído sem pessoas">
+      <div class="handle"></div><div class="knob">↔</div>
+      <span class="lbl l">Foto do inquérito</span>
+      <span class="lbl r">Cenário limpo</span>
+    </div>
+  </div>
+</section>
+
+<section id="derivacao">
+  <div class="wrap rv">
+    <p class="kicker">Etapa 03 · em detalhe</p>
+    <h2>Da foto ao personagem<span class="thin">o elenco não foi inventado, foi derivado</span></h2>
+    <p class="lead">Cada pessoa envolvida vira um character sheet de três vistas. É esse
+    arquivo que garante que o personagem não mude de rosto, de roupa ou de altura entre um
+    plano e outro — o problema que derruba a maioria das tentativas de vídeo com IA.</p>
+    <div class="rule"></div>
+    <div class="deriv" id="deriv"></div>
+  </div>
+</section>
+
+<section id="filme">
+  <div class="wrap rv">
+    <p class="kicker">O resultado</p>
+    <h2>O filme<span class="thin">o mesmo sistema, dois formatos</span></h2>
+    <p class="lead">O corte horizontal para apresentação e tela cheia; o vertical para feed,
+    com a linha do tempo virada em coluna e uma rolagem contínua. Mesma paleta, mesma
+    gramática de animação, mesmo acervo.</p>
+    <div class="rule"></div>
+    <div class="filmes">
+      <div class="filme">
+        <video src="assets/vid/reel_16x9.mp4" poster="assets/poster/reel_16x9.jpg"
+               controls preload="metadata" playsinline></video>
+        <div class="cap"><b>Horizontal</b> 1920×1080 <span>66 s</span></div>
+      </div>
+      <div class="filme">
+        <video src="assets/vid/reel_9x16.mp4" poster="assets/poster/reel_9x16.jpg"
+               controls preload="metadata" playsinline></video>
+        <div class="cap"><b>Vertical</b> 1080×1920 <span>43 s</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comparativo">
+  <div class="wrap rv">
+    <p class="kicker">O que muda</p>
+    <h2>Contra a reconstituição filmada<span class="thin">onde o método ganha, e onde não ganha</span></h2>
+    <div class="rule"></div>
+    <div class="glass panel">
+      <table class="cmp">
+        <thead><tr><th>&nbsp;</th><th>Reconstituição filmada</th><th>Com IA</th></tr></thead>
+        <tbody>
+          <tr><th>Locação</th><td>Local original ou similar, com autorização e janela de acesso</td><td>Reconstruída a partir das fotos que já existem no inquérito</td></tr>
+          <tr><th>Elenco</th><td>Atores, direção, figurino, caracterização</td><td>Character sheets derivados das fotos, consistentes entre planos</td></tr>
+          <tr><th>Equipe em campo</th><td>Câmera, luz, som, produção, transporte</td><td>Nenhuma</td></tr>
+          <tr><th>Refazer um plano</th><td>Nova diária, reagendar local e elenco</td><td>Novo frame a partir do mesmo cenário e do mesmo personagem</td></tr>
+          <tr><th>Exposição de pessoas</th><td>Atores reencenam o crime; o local é ocupado de novo</td><td>Ninguém é filmado e ninguém volta ao local</td></tr>
+          <tr><th>Onde não ganha</th><td>Movimento longo e contínuo, plano-sequência, ação física complexa</td><td>Cada plano nasce curto; continuidade longa exige montagem</td></tr>
+          <tr><th>Prazo</th><td class="fill">— preencha com seu número</td><td class="fill">— preencha com seu número</td></tr>
+        </tbody>
+      </table>
+      <p class="panel-note"><b>A última linha é sua.</b> Deixei os prazos em branco de
+      propósito: número inventado em proposta comercial é o tipo de coisa que o cliente
+      confere. Preencha com o que este caso levou de verdade.</p>
+    </div>
+  </div>
+</section>
+
+<section class="fecho">
+  <div class="wrap rv">
+    <p class="kicker">Em resumo</p>
+    <h2>Fotos e um relato entram.<span class="thin">Um filme sai.</span></h2>
+    <p class="lead" style="margin:22px auto 0">O que existia era um inquérito. O que saiu
+    foi uma reconstituição que dá para assistir — e que pode ser refeita, corrigida e
+    reenquadrada sem voltar ao local.</p>
+    <div class="assin">
+      <b>Daniel Souza</b>
+      <a href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
+    </div>
+    <p class="aviso">
+      As imagens de inquérito desta página integram processo criminal com julgamento
+      concluído e reportagem pública. Uso restrito à demonstração do método.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<div class="lb" id="lb"><span class="x">fechar ✕</span><img id="lbImg" alt=""></div>
+
+<script>
+const img = k => 'assets/img/' + k + '.jpg';
+const vid = k => 'assets/vid/' + k + '.mp4';
+const pos = k => 'assets/poster/' + k + '.jpg';
+
+const ETAPAS = [
+  {
+    tag:"01", nome:"REFERÊNCIA", conta:"12 arquivos",
+    sub:"O que já existia: fotos do inquérito, do local e das pessoas envolvidas.",
+    nota:"<b>Só isto é matéria-prima real.</b> Tudo o que vem depois é derivado daqui — e é por isso que a reconstituição pode ser conferida contra o que está no processo.",
+    tipo:"grid", cols:"g4",
+    itens:[
+      ["r_acusado_a1","Autor · frontal"],
+      ["r_acusado_a2","Autor · perfil"],
+      ["r_acusado_b1","Segundo envolvido"],
+      ["r_vitima","Vítima"],
+      ["r_local1","Local · escada e garagem"],
+      ["r_local2","Local · fundos"],
+      ["r_local3","Local · terreno"]
+    ]
+  },
+  {
+    tag:"02", nome:"CENÁRIO", conta:"17 arquivos",
+    sub:"O local esvaziado de gente, e os objetos do caso isolados em chapa própria.",
+    nota:"A chapa limpa preserva a geometria e a luz do lugar real. A <b>frigideira</b> e o <b>cobertor</b> — os dois objetos que aparecem no relato — foram recortados para poderem ser recolocados em qualquer plano.",
+    tipo:"grid", cols:"g4",
+    itens:[
+      ["c_local1","Garagem · limpa"],
+      ["c_local2","Frente da casa"],
+      ["c_local3","Fundos · limpo"],
+      ["c_local4","Terreno"],
+      ["c_terreno","Local da ocultação"],
+      ["c_sala","Sala · panorâmica"],
+      ["c_sala_obj","Sala com o objeto posicionado"],
+      ["c_frigideira","Objeto isolado · 9 ângulos"],
+      ["c_cobertor","Cobertor isolado"]
+    ]
+  },
+  {
+    tag:"03", nome:"PERSONAGENS", conta:"3 arquivos",
+    sub:"Cada envolvido vira um character sheet de três vistas, para não variar entre planos.",
+    nota:"<b>É a etapa que sustenta todas as outras.</b> Sem o sheet, o mesmo personagem sai com outro rosto a cada geração e a sequência deixa de ler como uma cena única.",
+    tipo:"grid", cols:"g1",
+    itens:[
+      ["p_a","Personagem A · três vistas"],
+      ["p_b","Personagem B · três vistas"],
+      ["p_c","Personagem C · três vistas"]
+    ],
+    tall:true
+  },
+  {
+    tag:"04", nome:"STILL FRAMES", conta:"94 arquivos",
+    sub:"A cena desenhada quadro a quadro, com continuidade de luz e timecode em quadro.",
+    nota:"Os 94 frames cobrem o percurso inteiro do relato. Os que estão aqui foram escolhidos para mostrar <b>variação de ângulo, dia e noite, interior e exterior</b> — os trechos de agressão e de ocultação existem no acervo e ficaram fora desta página.",
+    tipo:"grid", cols:"g4",
+    itens:[
+      ["f_01","Chegada · exterior dia"],
+      ["f_02","Escada · REC 00:04:32"],
+      ["f_03","Cozinha · interior"],
+      ["f_04","Sala · luz de janela"],
+      ["f_05","Sofá · interior noite"],
+      ["f_06","Over-shoulder"],
+      ["f_07","Celular · a dívida"],
+      ["f_08","Luz de tela · noite"],
+      ["f_09","Exterior noite"],
+      ["f_10","Segundo envolvido chega"],
+      ["f_11","Garagem · dia"],
+      ["f_12","Exterior · dia"]
+    ]
+  },
+  {
+    tag:"05", nome:"VÍDEOS IA", conta:"14 planos",
+    sub:"Cada frame aprovado vira movimento. 24 fps, planos de cinco segundos.",
+    nota:"Estão aqui <b>os 14 planos gerados</b>, na ordem da narrativa, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.",
+    tipo:"video",
+    itens:[
+      ["t_01","Take 01"],["t_02","Take 02"],["t_03","Take 03"],["t_04","Take 04"],
+      ["t_05","Take 05"],["t_06","Take 06"],["t_07","Take 07"],["t_08","Take 08"],
+      ["t_09","Take 09"],["t_10","Take 10"],["t_11","Take 11"],["t_12","Take 12"],
+      ["t_13","Take 13"],["t_14","Take 14"]
+    ]
+  }
+];
+
+const PARES_BA = [
+  {rot:"Garagem e escada", a:"r_local1", b:"c_local1"},
+  {rot:"Fundos da casa",   a:"r_local2", b:"c_local3"}
+];
+
+const DERIV = [
+  {de:"r_acusado_a1", para:"p_a", cap:"Foto do inquérito", cap2:"Personagem A · três vistas"},
+  {de:"r_acusado_b1", para:"p_b", cap:"Foto do inquérito", cap2:"Personagem B · três vistas"},
+  {de:"r_vitima",     para:"p_c", cap:"Foto de referência", cap2:"Personagem C · três vistas"}
+];
+
+/* ---------- stepper ---------- */
+const elSteps = document.getElementById('steps');
+const elPanel = document.getElementById('panel');
+let atual = 0;
+
+ETAPAS.forEach((e,i)=>{
+  const b=document.createElement('button');
+  b.className='step'; b.type='button'; b.setAttribute('role','tab');
+  b.setAttribute('aria-selected', i===0?'true':'false');
+  b.innerHTML = '<span class="n">'+e.tag+'</span><span class="t">'+e.nome+'</span><span class="c">'+e.conta+'</span>';
+  b.addEventListener('click', ()=>irPara(i));
+  elSteps.appendChild(b);
+});
+
+function irPara(i){
+  atual=(i+ETAPAS.length)%ETAPAS.length;
+  [...elSteps.children].forEach((b,k)=>b.setAttribute('aria-selected', k===atual?'true':'false'));
+  render(ETAPAS[atual]);
+}
+
+function render(e){
+  let corpo='';
+  if(e.tipo==='video'){
+    corpo = '<div class="player"><div class="screen">'
+      + '<video id="vMain" playsinline muted loop autoplay preload="metadata" poster="'+pos(e.itens[0][0])+'"></video>'
+      + '<button class="playbtn" id="playbtn" type="button" aria-label="Reproduzir"><i>&#9654;</i></button>'
+      + '<div class="screenbar"><span class="dot"></span><span id="vLabel">Take 01</span>'
+      + '<span style="margin-left:auto">loop · sem áudio · toque para pausar</span></div>'
+      + '</div><div class="takes" id="takes"></div></div>';
+  } else {
+    // aqui o lazy TEM funcao: cada imagem e uma requisicao de rede de verdade
+    const tall = e.tall ? ' tall' : '';
+    corpo = '<div class="grid '+e.cols+'">' + e.itens.map(([k,c])=>
+      '<figure class="shot'+tall+'" data-k="'+k+'"><img src="'+img(k)+'" alt="'+c+'" loading="lazy" decoding="async">'
+      + '<figcaption>'+c+'</figcaption></figure>').join('') + '</div>';
+  }
+  elPanel.innerHTML =
+    '<div class="panel-head"><span class="tag">'+e.tag+'</span><h3>'+e.nome+'</h3></div>'
+    + '<p class="panel-sub">'+e.sub+'</p><p class="panel-note">'+e.nota+'</p>' + corpo;
+
+  if(e.tipo==='video') montarPlayer(e);
+  else elPanel.querySelectorAll('.shot').forEach(f=>f.addEventListener('click',()=>abrirLb(f.dataset.k)));
+}
+
+function montarPlayer(e){
+  const v=document.getElementById('vMain'), lab=document.getElementById('vLabel'),
+        box=document.getElementById('takes'), btn=document.getElementById('playbtn');
+  const sinc = ()=> btn.classList.toggle('on', v.paused);
+  v.addEventListener('play', sinc); v.addEventListener('pause', sinc);
+  btn.addEventListener('click', ()=>v.play().catch(()=>{}));
+  v.style.cursor='pointer';
+  v.addEventListener('click', ()=>{ v.paused ? v.play().catch(()=>{}) : v.pause(); });
+
+  const trocar=(k,c,b)=>{ v.poster=pos(k); v.src=vid(k); lab.textContent=c;
+    v.play().catch(()=>{});
+    [...box.children].forEach(x=>x.setAttribute('aria-current', x===b?'true':'false')); };
+
+  e.itens.forEach(([k,c],i)=>{
+    const b=document.createElement('button');
+    b.className='take'; b.type='button'; b.title=c;
+    b.setAttribute('aria-current', i===0?'true':'false');
+    // miniatura como IMAGEM, nao video: 8 videos so para a tira custaria
+    // caro no celular, e o poster ja mostra o quadro
+    // sem lazy: a tira inteira fica em vista quando a etapa abre, entao
+    // adiar nao poupa nada e so arrisca miniatura em branco. Sao 14 JPEG
+    // pequenos, e so baixam quando alguem abre a etapa 05.
+    b.innerHTML='<img src="'+pos(k)+'" alt="'+c+'" decoding="async">'
+      + '<span>'+String(i+1).padStart(2,'0')+'</span>';
+    b.addEventListener('click', ()=>trocar(k,c,b));
+    box.appendChild(b);
+  });
+  const [k0,c0]=e.itens[0];
+  v.src=vid(k0); lab.textContent=c0; v.play().catch(()=>{});
+  setTimeout(sinc, 500);
+}
+
+document.addEventListener('keydown', ev=>{
+  if(document.getElementById('lb').classList.contains('on')) return;
+  if(ev.key==='ArrowRight') irPara(atual+1);
+  if(ev.key==='ArrowLeft')  irPara(atual-1);
+});
+irPara(0);
+
+/* ---------- antes / depois ---------- */
+const ba=document.getElementById('ba'), baB=document.getElementById('baBefore'),
+      baA=document.getElementById('baAfter'), baTabs=document.getElementById('batabs');
+let baIdx=0;
+PARES_BA.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='batab'; b.type='button'; b.textContent=p.rot;
+  b.setAttribute('aria-selected', i===0?'true':'false');
+  b.addEventListener('click', ()=>{ baIdx=i;
+    [...baTabs.children].forEach((x,k)=>x.setAttribute('aria-selected',k===i?'true':'false'));
+    carregarBA(); });
+  baTabs.appendChild(b);
+});
+function carregarBA(){ const p=PARES_BA[baIdx]; baB.src=img(p.a); baA.src=img(p.b); posic(50); }
+function posic(pct){ ba.style.setProperty('--pos', Math.max(0,Math.min(100,pct))+'%'); }
+function daEvento(ev){ const r=ba.getBoundingClientRect();
+  posic(((ev.touches?ev.touches[0].clientX:ev.clientX)-r.left)/r.width*100); }
+let arrastando=false;
+ba.addEventListener('pointerdown', e=>{arrastando=true; ba.setPointerCapture(e.pointerId); daEvento(e);});
+ba.addEventListener('pointermove', e=>{ if(arrastando) daEvento(e); });
+ba.addEventListener('pointerup',   ()=>arrastando=false);
+ba.addEventListener('pointercancel',()=>arrastando=false);
+carregarBA();
+
+/* ---------- derivacao ---------- */
+document.getElementById('deriv').innerHTML = DERIV.map(d=>
+  '<div class="pair"><div class="from"><img src="'+img(d.de)+'" alt="'+d.cap+'" loading="lazy">'
+  + '<div class="cap">'+d.cap+'</div></div><div class="arrow">→</div>'
+  + '<div class="to"><img src="'+img(d.para)+'" alt="'+d.cap2+'" loading="lazy">'
+  + '<div class="cap">'+d.cap2+'</div></div></div>').join('');
+
+/* ---------- lightbox ---------- */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+function abrirLb(k){ lbImg.src=img(k); lb.classList.add('on'); }
+lb.addEventListener('click', ()=>lb.classList.remove('on'));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('on'); });
+
+/* ---------- revelacao ---------- */
+const io2=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){ en.target.classList.add('in'); io2.unobserve(en.target); }
+}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io2.observe(el));
+</script>
+</body>
+</html>

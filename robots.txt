@@ -1,0 +1,3 @@
+# Pagina acessivel por link, fora de buscadores.
+User-agent: *
+Disallow: /
