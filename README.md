@@ -25,28 +25,30 @@ dos fatos · comparativo com reconstituição filmada.
 A **sequência dos fatos** é o material gerado colado na ordem, com cortes
 secos — 45 s no caso 01, 48 s no caso 02. Não é montagem final.
 
-## Sistema visual — dossiê
+## Sistema visual — portal
 
-Registro de documento, não de interface. A paleta:
-
-Paleta medida no g1.globo.com e adotada aqui:
+Registro de site de notícia brasileiro. Tokens medidos no g1.globo.com:
 
 | | |
 |---|---|
-| Chão | `#F9F9F9` · chapa `#FFFFFF` · leito `#EFEFEF` |
-| Texto | título `#1A1A1A` · corpo `#333333` · apoio `#666666` |
+| Chão | `#F9F9F9` · card `#FFFFFF` · leito `#EFEFEF` |
+| Texto | corpo `#333333` · apoio `#555555` · fraco `#888888` |
 | Régua | `#E4E4E4` |
-| Acento | `#C4170C` — o vermelho do g1, **só em marcação** |
+| Vermelho | `#C4170C` |
+| Faixa superior | `#1A1A1A` |
 
-Foi adotada a **lógica de cor** do g1, não a tipografia: o portal é todo em
-Open Sans porque é feed, e isto é portfólio.
+Tipografia **Open Sans** (400/600/700/800). A assinatura do gênero é a
+manchete em **700 com tracking negativo apertado** (−0,035em) e entrelinha
+1,1 — é o que faz a página ser reconhecida como portal antes de qualquer
+leitura.
 
-Tipografia: **Archivo** no título, **Newsreader** (serifa) no texto corrido,
-**JetBrains Mono** só em metadado real.
+Estrutura: faixa preta de seções, barra vermelha da marca, nav grudada no
+topo, conteúdo em cards brancos sobre cinza, rodapé escuro.
 
-As regras que sustentam: a cor vem só das fotografias; nada de glow, nada de
-vidro, raio de 3px; fio de 1px separa e sombra não; grade assimétrica com
-trilho de metadado à esquerda.
+**A gramática é de portal; a marca é do autor.** Nenhum logo, wordmark ou
+nome de veículo de imprensa aparece na página — copiar marca alheia num
+portfólio queima justamente com o cliente que se quer atender. O rodapé
+declara que o site não tem vínculo com nenhum veículo.
 
 ## Estrutura
 
