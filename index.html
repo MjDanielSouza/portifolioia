@@ -426,9 +426,19 @@ p{margin:0 0 13px}
   section[id]{scroll-margin-top:94px}
 }
 @media (max-width:1040px){ .fonte-caso em{display:none} }
+
+/* No celular a referencia sai da barra: ali ela disputava espaco com as
+   etapas e ficava espremida contra a borda. Desce para a linha abaixo do
+   video, que ja carrega titulo, local, data e o mesmo link — e ganha
+   sublinhado, porque sem a barra ela passa a ser o unico caminho ate a
+   reportagem e tem de se ler como link. */
 @media (max-width:860px){
-  .fonte-caso b{display:none}
-  .fonte-caso{padding-left:14px; border-left:1px solid var(--regua)}
+  .fonte-caso{display:none}
+  .resumo-linha{font-size:15.5px; margin-top:16px}
+  .resumo-linha a{
+    border-bottom:1.5px solid rgba(220,38,38,.45); padding-bottom:1px;
+    white-space:nowrap;
+  }
 }
 @media (max-width:420px){
   .topo .logo i{display:none}
