@@ -1,0 +1,642 @@
+{
+ "casos": [
+  {
+   "id": "c1",
+   "etapas": [
+    {
+     "tag": "01",
+     "nome": "REFERÊNCIA",
+     "conta": "12 arquivos",
+     "sub": "O que já existia: fotos do inquérito, do local e das pessoas envolvidas.",
+     "nota": "<b>Só isto é matéria-prima real.</b> Tudo o que vem depois é derivado daqui — e é por isso que a reconstituição pode ser conferida contra o que está no processo.",
+     "tipo": "grid",
+     "cols": "g4",
+     "tall": false,
+     "itens": [
+      [
+       "01_01",
+       "Autor · frontal"
+      ],
+      [
+       "01_02",
+       "Autor · corredor"
+      ],
+      [
+       "01_03",
+       "Autor · perfil"
+      ],
+      [
+       "01_04",
+       "Autor · três quartos"
+      ],
+      [
+       "01_05",
+       "Segundo envolvido"
+      ],
+      [
+       "01_06",
+       "Segundo envolvido · 02"
+      ],
+      [
+       "01_07",
+       "Vítima"
+      ],
+      [
+       "01_08",
+       "Local · onde o corpo estava"
+      ],
+      [
+       "01_09",
+       "Local · escada e garagem"
+      ],
+      [
+       "01_10",
+       "Local · remoção"
+      ],
+      [
+       "01_11",
+       "Local · fundos"
+      ],
+      [
+       "01_12",
+       "Local · terreno"
+      ]
+     ]
+    },
+    {
+     "tag": "02",
+     "nome": "CENÁRIO",
+     "conta": "17 arquivos",
+     "sub": "O local esvaziado de gente, e os objetos do caso isolados em chapa própria.",
+     "nota": "A chapa limpa preserva a geometria e a luz do lugar real. A <b>frigideira</b> e o <b>cobertor</b> — os dois objetos que aparecem no relato — foram recortados para poderem ser recolocados em qualquer plano.",
+     "tipo": "grid",
+     "cols": "g4",
+     "tall": false,
+     "itens": [
+      [
+       "02_01",
+       "Garagem · limpa"
+      ],
+      [
+       "02_02",
+       "Frente da casa"
+      ],
+      [
+       "02_03",
+       "Fundos · limpo"
+      ],
+      [
+       "02_04",
+       "Terreno"
+      ],
+      [
+       "02_05",
+       "Local da ocultação"
+      ],
+      [
+       "02_06",
+       "Terreno · original"
+      ],
+      [
+       "02_07",
+       "Sala · panorâmica"
+      ],
+      [
+       "02_08",
+       "Sala · variação"
+      ],
+      [
+       "02_09",
+       "Sala com o objeto"
+      ],
+      [
+       "02_10",
+       "Sala · reconstruída"
+      ],
+      [
+       "02_11",
+       "Sala · ampla"
+      ],
+      [
+       "02_12",
+       "Interior · referência"
+      ],
+      [
+       "02_13",
+       "Objetos · referência"
+      ],
+      [
+       "02_14",
+       "Objeto isolado · 9 ângulos"
+      ],
+      [
+       "02_15",
+       "Cobertor isolado"
+      ]
+     ]
+    },
+    {
+     "tag": "03",
+     "nome": "PERSONAGENS",
+     "conta": "3 arquivos",
+     "sub": "Cada envolvido vira um character sheet de três vistas, para não variar entre planos.",
+     "nota": "<b>É a etapa que sustenta todas as outras.</b> Sem o sheet, o mesmo personagem sai com outro rosto a cada geração e a sequência deixa de ler como uma cena única.",
+     "tipo": "grid",
+     "cols": "g1",
+     "tall": true,
+     "itens": [
+      [
+       "03_01",
+       "Personagem A · três vistas"
+      ],
+      [
+       "03_02",
+       "Personagem B · três vistas"
+      ],
+      [
+       "03_03",
+       "Personagem C · três vistas"
+      ]
+     ]
+    },
+    {
+     "tag": "04",
+     "nome": "STILL FRAMES",
+     "conta": "94 arquivos",
+     "sub": "A cena desenhada quadro a quadro, com continuidade de luz e timecode em quadro.",
+     "nota": "Trinta dos 94 frames, cobrindo o percurso inteiro do relato — do encontro à ocultação. É o volume real do trabalho de storyboard.",
+     "tipo": "grid",
+     "cols": "g4",
+     "tall": false,
+     "itens": [
+      [
+       "04_01",
+       "Frame 003"
+      ],
+      [
+       "04_02",
+       "Frame 007"
+      ],
+      [
+       "04_03",
+       "Frame 011"
+      ],
+      [
+       "04_04",
+       "Frame 015"
+      ],
+      [
+       "04_05",
+       "Frame 017"
+      ],
+      [
+       "04_06",
+       "Frame 021"
+      ],
+      [
+       "04_07",
+       "Frame 024"
+      ],
+      [
+       "04_08",
+       "Frame 028"
+      ],
+      [
+       "04_09",
+       "Frame 031"
+      ],
+      [
+       "04_10",
+       "Frame 034"
+      ],
+      [
+       "04_11",
+       "Frame 037"
+      ],
+      [
+       "04_12",
+       "Frame 041"
+      ],
+      [
+       "04_13",
+       "Frame 044"
+      ],
+      [
+       "04_14",
+       "Frame 046"
+      ],
+      [
+       "04_15",
+       "Frame 049"
+      ],
+      [
+       "04_16",
+       "Frame 052"
+      ],
+      [
+       "04_17",
+       "Frame 055"
+      ],
+      [
+       "04_18",
+       "Frame 058"
+      ],
+      [
+       "04_19",
+       "Frame 061"
+      ],
+      [
+       "04_20",
+       "Frame 064"
+      ],
+      [
+       "04_21",
+       "Frame 067"
+      ],
+      [
+       "04_22",
+       "Frame 071"
+      ],
+      [
+       "04_23",
+       "Frame 074"
+      ],
+      [
+       "04_24",
+       "Frame 077"
+      ],
+      [
+       "04_25",
+       "Frame 080"
+      ],
+      [
+       "04_26",
+       "Frame 083"
+      ],
+      [
+       "04_27",
+       "Frame 086"
+      ],
+      [
+       "04_28",
+       "Frame 089"
+      ],
+      [
+       "04_29",
+       "Frame 092"
+      ],
+      [
+       "04_30",
+       "Frame 094"
+      ]
+     ]
+    },
+    {
+     "tag": "05",
+     "nome": "VÍDEOS IA",
+     "conta": "14 planos",
+     "sub": "Cada frame aprovado vira movimento. 24 fps, planos de cinco segundos.",
+     "nota": "Estão aqui <b>os 14 planos gerados</b>, na ordem da narrativa, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.",
+     "tipo": "video",
+     "itens": [
+      [
+       "t_01",
+       "Take 01"
+      ],
+      [
+       "t_02",
+       "Take 02"
+      ],
+      [
+       "t_03",
+       "Take 03"
+      ],
+      [
+       "t_04",
+       "Take 04"
+      ],
+      [
+       "t_05",
+       "Take 05"
+      ],
+      [
+       "t_06",
+       "Take 06"
+      ],
+      [
+       "t_07",
+       "Take 07"
+      ],
+      [
+       "t_08",
+       "Take 08"
+      ],
+      [
+       "t_09",
+       "Take 09"
+      ],
+      [
+       "t_10",
+       "Take 10"
+      ],
+      [
+       "t_11",
+       "Take 11"
+      ],
+      [
+       "t_12",
+       "Take 12"
+      ],
+      [
+       "t_13",
+       "Take 13"
+      ],
+      [
+       "t_14",
+       "Take 14"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "c2",
+   "etapas": [
+    {
+     "tag": "01",
+     "nome": "REFERÊNCIA",
+     "conta": "13 arquivos",
+     "sub": "O ponto de partida: fotos do local, das pessoas e do contexto.",
+     "nota": "<b>Nada aqui foi gerado.</b> São as imagens que existiam antes — o restaurante, a praia e os envolvidos.",
+     "tipo": "grid",
+     "cols": "g4",
+     "tall": false,
+     "itens": [
+      [
+       "01_01",
+       "Restaurante · fachada"
+      ],
+      [
+       "01_02",
+       "Salão · balcão"
+      ],
+      [
+       "01_03",
+       "Salão · outro ângulo"
+      ],
+      [
+       "01_04",
+       "Praia · faixa de areia"
+      ],
+      [
+       "01_05",
+       "Praia · vista ampla"
+      ],
+      [
+       "01_06",
+       "Restaurante · aérea"
+      ],
+      [
+       "01_07",
+       "Envolvido A · 01"
+      ],
+      [
+       "01_08",
+       "Envolvido A · 02"
+      ],
+      [
+       "01_09",
+       "Envolvido A · 03"
+      ],
+      [
+       "01_10",
+       "Envolvido A · 04"
+      ],
+      [
+       "01_11",
+       "Envolvido A · 05"
+      ],
+      [
+       "01_12",
+       "Envolvido B"
+      ],
+      [
+       "01_13",
+       "Acompanhante"
+      ]
+     ]
+    },
+    {
+     "tag": "02",
+     "nome": "PERSONAGENS",
+     "conta": "4 arquivos",
+     "sub": "Character sheets de três vistas, gerados a partir das referências.",
+     "nota": "Mesma lógica do outro caso: o sheet é o que trava a aparência do personagem entre um plano e outro.",
+     "tipo": "grid",
+     "cols": "g1",
+     "tall": true,
+     "itens": [
+      [
+       "02_01",
+       "Personagem A · três vistas"
+      ],
+      [
+       "02_02",
+       "Personagem B · três vistas"
+      ],
+      [
+       "02_03",
+       "Personagem C · três vistas"
+      ],
+      [
+       "02_04",
+       "Guarnição · referência"
+      ]
+     ]
+    },
+    {
+     "tag": "03",
+     "nome": "FRAMES",
+     "conta": "25 arquivos",
+     "sub": "Storyboard e frames-chave: cada cena definida antes de animar.",
+     "nota": "Os <b>25 frames</b> do caso, na ordem do storyboard — da chegada ao restaurante até a saída com a guarnição.",
+     "tipo": "grid",
+     "cols": "g4",
+     "tall": false,
+     "itens": [
+      [
+       "03_01",
+       "Frame 01"
+      ],
+      [
+       "03_02",
+       "Frame 02"
+      ],
+      [
+       "03_03",
+       "Frame 03"
+      ],
+      [
+       "03_04",
+       "Frame 04"
+      ],
+      [
+       "03_05",
+       "Frame 05"
+      ],
+      [
+       "03_06",
+       "Frame 06"
+      ],
+      [
+       "03_07",
+       "Frame 07"
+      ],
+      [
+       "03_08",
+       "Frame 08"
+      ],
+      [
+       "03_09",
+       "Frame 09"
+      ],
+      [
+       "03_10",
+       "Frame 10"
+      ],
+      [
+       "03_11",
+       "Frame 11"
+      ],
+      [
+       "03_12",
+       "Frame 12"
+      ],
+      [
+       "03_13",
+       "Frame 13"
+      ],
+      [
+       "03_14",
+       "Frame 14"
+      ],
+      [
+       "03_15",
+       "Frame 15"
+      ],
+      [
+       "03_16",
+       "Frame 16"
+      ],
+      [
+       "03_17",
+       "Frame 17"
+      ],
+      [
+       "03_18",
+       "Frame 18"
+      ],
+      [
+       "03_19",
+       "Frame 19"
+      ],
+      [
+       "03_20",
+       "Frame 20"
+      ],
+      [
+       "03_21",
+       "Frame 21"
+      ],
+      [
+       "03_22",
+       "Frame 22"
+      ],
+      [
+       "03_23",
+       "Frame 23"
+      ],
+      [
+       "03_24",
+       "Frame 24"
+      ],
+      [
+       "03_25",
+       "Frame 25"
+      ]
+     ]
+    },
+    {
+     "tag": "04",
+     "nome": "VÍDEOS IA",
+     "conta": "15 planos",
+     "sub": "Cada frame vira movimento; depois, montagem e finalização.",
+     "nota": "Os <b>15 planos gerados</b>, cortados em ~3 s e em loop.",
+     "tipo": "video",
+     "itens": [
+      [
+       "t_01",
+       "Take 01"
+      ],
+      [
+       "t_02",
+       "Take 02"
+      ],
+      [
+       "t_03",
+       "Take 03"
+      ],
+      [
+       "t_04",
+       "Take 04"
+      ],
+      [
+       "t_05",
+       "Take 05"
+      ],
+      [
+       "t_06",
+       "Take 06"
+      ],
+      [
+       "t_07",
+       "Take 07"
+      ],
+      [
+       "t_08",
+       "Take 08"
+      ],
+      [
+       "t_09",
+       "Take 09"
+      ],
+      [
+       "t_10",
+       "Take 10"
+      ],
+      [
+       "t_11",
+       "Take 11"
+      ],
+      [
+       "t_12",
+       "Take 12"
+      ],
+      [
+       "t_13",
+       "Take 13"
+      ],
+      [
+       "t_14",
+       "Take 14"
+      ],
+      [
+       "t_15",
+       "Take 15"
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}
