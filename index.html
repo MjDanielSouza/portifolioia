@@ -6,7 +6,7 @@
 <title>Reconstituição com IA — dois casos</title>
 <meta name="description" content="Dois casos reconstituídos com IA: de fotos de inquérito e um relato ao plano em movimento.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F2EFE9'/%3E%3Crect x='8' y='6' width='16' height='20' fill='none' stroke='%2315140F' stroke-width='2'/%3E%3Crect x='11' y='11' width='10' height='2' fill='%23A8321C'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F9F9F9'/%3E%3Crect x='8' y='6' width='16' height='20' fill='none' stroke='%231A1A1A' stroke-width='2'/%3E%3Crect x='11' y='11' width='10' height='2' fill='%23C4170C'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reconstituição com IA — dois casos">
 <meta property="og:description" content="De fotos de inquérito e um relato ao plano em movimento.">
@@ -30,16 +30,20 @@
      · grade assimétrica: trilho de metadado à esquerda, conteúdo à direita
    ===================================================================== */
 :root{
-  --papel:#F2EFE9;      /* fundo */
+  /* Paleta medida no g1.globo.com: chao #F9F9F9, texto #333, vermelho
+     #C4170C, reguas #EEE. Adotada a logica de cor - chao neutro, texto
+     quase preto, UM vermelho forte - e nao a tipografia: o g1 e todo em
+     Open Sans porque e feed, e isto aqui e portfolio. */
+  --papel:#F9F9F9;      /* fundo, do g1 */
   --papel2:#FFFFFF;     /* chapa elevada */
-  --papel3:#E7E2D8;     /* leito de miniatura */
-  --tinta:#15140F;
-  --tinta2:#4A4640;
-  --apoio:#6A665C;
-  --fraco:#8C877C;
-  --regua:#D5CEC2;
-  --regua2:#C0B7A6;
-  --carimbo:#A8321C;    /* único acento, só em marcação */
+  --papel3:#EFEFEF;     /* leito de miniatura */
+  --tinta:#1A1A1A;      /* titulo, um pouco mais fechado que o corpo */
+  --tinta2:#333333;     /* corpo, do g1 */
+  --apoio:#666666;
+  --fraco:#999999;
+  --regua:#E4E4E4;
+  --regua2:#CCCCCC;
+  --carimbo:#C4170C;    /* vermelho do g1, unico acento */
   --disp:'Archivo','Segoe UI',system-ui,sans-serif;
   --serif:'Newsreader',Georgia,'Times New Roman',serif;
   --mono:'JetBrains Mono','Consolas',ui-monospace,monospace;
@@ -125,7 +129,7 @@ a{color:var(--carimbo)}
 .chapa{background:var(--papel2); border:1px solid var(--regua); border-radius:3px}
 .caso-texto{padding:28px 30px 16px}
 .caso-texto p{max-width:66ch}
-.caso-texto strong{font-weight:500; background:linear-gradient(transparent 62%, rgba(168,50,28,.16) 62%)}
+.caso-texto strong{font-weight:500; background:linear-gradient(transparent 62%, rgba(196,23,12,.15) 62%)}
 .fonte{
   font-family:var(--mono); font-size:11.5px; line-height:1.8; color:var(--fraco);
   margin-top:20px; padding-top:16px; border-top:1px solid var(--regua);
@@ -247,7 +251,7 @@ a{color:var(--carimbo)}
 .ba .after{clip-path:inset(0 0 0 var(--pos,50%))}
 .ba .handle{position:absolute; top:0; bottom:0; left:var(--pos,50%); width:1px;
   background:var(--papel2); transform:translateX(-.5px); pointer-events:none;
-  box-shadow:0 0 0 1px rgba(21,20,15,.35)}
+  box-shadow:0 0 0 1px rgba(0,0,0,.32)}
 .ba .knob{position:absolute; top:50%; left:var(--pos,50%); width:34px; height:34px;
   margin:-17px 0 0 -17px; border-radius:50%; pointer-events:none;
   background:var(--papel2); border:1px solid var(--tinta);
@@ -306,7 +310,7 @@ a{color:var(--carimbo)}
   line-height:1.85; max-width:70ch}
 
 /* --------- lightbox --------- */
-.lb{position:fixed; inset:0; z-index:60; background:rgba(21,20,15,.93);
+.lb{position:fixed; inset:0; z-index:60; background:rgba(26,26,26,.94);
   display:none; align-items:center; justify-content:center; padding:34px; cursor:zoom-out}
 .lb.on{display:flex}
 .lb img{max-width:100%; max-height:100%; border-radius:2px}

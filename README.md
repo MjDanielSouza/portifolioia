@@ -29,12 +29,17 @@ secos — 45 s no caso 01, 48 s no caso 02. Não é montagem final.
 
 Registro de documento, não de interface. A paleta:
 
+Paleta medida no g1.globo.com e adotada aqui:
+
 | | |
 |---|---|
-| Papel | `#F2EFE9` · chapa `#FFFFFF` · leito `#E7E2D8` |
-| Tinta | `#15140F` · apoio `#6A665C` · fraco `#8C877C` |
-| Régua | `#D5CEC2` |
-| Acento | `#A8321C` — vermelho de carimbo, **só em marcação** |
+| Chão | `#F9F9F9` · chapa `#FFFFFF` · leito `#EFEFEF` |
+| Texto | título `#1A1A1A` · corpo `#333333` · apoio `#666666` |
+| Régua | `#E4E4E4` |
+| Acento | `#C4170C` — o vermelho do g1, **só em marcação** |
+
+Foi adotada a **lógica de cor** do g1, não a tipografia: o portal é todo em
+Open Sans porque é feed, e isto é portfólio.
 
 Tipografia: **Archivo** no título, **Newsreader** (serifa) no texto corrido,
 **JetBrains Mono** só em metadado real.
