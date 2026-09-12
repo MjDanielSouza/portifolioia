@@ -25,6 +25,24 @@ dos fatos · comparativo com reconstituição filmada.
 A **sequência dos fatos** é o material gerado colado na ordem, com cortes
 secos — 45 s no caso 01, 48 s no caso 02. Não é montagem final.
 
+## Sistema visual — dossiê
+
+Registro de documento, não de interface. A paleta:
+
+| | |
+|---|---|
+| Papel | `#F2EFE9` · chapa `#FFFFFF` · leito `#E7E2D8` |
+| Tinta | `#15140F` · apoio `#6A665C` · fraco `#8C877C` |
+| Régua | `#D5CEC2` |
+| Acento | `#A8321C` — vermelho de carimbo, **só em marcação** |
+
+Tipografia: **Archivo** no título, **Newsreader** (serifa) no texto corrido,
+**JetBrains Mono** só em metadado real.
+
+As regras que sustentam: a cor vem só das fotografias; nada de glow, nada de
+vidro, raio de 3px; fio de 1px separa e sombra não; grade assimétrica com
+trilho de metadado à esquerda.
+
 ## Estrutura
 
 ```
@@ -32,7 +50,7 @@ index.html               página inteira (CSS e JS embutidos)
 assets/manifest.json     inventário: etapas e arquivos de cada caso
 assets/c1/{img,vid,poster}
 assets/c2/{img,vid,poster}
-assets/fonts/            Montserrat e Roboto Mono, subconjunto latin
+assets/fonts/            Archivo, Newsreader e JetBrains Mono, subconjunto latin
 robots.txt  .nojekyll
 ```
 
@@ -50,11 +68,6 @@ git add -A && git commit -m "atualiza site" && git push
 ```
 
 Deploy em ~20 s.
-
-## Pendência
-
-A linha **"Prazo"** do comparativo está em branco — procure por
-`preencha com seu número`. É o único dado que depende de número real.
 
 ## Sobre o conteúdo
 

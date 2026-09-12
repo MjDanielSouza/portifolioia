@@ -6,437 +6,366 @@
 <title>Reconstituição com IA — dois casos</title>
 <meta name="description" content="Dois casos reconstituídos com IA: de fotos de inquérito e um relato ao plano em movimento.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304142E'/%3E%3Crect x='7' y='9' width='18' height='13' rx='2.5' fill='none' stroke='%2337C8FF' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F2EFE9'/%3E%3Crect x='8' y='6' width='16' height='20' fill='none' stroke='%2315140F' stroke-width='2'/%3E%3Crect x='11' y='11' width='10' height='2' fill='%23A8321C'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reconstituição com IA — dois casos">
 <meta property="og:description" content="De fotos de inquérito e um relato ao plano em movimento.">
 <meta property="og:image" content="assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:300;font-display:swap;src:url(assets/fonts/Montserrat-300.woff2) format('woff2')}
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/Montserrat-500.woff2) format('woff2')}
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/Montserrat-700.woff2) format('woff2')}
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:900;font-display:swap;src:url(assets/fonts/Montserrat-900.woff2) format('woff2')}
-@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/RobotoMono-400.woff2) format('woff2')}
-@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/RobotoMono-500.woff2) format('woff2')}</style>
-<style>
+<style>@font-face{font-family:'Archivo';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/Archivo-500.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/Archivo-600.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/Archivo-700.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/JetBrainsMono-400.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/JetBrainsMono-500.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400;font-display:swap;src:url(assets/fonts/Newsreader-400i.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/Newsreader-400.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/Newsreader-500.woff2) format('woff2')}</style>
+<style>/* =====================================================================
+   DOSSIÊ — sistema visual
+   Registro de documento, não de interface. As regras que valem:
+     · a cor vem só das fotografias; a página é neutra
+     · nada de glow, nada de vidro, raio de 3px
+     · fio de 1px separa; sombra não
+     · serifa no texto corrido, grotesca no título, mono só em metadado
+     · grade assimétrica: trilho de metadado à esquerda, conteúdo à direita
+   ===================================================================== */
 :root{
-  --bg0:#020A18; --bg1:#04142E; --glow:#0C3E85;
-  --panel:#061B39; --panel2:#0A2A52;
-  --line:#1E63A8; --line2:#103A66;
-  --txt:#EAF6FF; --txt2:#9FC8EE; --txt3:#5A85B6;
-  --acc:#37C8FF; --rim:#6FE0FF;
-  --glass:rgba(30,127,214,.26);
-  --disp:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
-  --mono:'Roboto Mono','Consolas',ui-monospace,monospace;
-  --max:1180px;
+  --papel:#F2EFE9;      /* fundo */
+  --papel2:#FFFFFF;     /* chapa elevada */
+  --papel3:#E7E2D8;     /* leito de miniatura */
+  --tinta:#15140F;
+  --tinta2:#4A4640;
+  --apoio:#6A665C;
+  --fraco:#8C877C;
+  --regua:#D5CEC2;
+  --regua2:#C0B7A6;
+  --carimbo:#A8321C;    /* único acento, só em marcação */
+  --disp:'Archivo','Segoe UI',system-ui,sans-serif;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono','Consolas',ui-monospace,monospace;
+  --max:1200px;
+  --trilho:190px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0; background:var(--bg0); color:var(--txt);
-  font-family:var(--disp); font-weight:500; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:var(--serif); font-size:18px; line-height:1.62;
+  -webkit-font-smoothing:antialiased; font-synthesis:none;
 }
-/* grade técnica ao fundo, como no filme */
-body::before{
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(1200px 800px at 50% 22%, rgba(12,62,133,.55), transparent 70%),
-    linear-gradient(var(--bg1),var(--bg1));
-}
-body::after{
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.22;
-  background-image:
-    linear-gradient(rgba(16,58,102,.6) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,58,102,.6) 1px, transparent 1px);
-  background-size:74px 74px;
-  mask-image:radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
-  -webkit-mask-image:radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
-}
-main{position:relative; z-index:1}
-.wrap{max-width:var(--max); margin:0 auto; padding:0 26px}
-section{padding:96px 0; scroll-margin-top:70px}
+img{max-width:100%}
+main{position:relative}
 
-/* ---------- tipografia ---------- */
-.kicker{
-  font-family:var(--mono); font-size:12px; letter-spacing:.34em;
-  text-transform:uppercase; color:var(--acc); margin:0 0 20px;
+.wrap{max-width:var(--max); margin:0 auto; padding:0 34px}
+
+/* --------- grade assimétrica --------- */
+.folha{display:grid; grid-template-columns:var(--trilho) minmax(0,1fr); gap:0 44px}
+.trilho{position:relative}
+.trilho .num{
+  display:block; font-family:var(--mono); font-size:26px; font-weight:500;
+  color:var(--carimbo); line-height:1; letter-spacing:-.02em;
+}
+.trilho .lab{
+  display:block; margin-top:10px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--apoio);
+}
+.trilho .met{
+  display:block; margin-top:18px; padding-top:14px; border-top:1px solid var(--regua);
+  font-family:var(--mono); font-size:11px; line-height:1.9;
+  letter-spacing:.06em; color:var(--fraco);
+}
+.corpo{min-width:0}
+
+section{padding:74px 0; border-top:1px solid var(--regua)}
+section:first-of-type{border-top:0}
+
+/* --------- tipografia --------- */
+h1{
+  font-family:var(--disp); font-weight:700;
+  font-size:clamp(31px,5.6vw,64px); line-height:1.02;
+  letter-spacing:-.022em; margin:0;
 }
 h2{
-  font-weight:900; font-size:clamp(30px,4.4vw,46px); line-height:1.04;
-  letter-spacing:-.02em; margin:0 0 10px;
+  font-family:var(--disp); font-weight:700;
+  font-size:clamp(25px,3.1vw,37px); line-height:1.1;
+  letter-spacing:-.016em; margin:0 0 14px;
 }
-h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
-.lead{color:var(--txt2); font-size:18px; max-width:66ch; margin:14px 0 0}
-.rule{height:1px; background:linear-gradient(90deg,var(--acc),transparent); margin:26px 0 40px}
+h2 .thin{display:block; font-family:var(--serif); font-weight:400;
+  font-size:.62em; letter-spacing:0; color:var(--apoio); margin-top:7px; font-style:italic}
+h3{font-family:var(--disp); font-weight:600; font-size:20px;
+  letter-spacing:-.01em; margin:0}
+.lead{font-size:20px; color:var(--tinta2); max-width:62ch; margin:0}
+p{margin:0 0 15px}
+a{color:var(--carimbo)}
 
-/* ---------- hero ---------- */
-.hero{
-  min-height:92vh; display:flex; flex-direction:column; justify-content:center;
-  padding:120px 0 80px;
+/* --------- abertura --------- */
+.hero{padding:70px 0 64px}
+.hero .selo{
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--apoio);
+  padding-bottom:16px; border-bottom:2px solid var(--tinta); margin-bottom:38px;
 }
-.hero h1{
-  /* piso 32px: 14 caracteres de Montserrat 900 a ~0,645em cabem em 323px,
-     que e o util de uma tela de 375. Em 42px estourava e a pagina rolava
-     de lado. */
-  font-weight:900; font-size:clamp(29px,8.4vw,104px); line-height:.92;
-  letter-spacing:-.035em; margin:0; text-shadow:0 0 46px rgba(55,200,255,.28);
+.hero .selo b{color:var(--tinta); font-weight:500}
+.hero .selo span{margin-left:auto; color:var(--fraco)}
+.hero .lead{font-size:clamp(19px,2.1vw,23px); margin-top:26px; max-width:58ch}
+.ficha{
+  margin-top:40px; display:grid; gap:0;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--regua);
 }
-.hero h1 .thin{
-  display:block; font-weight:300; color:#8FD6FF;
-  letter-spacing:.05em; font-size:.62em; margin-top:.06em;
-}
-.hero .lead{font-size:clamp(17px,2.1vw,22px); color:var(--txt2); margin-top:30px}
-.meta{
-  display:flex; flex-wrap:wrap; gap:12px; margin-top:42px;
-  font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase;
-}
-.meta span{
-  border:1px solid var(--line2); background:rgba(6,27,57,.72);
-  padding:8px 15px; border-radius:999px; color:var(--txt2);
-}
-.cue{
-  margin-top:56px; font-family:var(--mono); font-size:12px;
-  letter-spacing:.24em; color:var(--txt3); text-transform:uppercase;
-  display:flex; align-items:center; gap:12px;
-}
-.cue i{
-  width:34px; height:1px; background:var(--acc); display:block;
-  animation:slide 2.4s ease-in-out infinite;
-}
-@keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(10px);opacity:1}}
+.ficha div{padding:16px 18px 16px 0; border-right:1px solid var(--regua)}
+.ficha div:last-child{border-right:0}
+.ficha dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--fraco); margin-bottom:6px}
+.ficha dd{margin:0; font-family:var(--disp); font-weight:600; font-size:23px;
+  letter-spacing:-.01em}
 
-/* ---------- caixa de vidro ---------- */
-.glass{
-  position:relative; background:var(--panel);
-  border:1px solid var(--line2); border-radius:16px;
-}
-.glass::before{
-  content:''; position:absolute; inset:0; border-radius:inherit;
-  background:var(--glass); pointer-events:none;
-}
-.glass > *{position:relative}
-
-/* ---------- o caso ---------- */
-.caso{padding:34px 34px 30px}
-.caso p{margin:0 0 14px; color:var(--txt2); max-width:70ch}
-.caso p strong{color:var(--txt); font-weight:700}
+/* --------- chapa --------- */
+.chapa{background:var(--papel2); border:1px solid var(--regua); border-radius:3px}
+.caso-texto{padding:28px 30px 16px}
+.caso-texto p{max-width:66ch}
+.caso-texto strong{font-weight:500; background:linear-gradient(transparent 62%, rgba(168,50,28,.16) 62%)}
 .fonte{
-  font-family:var(--mono); font-size:12.5px; color:var(--txt3);
-  margin-top:20px; padding-top:18px; border-top:1px solid var(--line2);
+  font-family:var(--mono); font-size:11.5px; line-height:1.8; color:var(--fraco);
+  margin-top:20px; padding-top:16px; border-top:1px solid var(--regua);
 }
-.fonte a{color:var(--acc); text-decoration:none; border-bottom:1px solid rgba(55,200,255,.35)}
-.fonte a:hover{border-bottom-color:var(--acc)}
 
-/* ---------- stepper ---------- */
-.steps{display:flex; gap:10px; margin:0 0 34px; flex-wrap:wrap}
+/* --------- índice de casos --------- */
+.casos{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px}
+.caso-card{
+  display:block; text-align:left; padding:0; cursor:pointer; overflow:hidden;
+  background:var(--papel2); border:1px solid var(--regua); border-radius:3px;
+  font-family:inherit; color:inherit; transition:border-color .18s;
+}
+.caso-card img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  filter:grayscale(.72) contrast(1.04); transition:filter .25s}
+.caso-card .info{padding:16px 18px 18px; border-top:1px solid var(--regua)}
+.caso-card .n{font-family:var(--mono); font-size:10.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--fraco)}
+.caso-card h3{margin:8px 0 6px; color:var(--apoio)}
+.caso-card p{margin:0; font-family:var(--mono); font-size:11px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--fraco)}
+.caso-card:hover{border-color:var(--regua2)}
+.caso-card:hover img{filter:grayscale(.3)}
+.caso-card[aria-selected="true"]{border-color:var(--tinta)}
+.caso-card[aria-selected="true"] img{filter:none}
+.caso-card[aria-selected="true"] h3{color:var(--tinta)}
+.caso-card[aria-selected="true"] .n{color:var(--carimbo)}
+
+/* --------- etapas --------- */
+.steps{display:grid; grid-auto-flow:column; grid-auto-columns:1fr;
+  border:1px solid var(--regua); border-radius:3px; overflow:hidden;
+  background:var(--papel2); margin-bottom:26px}
 .step{
-  flex:1 1 150px; min-width:150px; text-align:left; cursor:pointer;
-  background:rgba(6,27,57,.66); border:1px solid var(--line2);
-  border-radius:12px; padding:15px 16px 14px; color:var(--txt3);
-  font-family:inherit; transition:.22s; position:relative; overflow:hidden;
+  text-align:left; padding:14px 16px; cursor:pointer; background:none;
+  border:0; border-left:1px solid var(--regua); font-family:inherit;
+  color:var(--apoio); transition:background .16s;
 }
-.step:hover{border-color:var(--line); color:var(--txt2)}
-.step .n{
-  font-family:var(--mono); font-size:12px; letter-spacing:.18em;
-  display:block; margin-bottom:7px; color:var(--txt3); transition:.22s;
-}
-.step .t{display:block; font-weight:700; font-size:15px; letter-spacing:.01em; line-height:1.25}
-.step .c{
-  display:block; font-family:var(--mono); font-size:11.5px;
-  color:var(--txt3); margin-top:6px; letter-spacing:.06em;
-}
-.step[aria-selected="true"]{
-  background:linear-gradient(180deg, rgba(30,127,214,.34), rgba(6,27,57,.9));
-  border-color:var(--rim); color:var(--txt);
-  box-shadow:0 0 0 1px rgba(111,224,255,.28), 0 10px 34px -12px rgba(55,200,255,.6);
-}
-.step[aria-selected="true"] .n{color:var(--acc)}
-.step[aria-selected="true"] .c{color:var(--txt2)}
+.step:first-child{border-left:0}
+.step:hover{background:var(--papel)}
+.step .n{display:block; font-family:var(--mono); font-size:11px;
+  letter-spacing:.14em; color:var(--fraco); margin-bottom:6px}
+.step .t{display:block; font-family:var(--disp); font-weight:600; font-size:14.5px;
+  letter-spacing:-.005em; line-height:1.25}
+.step .c{display:block; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.05em; color:var(--fraco); margin-top:5px}
+.step[aria-selected="true"]{background:var(--papel2); color:var(--tinta);
+  box-shadow:inset 0 -3px 0 var(--carimbo)}
+.step[aria-selected="true"] .n{color:var(--carimbo)}
 
-.panel{padding:32px 32px 34px}
-.panel-head{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap}
-.panel-head .tag{
-  font-family:var(--mono); font-size:34px; font-weight:500;
-  color:var(--acc); letter-spacing:-.02em; line-height:1;
-}
-.panel-head h3{font-size:27px; font-weight:900; letter-spacing:-.01em; margin:0}
-.panel-sub{color:var(--txt2); margin:14px 0 0; max-width:70ch}
-.panel-note{
-  margin:18px 0 0; padding:14px 16px; border-left:2px solid var(--acc);
-  background:rgba(2,10,24,.5); border-radius:0 8px 8px 0;
-  font-size:14.5px; color:var(--txt2);
-}
-.panel-note b{color:var(--txt); font-weight:700}
+.panel{padding:26px 28px 30px}
+.panel-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  padding-bottom:14px; border-bottom:1px solid var(--regua)}
+.panel-head .tag{font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  color:var(--carimbo)}
+.panel-sub{margin:16px 0 0; color:var(--tinta2); max-width:66ch}
+.panel-note{margin:14px 0 0; padding:13px 16px; background:var(--papel);
+  border-left:2px solid var(--carimbo); border-radius:0 3px 3px 0;
+  font-size:16px; color:var(--tinta2); max-width:70ch}
+.panel-note b{font-weight:500; color:var(--tinta)}
 
-.grid{display:grid; gap:12px; margin-top:26px}
+/* --------- miniaturas: legenda ABAIXO, como ficha --------- */
+.grid{display:grid; gap:20px 16px; margin-top:26px}
 .g4{grid-template-columns:repeat(4,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g1{grid-template-columns:1fr}
-.shot{
-  position:relative; border:1px solid var(--line2); border-radius:10px;
-  overflow:hidden; background:#0C2E5C; cursor:zoom-in; aspect-ratio:16/9;
-}
-.shot img{width:100%; height:100%; object-fit:cover; display:block; transition:.3s}
-.shot:hover img{transform:scale(1.045)}
-.shot figcaption{
-  position:absolute; left:0; right:0; bottom:0; padding:16px 10px 7px;
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.11em;
-  text-transform:uppercase; color:#BFDEFF;
-  background:linear-gradient(transparent, rgba(2,10,24,.92));
-}
-.shot.tall{aspect-ratio:auto}
-.shot.tall img{object-fit:contain; background:#050F22}
+.shot{margin:0; cursor:zoom-in}
+.shot .bed{background:var(--papel3); border:1px solid var(--regua);
+  border-radius:2px; overflow:hidden; aspect-ratio:16/9}
+.shot img{width:100%; height:100%; object-fit:cover; display:block;
+  transition:opacity .2s}
+.shot:hover img{opacity:.86}
+.shot figcaption{margin-top:8px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--fraco)}
+.shot.tall .bed{aspect-ratio:auto}
+.shot.tall img{object-fit:contain; background:var(--papel3)}
 
-/* ---------- player ---------- */
+/* --------- player --------- */
 .player{margin-top:26px}
-.screen{
-  max-width:800px; margin:0 auto; border-radius:14px; overflow:hidden;
-  border:1px solid var(--line); background:#020A18;
-  box-shadow:0 0 0 1px rgba(111,224,255,.16), 0 30px 80px -40px rgba(55,200,255,.5);
-}
-.screen{position:relative}
-.screen video{width:100%; display:block; aspect-ratio:16/9; background:#020A18}
-/* Se o navegador recusar o autoplay - politica de economia de dados, iOS
-   em baixo consumo - o quadro congelado pareceria erro. Este botao aparece
-   sozinho sempre que o video estiver pausado. */
-.playbtn{
-  position:absolute; left:0; right:0; top:0; bottom:44px; padding:0; border:0;
+.screen{position:relative; border:1px solid var(--regua); border-radius:3px;
+  overflow:hidden; background:#111; max-width:840px}
+.screen video{width:100%; display:block; aspect-ratio:16/9; background:#111}
+.playbtn{position:absolute; left:0; right:0; top:0; bottom:40px; padding:0; border:0;
   display:none; align-items:center; justify-content:center; cursor:pointer;
-  background:rgba(2,10,24,.42);
-}
+  background:rgba(17,17,17,.4)}
 .playbtn.on{display:flex}
-.playbtn i{
-  width:68px; height:68px; border-radius:50%; font-style:normal;
-  border:1px solid var(--rim); background:rgba(4,20,46,.82);
-  box-shadow:0 0 26px -6px var(--acc);
-  display:flex; align-items:center; justify-content:center;
-  color:var(--rim); font-size:21px; padding-left:5px;
-}
-.screenbar{
-  display:flex; align-items:center; gap:10px; padding:9px 14px;
-  border-top:1px solid var(--line2); background:rgba(6,27,57,.9);
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--txt3);
-}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none;
-  box-shadow:0 0 10px var(--acc); animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.32}}
-.takes{
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(86px,1fr)); gap:8px;
-  max-width:800px; margin:14px auto 0;
-}
-.take{
-  border:1px solid var(--line2); border-radius:7px; overflow:hidden;
-  background:#0C2E5C; cursor:pointer; aspect-ratio:16/9; padding:0;
-  position:relative; transition:.2s;
-}
-.take img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-.take:hover{border-color:var(--line)}
-.take[aria-current="true"]{
-  border-color:var(--rim);
-  box-shadow:0 0 0 1px var(--rim), 0 0 18px -4px var(--acc);
-}
-.take span{
-  position:absolute; left:4px; bottom:3px; font-family:var(--mono);
-  font-size:9px; color:#BFDEFF; letter-spacing:.08em;
-  text-shadow:0 1px 3px #000;
-}
+.playbtn i{width:62px; height:62px; border-radius:50%; font-style:normal;
+  background:var(--papel2); color:var(--tinta); display:flex;
+  align-items:center; justify-content:center; font-size:19px; padding-left:4px}
+.screenbar{display:flex; align-items:center; gap:10px; padding:9px 14px;
+  background:var(--papel2); border-top:1px solid var(--regua);
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--fraco)}
+.screenbar b{color:var(--tinta); font-weight:500}
+.screenbar span{margin-left:auto}
+.takes{display:grid; grid-template-columns:repeat(auto-fill,minmax(78px,1fr));
+  gap:7px; max-width:840px; margin:12px 0 0}
+.take{border:1px solid var(--regua); border-radius:2px; overflow:hidden;
+  background:var(--papel3); cursor:pointer; aspect-ratio:16/9; padding:0;
+  position:relative; transition:border-color .16s}
+.take img{width:100%; height:100%; object-fit:cover; display:block;
+  filter:grayscale(.55); transition:filter .2s; pointer-events:none}
+.take:hover img{filter:none}
+.take[aria-current="true"]{border-color:var(--carimbo)}
+.take[aria-current="true"] img{filter:none}
+.take span{position:absolute; left:0; bottom:0; font-family:var(--mono);
+  font-size:9px; color:var(--tinta); background:var(--papel2);
+  padding:1px 4px; border-top-right-radius:2px}
 
-/* ---------- antes / depois ---------- */
-.ba{
-  position:relative; border-radius:14px; overflow:hidden;
-  border:1px solid var(--line2); user-select:none; touch-action:none;
-  cursor:ew-resize; aspect-ratio:16/9; background:#050F22;
-}
+/* --------- antes / depois --------- */
+.batabs{display:flex; gap:0; margin:0 0 16px; border-bottom:1px solid var(--regua)}
+.batab{font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; padding:9px 16px; background:none; border:0;
+  border-bottom:2px solid transparent; color:var(--fraco); cursor:pointer}
+.batab:hover{color:var(--tinta2)}
+.batab[aria-selected="true"]{color:var(--tinta); border-bottom-color:var(--carimbo)}
+.ba{position:relative; border:1px solid var(--regua); border-radius:3px;
+  overflow:hidden; user-select:none; touch-action:none; cursor:ew-resize;
+  aspect-ratio:16/9; background:var(--papel3)}
 .ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
 .ba .after{clip-path:inset(0 0 0 var(--pos,50%))}
-.ba .handle{
-  position:absolute; top:0; bottom:0; left:var(--pos,50%);
-  width:2px; background:var(--rim); box-shadow:0 0 16px var(--acc);
-  transform:translateX(-1px); pointer-events:none;
-}
-.ba .knob{
-  position:absolute; top:50%; left:var(--pos,50%); width:42px; height:42px;
-  margin:-21px 0 0 -21px; border-radius:50%; pointer-events:none;
-  background:rgba(4,20,46,.88); border:1px solid var(--rim);
-  box-shadow:0 0 22px -4px var(--acc);
+.ba .handle{position:absolute; top:0; bottom:0; left:var(--pos,50%); width:1px;
+  background:var(--papel2); transform:translateX(-.5px); pointer-events:none;
+  box-shadow:0 0 0 1px rgba(21,20,15,.35)}
+.ba .knob{position:absolute; top:50%; left:var(--pos,50%); width:34px; height:34px;
+  margin:-17px 0 0 -17px; border-radius:50%; pointer-events:none;
+  background:var(--papel2); border:1px solid var(--tinta);
   display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:13px; color:var(--rim);
-}
-.ba .lbl{
-  position:absolute; top:12px; font-family:var(--mono); font-size:10.5px;
-  letter-spacing:.16em; text-transform:uppercase; padding:5px 11px;
-  border-radius:999px; background:rgba(2,10,24,.8); border:1px solid var(--line2);
-  color:var(--txt2); pointer-events:none;
-}
+  font-family:var(--mono); font-size:12px; color:var(--tinta)}
+.ba .lbl{position:absolute; top:12px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; padding:4px 9px; border-radius:2px;
+  background:var(--papel2); color:var(--tinta2); pointer-events:none}
 .ba .lbl.l{left:12px} .ba .lbl.r{right:12px}
-.batabs{display:flex; gap:8px; margin:0 0 16px; flex-wrap:wrap}
-.batab{
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.13em;
-  text-transform:uppercase; padding:8px 15px; border-radius:999px;
-  background:rgba(6,27,57,.7); border:1px solid var(--line2);
-  color:var(--txt3); cursor:pointer; transition:.2s;
-}
-.batab:hover{color:var(--txt2); border-color:var(--line)}
-.batab[aria-selected="true"]{color:var(--txt); border-color:var(--rim); background:rgba(30,127,214,.3)}
 
-/* ---------- derivação ---------- */
+/* --------- derivação --------- */
 .deriv{display:grid; gap:22px}
-.pair{
-  display:grid; grid-template-columns:minmax(0,.34fr) 46px minmax(0,1fr);
-  gap:0; align-items:center;
-}
-.pair .from,.pair .to{
-  border:1px solid var(--line2); border-radius:12px; overflow:hidden; background:#050F22;
-}
+.pair{display:grid; grid-template-columns:minmax(0,.3fr) 40px minmax(0,1fr); align-items:center}
+.pair .from,.pair .to{border:1px solid var(--regua); border-radius:2px;
+  overflow:hidden; background:var(--papel3)}
 .pair img{width:100%; display:block}
-.pair .to{background:#0B1B2E}
-.arrow{
-  display:flex; align-items:center; justify-content:center; color:var(--acc);
-  font-family:var(--mono); font-size:20px;
-}
-.pair .cap{
+.arrow{display:flex; align-items:center; justify-content:center;
+  color:var(--carimbo); font-family:var(--mono); font-size:17px}
+.pair .cap{font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--fraco); padding:6px 9px;
+  background:var(--papel2); border-top:1px solid var(--regua)}
+
+/* --------- sequência --------- */
+.seq{border:1px solid var(--regua); border-radius:3px; overflow:hidden;
+  background:#111; max-width:940px}
+.seq video{width:100%; display:block; aspect-ratio:16/9; background:#111}
+.seq .cap{display:flex; gap:10px; align-items:center; padding:9px 14px;
+  background:var(--papel2); border-top:1px solid var(--regua);
   font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--txt3); padding:7px 10px;
-  border-top:1px solid var(--line2);
-}
+  text-transform:uppercase; color:var(--fraco)}
+.seq .cap b{color:var(--tinta); font-weight:500}
+.seq .cap span{margin-left:auto}
 
-/* ---------- comparativo ---------- */
-.cmp{width:100%; border-collapse:collapse; margin-top:10px; font-size:15px}
-.cmp th,.cmp td{padding:15px 18px; text-align:left; vertical-align:top;
-  border-bottom:1px solid var(--line2)}
-.cmp thead th{
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--txt3); font-weight:500;
-  border-bottom:1px solid var(--line);
-}
-.cmp thead th:last-child{color:var(--acc)}
-.cmp tbody th{
-  font-weight:700; color:var(--txt); width:24%; font-size:14.5px;
-}
-.cmp td{color:var(--txt2)}
-.cmp td:last-child{color:var(--txt)}
+/* --------- comparativo --------- */
+.cmp{width:100%; border-collapse:collapse; font-size:16.5px}
+.cmp th,.cmp td{padding:15px 20px 15px 0; text-align:left; vertical-align:top;
+  border-bottom:1px solid var(--regua)}
+.cmp thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--fraco); font-weight:400;
+  border-bottom:1px solid var(--tinta); padding-bottom:10px}
+.cmp thead th:last-child{color:var(--carimbo)}
+.cmp tbody th{font-family:var(--disp); font-weight:600; font-size:15px;
+  color:var(--tinta); width:22%}
+.cmp td{color:var(--tinta2)}
+.cmp td:last-child{color:var(--tinta)}
 .cmp tr:last-child th,.cmp tr:last-child td{border-bottom:0}
-.fill{color:var(--acc); font-family:var(--mono); font-size:12.5px}
+.fill{color:var(--carimbo); font-family:var(--mono); font-size:12px}
 
-/* ---------- fecho ---------- */
-.fecho{text-align:center; padding:110px 0 130px}
-.fecho h2{font-size:clamp(28px,5vw,52px)}
-.assin{
-  margin-top:36px; font-family:var(--mono); font-size:13px;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--txt3);
-}
-.assin b{display:block; font-family:var(--disp); font-weight:900; font-size:34px;
-  letter-spacing:-.02em; color:var(--txt); text-transform:none; margin-bottom:8px}
-.assin a{color:var(--acc); text-decoration:none}
+/* --------- fecho --------- */
+.fecho .assin{margin-top:34px; padding-top:22px; border-top:2px solid var(--tinta)}
+.fecho .assin b{display:block; font-family:var(--disp); font-weight:700;
+  font-size:29px; letter-spacing:-.02em}
+.fecho .assin a{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em;
+  text-decoration:none; color:var(--carimbo)}
+.aviso{margin-top:26px; font-family:var(--mono); font-size:11px; color:var(--fraco);
+  line-height:1.85; max-width:70ch}
 
-/* ---------- lightbox ---------- */
-.lb{
-  position:fixed; inset:0; z-index:60; background:rgba(2,6,14,.94);
-  display:none; align-items:center; justify-content:center; padding:34px;
-  cursor:zoom-out; backdrop-filter:blur(6px);
-}
+/* --------- lightbox --------- */
+.lb{position:fixed; inset:0; z-index:60; background:rgba(21,20,15,.93);
+  display:none; align-items:center; justify-content:center; padding:34px; cursor:zoom-out}
 .lb.on{display:flex}
-.lb img{max-width:100%; max-height:100%; border-radius:10px;
-  border:1px solid var(--line2); box-shadow:0 40px 100px -30px #000}
-.lb .x{
-  position:absolute; top:20px; right:26px; font-family:var(--mono);
-  font-size:13px; letter-spacing:.16em; color:var(--txt2); text-transform:uppercase;
-}
+.lb img{max-width:100%; max-height:100%; border-radius:2px}
+.lb .x{position:absolute; top:20px; right:26px; font-family:var(--mono);
+  font-size:11px; letter-spacing:.16em; color:var(--papel3); text-transform:uppercase}
 
-/* ---------- revelação ---------- */
-.rv{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv{opacity:0; transform:translateY(14px); transition:opacity .55s ease, transform .55s ease}
 .rv.in{opacity:1; transform:none}
+.oculto{display:none}
 
-@media (max-width:900px){
-  section{padding:70px 0}
-  .g4{grid-template-columns:repeat(2,1fr)}
-  .g3{grid-template-columns:repeat(2,1fr)}
-  .panel{padding:24px 20px 26px}
-  .caso{padding:24px 20px}
-  .pair{grid-template-columns:1fr; gap:10px}
+/* --------- responsivo --------- */
+@media (max-width:1000px){
+  .folha{grid-template-columns:1fr; gap:0}
+  .trilho{display:flex; align-items:baseline; gap:14px; margin-bottom:22px;
+    padding-bottom:12px; border-bottom:1px solid var(--regua)}
+  .trilho .num{font-size:18px}
+  .trilho .lab{margin-top:0}
+  .trilho .met{margin:0 0 0 auto; padding:0; border:0; text-align:right; line-height:1.5}
+  .g4{grid-template-columns:repeat(3,1fr)}
+  .steps{grid-auto-flow:row; grid-auto-columns:auto}
+  .step{border-left:0; border-top:1px solid var(--regua)}
+  .step:first-child{border-top:0}
+  .step[aria-selected="true"]{box-shadow:inset 3px 0 0 var(--carimbo)}
+}
+@media (max-width:760px){
+  section{padding:54px 0}
+  .wrap{padding:0 22px}
+  .casos{grid-template-columns:1fr}
+  .g4,.g3{grid-template-columns:repeat(2,1fr)}
+  .ficha{grid-template-columns:1fr; }
+  .ficha div{border-right:0; border-bottom:1px solid var(--regua); padding:13px 0}
+  .ficha div:last-child{border-bottom:0}
+  .pair{grid-template-columns:1fr}
   .arrow{transform:rotate(90deg); height:30px}
-  .cmp tbody th{width:auto}
-  .cmp th,.cmp td{padding:12px 10px; font-size:14px}
+  .caso-texto{padding:22px 20px 12px}
+  .panel{padding:20px 18px 24px}
 }
-/* A tabela de 3 colunas nao cabe em 375. Rolar de lado seria a saida
-   preguicosa; aqui cada linha vira um bloco com os rotulos das colunas. */
 @media (max-width:640px){
-  .cmp, .cmp tbody, .cmp tr, .cmp th, .cmp td{display:block; width:auto}
+  .cmp,.cmp tbody,.cmp tr,.cmp th,.cmp td{display:block; width:auto}
   .cmp thead{display:none}
-  .cmp tr{padding:14px 0; border-bottom:1px solid var(--line2)}
+  .cmp tr{padding:14px 0; border-bottom:1px solid var(--regua)}
   .cmp tr:last-child{border-bottom:0}
-  .cmp tbody th{padding:0 0 8px; font-size:16px; border:0}
-  .cmp td{padding:0 0 8px; border:0; position:relative}
-  .cmp td::before{
-    content:attr(data-col); display:block; font-family:var(--mono);
-    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--txt3); margin-bottom:3px;
-  }
-  .cmp td:last-child::before{color:var(--acc)}
+  .cmp tbody th{padding:0 0 8px; font-size:16px; border:0; width:auto}
+  .cmp td{padding:0 0 9px; border:0}
+  .cmp td::before{content:attr(data-col); display:block; font-family:var(--mono);
+    font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--fraco); margin-bottom:3px}
+  .cmp td:last-child::before{color:var(--carimbo)}
 }
-/* abaixo de 380 a margem de 18px ainda deixava o titulo estourar por
-   poucos pixels numa tela de 320 */
-@media (max-width:380px){ .wrap{padding:0 16px} }
-@media (max-width:560px){
-  .wrap{padding:0 18px}
+@media (max-width:520px){
+  .wrap{padding:0 17px}
   .g4,.g3{grid-template-columns:1fr}
-  .step{flex:1 1 100%}
+  .hero .selo span{margin-left:0; width:100%}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important; transition:none!important}
   .rv{opacity:1; transform:none}
   html{scroll-behavior:auto}
 }
-
-/* ---------- seletor de casos ---------- */
-.casos{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:30px}
-.caso-card{
-  position:relative; text-align:left; padding:0; cursor:pointer; overflow:hidden;
-  border:1px solid var(--line2); border-radius:14px; background:var(--panel);
-  font-family:inherit; color:var(--txt3); transition:.24s;
-}
-.caso-card img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; opacity:.5; transition:.24s}
-.caso-card .corpo{padding:16px 18px 18px}
-.caso-card .num{font-family:var(--mono); font-size:11.5px; letter-spacing:.24em; color:var(--txt3)}
-.caso-card h3{margin:7px 0 5px; font-size:20px; font-weight:900; letter-spacing:-.01em; color:var(--txt2)}
-.caso-card p{margin:0; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--txt3)}
-.caso-card:hover{border-color:var(--line)}
-.caso-card:hover img{opacity:.72}
-.caso-card[aria-selected="true"]{
-  border-color:var(--rim); color:var(--txt);
-  box-shadow:0 0 0 1px rgba(111,224,255,.3), 0 16px 44px -18px rgba(55,200,255,.66);
-}
-.caso-card[aria-selected="true"] img{opacity:1}
-.caso-card[aria-selected="true"] h3{color:var(--txt)}
-.caso-card[aria-selected="true"] .num{color:var(--acc)}
-@media (max-width:720px){ .casos{grid-template-columns:1fr} }
-
-/* ---------- faixa do caso ativo ---------- */
-.ativo{
-  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--txt3); margin-bottom:18px;
-}
-.ativo b{color:var(--acc); font-weight:500}
-.ativo span{color:var(--txt2)}
-
-/* ---------- sequencia ---------- */
-.seq{max-width:900px; margin:26px auto 0; border:1px solid var(--line);
-  border-radius:14px; overflow:hidden; background:#020A18;
-  box-shadow:0 0 0 1px rgba(111,224,255,.14), 0 30px 80px -46px rgba(55,200,255,.5)}
-.seq video{width:100%; display:block; aspect-ratio:16/9; background:#020A18}
-.seq .cap{display:flex; gap:10px; align-items:center; padding:10px 14px;
-  border-top:1px solid var(--line2); background:rgba(6,27,57,.9);
-  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--txt3)}
-.seq .cap b{color:var(--txt); font-weight:500}
-.seq .cap span{margin-left:auto}
-.aviso{margin-top:26px; font-family:var(--mono); font-size:12px; color:var(--txt3);
-  border-top:1px solid var(--line2); padding-top:16px; line-height:1.7}
-.oculto{display:none}
 </style>
 </head>
 <body>
@@ -444,102 +373,108 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
 
 <section class="hero">
   <div class="wrap">
-    <p class="kicker">Portfólio · Reconstituição forense</p>
-    <h1>RECONSTITUIÇÃO<span class="thin">COM IA</span></h1>
-    <p class="lead">
-      Fotos de inquérito, um relato e nada mais. Sem locação, sem elenco, sem equipe
-      em campo — e uma reconstituição que dá para assistir no fim.
-    </p>
-    <div class="meta">
-      <span>2 casos reconstituídos</span>
-      <span>102 imagens em quadro</span>
-      <span>29 planos gerados</span>
+    <div class="selo">
+      <b>Dossiê</b> Reconstituição forense com IA
+      <span>Daniel Souza · 2026</span>
     </div>
-    <div class="cue"><i></i> role para ver o processo</div>
+    <h1>Fotos de inquérito<br>e um relato.<br>Uma reconstituição no fim.</h1>
+    <p class="lead">Sem locação, sem elenco, sem equipe em campo. O cenário já está
+    na foto que o processo tem; o resto é derivado dela.</p>
+    <dl class="ficha">
+      <div><dt>Casos</dt><dd>2 reconstituídos</dd></div>
+      <div><dt>Material em quadro</dt><dd>102 imagens</dd></div>
+      <div><dt>Planos gerados</dt><dd>29</dd></div>
+    </dl>
   </div>
 </section>
 
 <section id="casos">
-  <div class="wrap rv">
-    <p class="kicker">Os casos</p>
-    <h2>Dois casos, o mesmo método<span class="thin">escolha um para percorrer</span></h2>
-    <div class="rule"></div>
-    <div class="casos" id="casosGrade" role="tablist"></div>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">01</span><span class="lab">Índice</span><span class="met">2 casos<br>102 imagens</span></div>
+    <div class="corpo">
+      <h2>Dois casos, o mesmo método<span class="thin">escolha um para percorrer</span></h2>
+      <div class="casos" id="casosGrade" role="tablist"></div>
+    </div>
   </div>
 </section>
 
 <section id="caso">
-  <div class="wrap rv">
-    <p class="kicker">O caso</p>
-    <h2 id="casoTitulo"></h2>
-    <div class="rule"></div>
-    <div class="ativo" id="casoAtivo"></div>
-    <div class="glass caso" id="casoTexto"></div>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">02</span><span class="lab">O caso</span>
+      <span class="met" id="casoMeta"></span></div>
+    <div class="corpo">
+      <h2 id="casoTitulo"></h2>
+      <div class="chapa caso-texto" id="casoTexto"></div>
+    </div>
   </div>
 </section>
 
 <section id="metodo">
-  <div class="wrap rv">
-    <p class="kicker">O método</p>
-    <h2>As etapas<span class="thin">do acervo bruto ao plano em movimento</span></h2>
-    <p class="lead">Toque numa etapa para ver o que entra e o que sai dela.
-    No computador as setas ← → também funcionam.</p>
-    <div class="rule"></div>
-    <div class="steps" role="tablist" id="steps"></div>
-    <div class="glass panel" id="panel"></div>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">03</span><span class="lab">O método</span><span class="met">5 e 4 etapas</span></div>
+    <div class="corpo">
+      <h2>As etapas<span class="thin">do acervo bruto ao plano em movimento</span></h2>
+      <p class="lead" style="margin-bottom:26px">Toque numa etapa para ver o que entra
+      e o que sai dela. No computador as setas ← → também funcionam.</p>
+      <div class="steps" role="tablist" id="steps"></div>
+      <div class="chapa panel" id="panel"></div>
+    </div>
   </div>
 </section>
 
 <section id="antesdepois">
-  <div class="wrap rv">
-    <p class="kicker">Em detalhe</p>
-    <h2>Antes e depois<span class="thin">a mesma foto, esvaziada de gente</span></h2>
-    <p class="lead">A perícia sai de quadro e o local permanece. É esta chapa limpa que
-    vira cenário para os personagens — por isso a geometria, a luz e a textura do lugar
-    real continuam ali. Arraste.</p>
-    <div class="rule"></div>
-    <div class="batabs" id="batabs"></div>
-    <div class="ba" id="ba">
-      <img id="baBefore" alt="Foto original do local"><img id="baAfter" class="after" alt="O mesmo local sem pessoas">
-      <div class="handle"></div><div class="knob">↔</div>
-      <span class="lbl l">Foto do inquérito</span><span class="lbl r">Cenário limpo</span>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">04</span><span class="lab">Cenário</span><span class="met">17 chapas<br>limpas</span></div>
+    <div class="corpo">
+      <h2>Antes e depois<span class="thin">a mesma foto, esvaziada de gente</span></h2>
+      <p class="lead" style="margin-bottom:24px">A perícia sai de quadro e o local
+      permanece. É esta chapa limpa que vira cenário para os personagens — a geometria,
+      a luz e a textura do lugar real continuam ali. Arraste.</p>
+      <div class="batabs" id="batabs"></div>
+      <div class="ba" id="ba">
+        <img id="baBefore" alt="Foto original do local"><img id="baAfter" class="after" alt="O mesmo local sem pessoas">
+        <div class="handle"></div><div class="knob">↔</div>
+        <span class="lbl l">Inquérito</span><span class="lbl r">Cenário limpo</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="derivacao">
-  <div class="wrap rv">
-    <p class="kicker">Em detalhe</p>
-    <h2>Da foto ao personagem<span class="thin">o elenco não foi inventado, foi derivado</span></h2>
-    <p class="lead">Cada pessoa envolvida vira um character sheet de três vistas. É esse
-    arquivo que garante que o personagem não mude de rosto, de roupa ou de altura entre
-    um plano e outro — o problema que derruba a maioria das tentativas de vídeo com IA.</p>
-    <div class="rule"></div>
-    <div class="deriv" id="deriv"></div>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">05</span><span class="lab">Elenco</span><span class="met">3 vistas<br>por personagem</span></div>
+    <div class="corpo">
+      <h2>Da foto ao personagem<span class="thin">o elenco não foi inventado, foi derivado</span></h2>
+      <p class="lead" style="margin-bottom:24px">Cada pessoa envolvida vira um character
+      sheet de três vistas. É esse arquivo que garante que o personagem não mude de rosto,
+      de roupa ou de altura entre um plano e outro — o problema que derruba a maioria das
+      tentativas de vídeo com IA.</p>
+      <div class="deriv" id="deriv"></div>
+    </div>
   </div>
 </section>
 
 <section id="sequencia">
-  <div class="wrap rv">
-    <p class="kicker">O percurso</p>
-    <h2>A sequência dos fatos<span class="thin">os planos colados na ordem</span></h2>
-    <p class="lead" id="seqTexto"></p>
-    <div class="rule"></div>
-    <div class="seq">
-      <video id="seqVideo" controls preload="metadata" playsinline></video>
-      <div class="cap"><b id="seqNome"></b> cortes secos <span id="seqDur"></span></div>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">06</span><span class="lab">Percurso</span><span class="met">cortes secos</span></div>
+    <div class="corpo">
+      <h2>A sequência dos fatos<span class="thin">os planos colados na ordem</span></h2>
+      <p class="lead" id="seqTexto" style="margin-bottom:24px"></p>
+      <div class="seq">
+        <video id="seqVideo" controls preload="metadata" playsinline></video>
+        <div class="cap"><b id="seqNome"></b> cortes secos <span id="seqDur"></span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="comparativo">
-  <div class="wrap rv">
-    <p class="kicker">O que muda</p>
-    <h2>Contra a reconstituição filmada<span class="thin">onde o método ganha, e onde não ganha</span></h2>
-    <div class="rule"></div>
-    <div class="glass panel">
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">07</span><span class="lab">Comparativo</span><span class="met">3 dias<br>contra 5 semanas</span></div>
+    <div class="corpo">
+      <h2>Contra a reconstituição filmada<span class="thin">onde o método ganha, e onde não ganha</span></h2>
       <table class="cmp">
-        <thead><tr><th>&nbsp;</th><th>Reconstituição filmada</th><th>Com IA</th></tr></thead>
+        <thead><tr><th>&nbsp;</th><th>Filmada</th><th>Com IA</th></tr></thead>
         <tbody>
           <tr><th>Locação</th><td data-col="Filmada">Local original ou similar, com autorização e janela de acesso</td><td data-col="Com IA">Reconstruída a partir das fotos que já existem no inquérito</td></tr>
           <tr><th>Elenco</th><td data-col="Filmada">Atores, direção, figurino, caracterização</td><td data-col="Com IA">Character sheets derivados das fotos, consistentes entre planos</td></tr>
@@ -547,30 +482,30 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
           <tr><th>Refazer um plano</th><td data-col="Filmada">Nova diária, reagendar local e elenco</td><td data-col="Com IA">Novo frame a partir do mesmo cenário e do mesmo personagem</td></tr>
           <tr><th>Exposição de pessoas</th><td data-col="Filmada">Atores reencenam o crime; o local é ocupado de novo</td><td data-col="Com IA">Ninguém é filmado e ninguém volta ao local</td></tr>
           <tr><th>Onde não ganha</th><td data-col="Filmada">Movimento longo e contínuo, plano-sequência, ação física complexa</td><td data-col="Com IA">Cada plano nasce curto; continuidade longa exige montagem</td></tr>
-          <tr><th>Prazo</th><td class="fill" data-col="Filmada">— preencha com seu número</td><td class="fill" data-col="Com IA">— preencha com seu número</td></tr>
+          <tr><th>Prazo de entrega</th><td data-col="Filmada">5 a 7 semanas — a pré-produção come duas ou três antes do primeiro quadro existir</td><td data-col="Com IA"><b>2 a 3 dias.</b> Dia 1: leitura do relato, pesquisa e primeiros frames. Dia 2: vídeos. Dia 3: montagem. Ciclo de aprovação do cliente incluído</td></tr>
         </tbody>
       </table>
-      <p class="panel-note"><b>A última linha é sua.</b> Deixei os prazos em branco de
-      propósito: número inventado em proposta comercial é o tipo de coisa que o cliente
-      confere. Preencha com o que estes casos levaram de verdade.</p>
+      <p class="panel-note"><b>O prazo da coluna com IA é medido, não estimado</b> — é o
+      tempo real destes dois casos. O da reconstituição filmada é estimativa de
+      mercado, e é a linha que vale conferir antes de levar a uma proposta.</p>
     </div>
   </div>
 </section>
 
 <section class="fecho">
-  <div class="wrap rv">
-    <p class="kicker">Em resumo</p>
-    <h2>Fotos e um relato entram.<span class="thin">Uma reconstituição sai.</span></h2>
-    <p class="lead" style="margin:22px auto 0">O que existia era um inquérito. O que saiu
-    dá para assistir — e pode ser refeito, corrigido e reenquadrado sem voltar ao local.</p>
-    <div class="assin">
-      <b>Daniel Souza</b>
-      <a href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
+  <div class="wrap folha">
+    <div class="trilho"><span class="num">08</span><span class="lab">Contato</span></div>
+    <div class="corpo">
+      <h2>Fotos e um relato entram.<span class="thin">Uma reconstituição sai.</span></h2>
+      <p class="lead">O que existia era um inquérito. O que saiu dá para assistir — e
+      pode ser refeito, corrigido e reenquadrado sem voltar ao local.</p>
+      <div class="assin">
+        <b>Daniel Souza</b>
+        <a href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
+      </div>
+      <p class="aviso">As imagens integram processos criminais com reportagem pública.
+      Uso restrito à demonstração do método. Nomes omitidos por escolha editorial.</p>
     </div>
-    <p class="aviso">
-      As imagens integram processos criminais e material de referência. Uso restrito à
-      demonstração do método.
-    </p>
   </div>
 </section>
 
@@ -580,16 +515,12 @@ h2 .thin{display:block; font-weight:300; color:#8FD6FF; letter-spacing:.04em}
 <script>
 const MANIFESTO = {"casos": [{"id": "c1", "etapas": [{"tag": "01", "nome": "REFERÊNCIA", "conta": "12 arquivos", "sub": "O que já existia: fotos do inquérito, do local e das pessoas envolvidas.", "nota": "<b>Só isto é matéria-prima real.</b> Tudo o que vem depois é derivado daqui — e é por isso que a reconstituição pode ser conferida contra o que está no processo.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["01_01", "Autor · frontal"], ["01_02", "Autor · corredor"], ["01_03", "Autor · perfil"], ["01_04", "Autor · três quartos"], ["01_05", "Segundo envolvido"], ["01_06", "Segundo envolvido · 02"], ["01_07", "Vítima"], ["01_08", "Local · onde o corpo estava"], ["01_09", "Local · escada e garagem"], ["01_10", "Local · remoção"], ["01_11", "Local · fundos"], ["01_12", "Local · terreno"]]}, {"tag": "02", "nome": "CENÁRIO", "conta": "17 arquivos", "sub": "O local esvaziado de gente, e os objetos do caso isolados em chapa própria.", "nota": "A chapa limpa preserva a geometria e a luz do lugar real. A <b>frigideira</b> e o <b>cobertor</b> — os dois objetos que aparecem no relato — foram recortados para poderem ser recolocados em qualquer plano.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["02_01", "Garagem · limpa"], ["02_02", "Frente da casa"], ["02_03", "Fundos · limpo"], ["02_04", "Terreno"], ["02_05", "Local da ocultação"], ["02_06", "Terreno · original"], ["02_07", "Sala · panorâmica"], ["02_08", "Sala · variação"], ["02_09", "Sala com o objeto"], ["02_10", "Sala · reconstruída"], ["02_11", "Sala · ampla"], ["02_12", "Interior · referência"], ["02_13", "Objetos · referência"], ["02_14", "Objeto isolado · 9 ângulos"], ["02_15", "Cobertor isolado"]]}, {"tag": "03", "nome": "PERSONAGENS", "conta": "3 arquivos", "sub": "Cada envolvido vira um character sheet de três vistas, para não variar entre planos.", "nota": "<b>É a etapa que sustenta todas as outras.</b> Sem o sheet, o mesmo personagem sai com outro rosto a cada geração e a sequência deixa de ler como uma cena única.", "tipo": "grid", "cols": "g1", "tall": true, "itens": [["03_01", "Personagem A · três vistas"], ["03_02", "Personagem B · três vistas"], ["03_03", "Personagem C · três vistas"]]}, {"tag": "04", "nome": "STILL FRAMES", "conta": "94 arquivos", "sub": "A cena desenhada quadro a quadro, com continuidade de luz e timecode em quadro.", "nota": "Trinta dos 94 frames, cobrindo o percurso inteiro do relato — do encontro à ocultação. É o volume real do trabalho de storyboard.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["04_01", "Frame 003"], ["04_02", "Frame 007"], ["04_03", "Frame 011"], ["04_04", "Frame 015"], ["04_05", "Frame 017"], ["04_06", "Frame 021"], ["04_07", "Frame 024"], ["04_08", "Frame 028"], ["04_09", "Frame 031"], ["04_10", "Frame 034"], ["04_11", "Frame 037"], ["04_12", "Frame 041"], ["04_13", "Frame 044"], ["04_14", "Frame 046"], ["04_15", "Frame 049"], ["04_16", "Frame 052"], ["04_17", "Frame 055"], ["04_18", "Frame 058"], ["04_19", "Frame 061"], ["04_20", "Frame 064"], ["04_21", "Frame 067"], ["04_22", "Frame 071"], ["04_23", "Frame 074"], ["04_24", "Frame 077"], ["04_25", "Frame 080"], ["04_26", "Frame 083"], ["04_27", "Frame 086"], ["04_28", "Frame 089"], ["04_29", "Frame 092"], ["04_30", "Frame 094"]]}, {"tag": "05", "nome": "VÍDEOS IA", "conta": "14 planos", "sub": "Cada frame aprovado vira movimento. 24 fps, planos de cinco segundos.", "nota": "Estão aqui <b>os 14 planos gerados</b>, na ordem da narrativa, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.", "tipo": "video", "itens": [["t_01", "Take 01"], ["t_02", "Take 02"], ["t_03", "Take 03"], ["t_04", "Take 04"], ["t_05", "Take 05"], ["t_06", "Take 06"], ["t_07", "Take 07"], ["t_08", "Take 08"], ["t_09", "Take 09"], ["t_10", "Take 10"], ["t_11", "Take 11"], ["t_12", "Take 12"], ["t_13", "Take 13"], ["t_14", "Take 14"]]}]}, {"id": "c2", "etapas": [{"tag": "01", "nome": "REFERÊNCIA", "conta": "13 arquivos", "sub": "O ponto de partida: fotos do local, das pessoas e do contexto.", "nota": "<b>Nada aqui foi gerado.</b> São as imagens que existiam antes — o restaurante, a praia e os envolvidos.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["01_01", "Restaurante · fachada"], ["01_02", "Salão · balcão"], ["01_03", "Salão · outro ângulo"], ["01_04", "Praia · faixa de areia"], ["01_05", "Praia · vista ampla"], ["01_06", "Restaurante · aérea"], ["01_07", "Envolvido A · 01"], ["01_08", "Envolvido A · 02"], ["01_09", "Envolvido A · 03"], ["01_10", "Envolvido A · 04"], ["01_11", "Envolvido A · 05"], ["01_12", "Envolvido B"], ["01_13", "Acompanhante"]]}, {"tag": "02", "nome": "PERSONAGENS", "conta": "4 arquivos", "sub": "Character sheets de três vistas, gerados a partir das referências.", "nota": "Mesma lógica do outro caso: o sheet é o que trava a aparência do personagem entre um plano e outro.", "tipo": "grid", "cols": "g1", "tall": true, "itens": [["02_01", "Personagem A · três vistas"], ["02_02", "Personagem B · três vistas"], ["02_03", "Personagem C · três vistas"], ["02_04", "Guarnição · referência"]]}, {"tag": "03", "nome": "FRAMES", "conta": "25 arquivos", "sub": "Storyboard e frames-chave: cada cena definida antes de animar.", "nota": "Os <b>25 frames</b> do caso, na ordem do storyboard — da chegada ao restaurante até a saída com a guarnição.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["03_01", "Frame 01"], ["03_02", "Frame 02"], ["03_03", "Frame 03"], ["03_04", "Frame 04"], ["03_05", "Frame 05"], ["03_06", "Frame 06"], ["03_07", "Frame 07"], ["03_08", "Frame 08"], ["03_09", "Frame 09"], ["03_10", "Frame 10"], ["03_11", "Frame 11"], ["03_12", "Frame 12"], ["03_13", "Frame 13"], ["03_14", "Frame 14"], ["03_15", "Frame 15"], ["03_16", "Frame 16"], ["03_17", "Frame 17"], ["03_18", "Frame 18"], ["03_19", "Frame 19"], ["03_20", "Frame 20"], ["03_21", "Frame 21"], ["03_22", "Frame 22"], ["03_23", "Frame 23"], ["03_24", "Frame 24"], ["03_25", "Frame 25"]]}, {"tag": "04", "nome": "VÍDEOS IA", "conta": "15 planos", "sub": "Cada frame vira movimento; depois, montagem e finalização.", "nota": "Os <b>15 planos gerados</b>, cortados em ~3 s e em loop.", "tipo": "video", "itens": [["t_01", "Take 01"], ["t_02", "Take 02"], ["t_03", "Take 03"], ["t_04", "Take 04"], ["t_05", "Take 05"], ["t_06", "Take 06"], ["t_07", "Take 07"], ["t_08", "Take 08"], ["t_09", "Take 09"], ["t_10", "Take 10"], ["t_11", "Take 11"], ["t_12", "Take 12"], ["t_13", "Take 13"], ["t_14", "Take 14"], ["t_15", "Take 15"]]}]}]};
 const META = {"c1": {"num": "01", "titulo": "Dívida de R$ 400", "linha": "Homicídio e ocultação de cadáver", "local": "São José dos Pinhais · PR", "quando": "Maio de 2023 · júri em janeiro de 2026", "capa": "assets/c1/img/04_01.jpg", "resumo": "\n     <p>Uma mulher de 35 anos desapareceu no fim de maio de 2023, numa área rural da\n     Região Metropolitana de Curitiba. Em 1º de junho, um morador encontrou o corpo\n     <strong>enterrado num terreno</strong> da localidade.</p>\n     <p>A investigação apontou que ela foi morta dentro da casa de um vizinho, com quem\n     tinha uma dívida de <strong>R$ 400</strong> referente a um celular. Com ajuda de um\n     segundo homem, o corpo foi retirado do local e levado até o terreno em frente, onde\n     foi enterrado. Em janeiro de 2026, o júri popular condenou o autor a\n     <strong>oito anos e quatro meses</strong> por homicídio e ocultação de cadáver.</p>\n     <p>A reconstituição foi montada a partir das fotos do inquérito e do relato do\n     próprio acusado. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/vizinho-condenado-matar-ocultar-corpo-mulher-grande-curitiba/\" target=\"_blank\" rel=\"noopener\">Banda B — 21/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [{"rot": "Garagem e escada", "a": "01_09", "b": "02_01"}, {"rot": "Fundos da casa", "a": "01_11", "b": "02_03"}], "deriv": [{"de": "01_01", "para": "03_01", "cap": "Foto do inquérito", "cap2": "Personagem A · três vistas"}, {"de": "01_06", "para": "03_02", "cap": "Foto do inquérito", "cap2": "Personagem B · três vistas"}, {"de": "01_07", "para": "03_03", "cap": "Foto de referência", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c1/vid/sequencia.mp4", "poster": "assets/c1/poster/sequencia.jpg", "texto": "Os 14 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material bruto em sequência, para dar noção do percurso inteiro."}}, "c2": {"num": "02", "titulo": "Confusão na Ilha do Mel", "linha": "Importunação, desacato e termo circunstanciado", "local": "Ilha do Mel · litoral do PR", "quando": "Janeiro de 2026", "capa": "assets/c2/img/03_22.jpg", "resumo": "\n     <p>Num comércio da Ilha do Mel, no litoral do Paraná, um influenciador digital de\n     32 anos se aproximou de um cliente que estava com a esposa e\n     <strong>passou a mão no peito do homem</strong>. O cliente reagiu com um tapa no\n     rosto.</p>\n     <p>Depois da reação, o influenciador passou a <strong>quebrar objetos do\n     estabelecimento</strong>. A Polícia Militar foi acionada e conduziu os envolvidos\n     à delegacia, onde ele acabou detido por desacato a um investigador — acusação que\n     negou. Assinou termo circunstanciado e foi liberado.</p>\n     <p>A reconstituição recria o percurso a partir das fotos do local, das imagens dos\n     envolvidos e do relato. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/influencer-confusao-ilha-do-mel-delegacia-parana/\" target=\"_blank\" rel=\"noopener\">Banda B — 14/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [], "deriv": [{"de": "01_07", "para": "02_01", "cap": "Referência do envolvido", "cap2": "Personagem A · três vistas"}, {"de": "01_12", "para": "02_02", "cap": "Referência do cliente", "cap2": "Personagem B · três vistas"}, {"de": "01_13", "para": "02_03", "cap": "Referência da acompanhante", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c2/vid/sequencia.mp4", "poster": "assets/c2/poster/sequencia.jpg", "texto": "Os 15 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material gerado em sequência, para dar noção do percurso inteiro."}}};
-let casoAtual = 'c1', etapaAtual = 0;
+let casoAtual='c1', etapaAtual=0;
+const img=(c,k)=>'assets/'+c+'/img/'+k+'.jpg';
+const vid=(c,k)=>'assets/'+c+'/vid/'+k+'.mp4';
+const pos=(c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
+const dados=c=>MANIFESTO.casos.find(x=>x.id===c);
 
-const img = (c,k)=>'assets/'+c+'/img/'+k+'.jpg';
-const vid = (c,k)=>'assets/'+c+'/vid/'+k+'.mp4';
-const pos = (c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
-const dados = c => MANIFESTO.casos.find(x=>x.id===c);
-
-/* ---------- cartoes de caso ---------- */
-// id diferente do da <section id="casos">: com o mesmo nome o
-// getElementById devolvia a secao e os cartoes iam para fora do wrap
 const elCasos=document.getElementById('casosGrade');
 Object.keys(META).forEach(id=>{
   const m=META[id];
@@ -597,9 +528,9 @@ Object.keys(META).forEach(id=>{
   b.className='caso-card'; b.type='button'; b.setAttribute('role','tab');
   b.setAttribute('aria-selected', id===casoAtual?'true':'false');
   b.innerHTML='<img src="'+m.capa+'" alt="" loading="lazy">'
-    +'<div class="corpo"><span class="num">CASO '+m.num+'</span>'
+    +'<div class="info"><span class="n">Caso '+m.num+'</span>'
     +'<h3>'+m.titulo+'</h3><p>'+m.linha+'</p></div>';
-  b.addEventListener('click', ()=>trocarCaso(id));
+  b.addEventListener('click',()=>trocarCaso(id));
   elCasos.appendChild(b);
 });
 
@@ -608,18 +539,12 @@ function trocarCaso(id){
   [...elCasos.children].forEach((b,i)=>
     b.setAttribute('aria-selected', Object.keys(META)[i]===id?'true':'false'));
   const m=META[id];
-  document.getElementById('casoTitulo').innerHTML =
-    m.titulo+'<span class="thin">'+m.linha+'</span>';
-  document.getElementById('casoAtivo').innerHTML =
-    '<b>Caso '+m.num+'</b><span>'+m.local+'</span><span>'+m.quando+'</span>';
-  document.getElementById('casoTexto').innerHTML = m.resumo;
-  montarEtapas();
-  montarBA();
-  montarDeriv();
-  montarSeq();
+  document.getElementById('casoTitulo').innerHTML=m.titulo+'<span class="thin">'+m.linha+'</span>';
+  document.getElementById('casoMeta').innerHTML=m.local+'<br>'+m.quando;
+  document.getElementById('casoTexto').innerHTML=m.resumo;
+  montarEtapas(); montarBA(); montarDeriv(); montarSeq();
 }
 
-/* ---------- etapas ---------- */
 const elSteps=document.getElementById('steps'), elPanel=document.getElementById('panel');
 function montarEtapas(){
   const et=dados(casoAtual).etapas;
@@ -629,7 +554,7 @@ function montarEtapas(){
     b.className='step'; b.type='button'; b.setAttribute('role','tab');
     b.setAttribute('aria-selected', i===etapaAtual?'true':'false');
     b.innerHTML='<span class="n">'+e.tag+'</span><span class="t">'+e.nome+'</span><span class="c">'+e.conta+'</span>';
-    b.addEventListener('click', ()=>irPara(i));
+    b.addEventListener('click',()=>irPara(i));
     elSteps.appendChild(b);
   });
   render(et[etapaAtual]);
@@ -637,7 +562,7 @@ function montarEtapas(){
 function irPara(i){
   const et=dados(casoAtual).etapas;
   etapaAtual=(i+et.length)%et.length;
-  [...elSteps.children].forEach((b,k)=>b.setAttribute('aria-selected', k===etapaAtual?'true':'false'));
+  [...elSteps.children].forEach((b,k)=>b.setAttribute('aria-selected',k===etapaAtual?'true':'false'));
   render(et[etapaAtual]);
 }
 function render(e){
@@ -647,13 +572,14 @@ function render(e){
     corpo='<div class="player"><div class="screen">'
       +'<video id="vMain" playsinline muted loop autoplay preload="metadata" poster="'+pos(c,e.itens[0][0])+'"></video>'
       +'<button class="playbtn" id="playbtn" type="button" aria-label="Reproduzir"><i>&#9654;</i></button>'
-      +'<div class="screenbar"><span class="dot"></span><span id="vLabel"></span>'
-      +'<span style="margin-left:auto">loop · sem áudio · toque para pausar</span></div>'
+      +'<div class="screenbar"><b id="vLabel"></b><span>loop · sem áudio · toque para pausar</span></div>'
       +'</div><div class="takes" id="takes"></div></div>';
   } else {
     const tall=e.tall?' tall':'';
+    // legenda ABAIXO da miniatura, como ficha - e nao sobreposta em degrade
     corpo='<div class="grid '+e.cols+'">'+e.itens.map(([k,t])=>
-      '<figure class="shot'+tall+'" data-k="'+k+'"><img src="'+img(c,k)+'" alt="'+t+'" loading="lazy" decoding="async">'
+      '<figure class="shot'+tall+'" data-k="'+k+'"><div class="bed">'
+      +'<img src="'+img(c,k)+'" alt="'+t+'" loading="lazy" decoding="async"></div>'
       +'<figcaption>'+t+'</figcaption></figure>').join('')+'</div>';
   }
   elPanel.innerHTML='<div class="panel-head"><span class="tag">'+e.tag+'</span><h3>'+e.nome+'</h3></div>'
@@ -691,14 +617,12 @@ document.addEventListener('keydown',ev=>{
   if(ev.key==='ArrowLeft')  irPara(etapaAtual-1);
 });
 
-/* ---------- antes / depois ---------- */
 const secBA=document.getElementById('antesdepois');
 const ba=document.getElementById('ba'), baB=document.getElementById('baBefore'),
       baA=document.getElementById('baAfter'), baTabs=document.getElementById('batabs');
 let baIdx=0;
 function montarBA(){
   const pares=META[casoAtual].ba;
-  // caso sem chapa limpa nao mostra a secao, em vez de mostrar vazia
   secBA.classList.toggle('oculto', pares.length===0);
   if(!pares.length) return;
   baIdx=0; baTabs.innerHTML='';
@@ -715,7 +639,7 @@ function montarBA(){
 }
 function carregarBA(){ const p=META[casoAtual].ba[baIdx];
   baB.src=img(casoAtual,p.a); baA.src=img(casoAtual,p.b); posic(50); }
-function posic(pct){ ba.style.setProperty('--pos', Math.max(0,Math.min(100,pct))+'%'); }
+function posic(p){ ba.style.setProperty('--pos', Math.max(0,Math.min(100,p))+'%'); }
 function daEvento(ev){ const r=ba.getBoundingClientRect();
   posic(((ev.touches?ev.touches[0].clientX:ev.clientX)-r.left)/r.width*100); }
 let arrastando=false;
@@ -724,38 +648,31 @@ ba.addEventListener('pointermove',e=>{ if(arrastando) daEvento(e); });
 ba.addEventListener('pointerup',()=>arrastando=false);
 ba.addEventListener('pointercancel',()=>arrastando=false);
 
-/* ---------- derivacao ---------- */
 function montarDeriv(){
   const c=casoAtual;
-  document.getElementById('deriv').innerHTML = META[c].deriv.map(d=>
+  document.getElementById('deriv').innerHTML=META[c].deriv.map(d=>
     '<div class="pair"><div class="from"><img src="'+img(c,d.de)+'" alt="'+d.cap+'" loading="lazy">'
     +'<div class="cap">'+d.cap+'</div></div><div class="arrow">→</div>'
     +'<div class="to"><img src="'+img(c,d.para)+'" alt="'+d.cap2+'" loading="lazy">'
     +'<div class="cap">'+d.cap2+'</div></div></div>').join('');
 }
-
-/* ---------- sequencia ---------- */
 function montarSeq(){
-  const s=META[casoAtual].seq;
-  const v=document.getElementById('seqVideo');
+  const s=META[casoAtual].seq, v=document.getElementById('seqVideo');
   v.poster=s.poster; v.src=s.arquivo;
   document.getElementById('seqTexto').textContent=s.texto;
   document.getElementById('seqNome').textContent='Caso '+META[casoAtual].num;
   v.addEventListener('loadedmetadata',()=>{
-    document.getElementById('seqDur').textContent=Math.round(v.duration)+' s';
-  },{once:true});
+    document.getElementById('seqDur').textContent=Math.round(v.duration)+' s';},{once:true});
 }
 
-/* ---------- lightbox ---------- */
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
 function abrirLb(k){ lbImg.src=img(casoAtual,k); lb.classList.add('on'); }
 lb.addEventListener('click',()=>lb.classList.remove('on'));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('on'); });
 
-/* ---------- revelacao ---------- */
 const io2=new IntersectionObserver(es=>es.forEach(en=>{
   if(en.isIntersecting){ en.target.classList.add('in'); io2.unobserve(en.target); }
-}),{threshold:.12});
+}),{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>io2.observe(el));
 
 trocarCaso('c1');
