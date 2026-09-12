@@ -81,6 +81,65 @@ a{color:var(--vermelho)}
 .topo .arroba{margin-left:auto; font-size:13px; font-weight:600; color:#FFF;
   opacity:.7; text-decoration:none; white-space:nowrap}
 
+/* Seletor de caso, promovido do meio do hero para a barra preta: trocar de
+   caso e trocar de etapa sao a mesma decisao e tem de estar no mesmo lugar. */
+.topo .casos{display:flex; align-items:center; gap:5px; flex:none}
+.topo .caso{
+  background:transparent; border:0; cursor:pointer; font-family:inherit;
+  font-size:13.5px; font-weight:700; color:#FFF; opacity:.62; line-height:1;
+  padding:9px 13px; white-space:nowrap; border-radius:2px;
+  transition:opacity .15s, background-color .15s;
+}
+.topo .caso:hover{opacity:1; background:rgba(255,255,255,.11)}
+.topo .caso[aria-selected="true"]{opacity:1; background:var(--vermelho)}
+
+/* ---------- segunda barra grudada: a etapa do processo ----------
+   Fileira de editorias do portal, aplicada as secoes da pagina. Fica
+   logo abaixo da barra preta e acompanha a leitura: quem esta no fim
+   troca de etapa sem subir. */
+.barra-etapas{
+  position:sticky; top:58px; z-index:39; background:var(--branco);
+  border-bottom:1px solid var(--regua2);
+}
+.barra-etapas .wrap{display:flex; align-items:stretch; gap:0; height:44px}
+.etapas-rol{
+  display:flex; align-items:stretch; flex:1 1 auto; min-width:0;
+  overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+}
+.etapas-rol::-webkit-scrollbar{display:none}
+
+/* identificacao do caso e reportagem publica, presas a direita da barra */
+.fonte-caso{
+  display:flex; align-items:center; gap:10px; flex:none; padding-left:20px;
+  font-size:12.5px; color:var(--fraco); white-space:nowrap;
+}
+.fonte-caso b{font-weight:700; color:var(--tinta)}
+.fonte-caso em{font-style:normal}
+.fonte-caso a{
+  font-weight:700; color:var(--vermelho); text-decoration:none;
+  border-bottom:1px solid rgba(220,38,38,.38);
+}
+.fonte-caso a:hover{border-bottom-color:var(--vermelho)}
+.etapa{
+  display:flex; align-items:center; gap:7px; flex:none; position:relative;
+  padding:0 14px; text-decoration:none; white-space:nowrap;
+  font-size:13px; font-weight:700; color:var(--tinta2);
+  transition:color .15s;
+}
+.etapa:first-child{padding-left:0}
+.etapa:hover{color:var(--tinta)}
+.etapa::after{
+  content:''; position:absolute; left:14px; right:14px; bottom:0; height:3px;
+  background:var(--vermelho); transform:scaleX(0); transform-origin:left;
+  transition:transform .18s ease;
+}
+.etapa:first-child::after{left:0}
+.etapa[aria-current="true"]{color:var(--preto)}
+.etapa[aria-current="true"]::after{transform:scaleX(1)}
+
+/* a ancora tem de parar abaixo das duas barras, nao atras delas */
+section[id]{scroll-margin-top:106px}
+
 /* ---------- estrutura ---------- */
 main{padding:0 0 10px}
 section{padding:34px 0; border-bottom:1px solid var(--regua)}
@@ -280,7 +339,6 @@ p{margin:0 0 13px}
 @media (max-width:900px){
   .topo .arroba{display:none}
   .g4{grid-template-columns:repeat(3,1fr)}
-  .casos{grid-template-columns:1fr}
   .pair{grid-template-columns:1fr}
   .arrow{transform:rotate(90deg); height:28px}
   .numeros{gap:14px}
@@ -343,13 +401,6 @@ p{margin:0 0 13px}
 .palco .barra em{width:7px;height:7px;border-radius:50%;background:var(--vermelho);
   display:block; animation:pisca 1.8s ease-in-out infinite}
 
-/* seletor de caso enxuto, em pílulas */
-.pilulas{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
-.pilula{background:var(--cinza2); border:0; padding:9px 16px; cursor:pointer;
-  font-family:inherit; font-size:13.5px; font-weight:700; color:var(--tinta2)}
-.pilula:hover{background:var(--regua)}
-.pilula[aria-selected="true"]{background:var(--vermelho); color:#FFF}
-
 .resumo-linha{font-size:15px; color:var(--tinta2); margin:14px 0 0; max-width:72ch}
 .resumo-linha a{font-weight:700; text-decoration:none}
 
@@ -363,27 +414,59 @@ p{margin:0 0 13px}
   .salto .muitas{grid-template-columns:repeat(3,1fr)}
   .salto .mini{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ---------- as duas barras grudadas no celular ---------- */
+@media (max-width:640px){
+  .topo .wrap{height:52px; gap:14px}
+  .topo .caso{font-size:13px; padding:8px 11px}
+  .barra-etapas{top:52px}
+  .barra-etapas .wrap{height:40px}
+  .etapa{font-size:12.5px; padding:0 11px}
+  .etapa::after{left:11px; right:11px}
+  section[id]{scroll-margin-top:94px}
+}
+@media (max-width:1040px){ .fonte-caso em{display:none} }
+@media (max-width:860px){
+  .fonte-caso b{display:none}
+  .fonte-caso{padding-left:14px; border-left:1px solid var(--regua)}
+}
+@media (max-width:420px){
+  .topo .logo i{display:none}
+}
 </style>
 </head>
 <body>
 
 <header class="topo"><div class="wrap">
-  <a class="logo" href="#"><span><b>RECON</b><i>com IA</i></span></a>
-  <span class="aovivo"><em></em><span id="navCaso">Caso 01</span></span>
+  <a class="logo" href="#resultado"><span><b>RECON</b><i>com IA</i></span></a>
+  <div class="casos" id="casos" role="tablist" aria-label="Caso"></div>
   <a class="arroba" href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
 </div></header>
+
+<!-- Segunda barra grudada: a etapa do processo. Quem esta no fim da pagina
+     troca de caso ou de etapa sem ter de subir. -->
+<nav class="barra-etapas" aria-label="Etapa do processo"><div class="wrap">
+  <div class="etapas-rol">
+    <a class="etapa" href="#resultado" aria-current="true">A reconstituição</a>
+    <a class="etapa" href="#salto">Material recebido</a>
+    <a class="etapa" href="#prova">Origem das imagens</a>
+    <a class="etapa" href="#cenas">As cenas, uma a uma</a>
+  </div>
+  <!-- Sao casos reais. A barra e o lugar onde se troca de caso, entao a
+       identificacao e a reportagem publica tem de estar nela: quem troca
+       no fim da pagina precisa saber que caso passou a ver e de onde vem. -->
+  <span class="fonte-caso" id="fonteCaso"></span>
+</div></nav>
 
 <main>
 
 <!-- O resultado primeiro. Explicação depois, e pouca. -->
-<section>
+<section id="resultado">
   <div class="wrap">
     <p class="chapeu">Reconstituição de cenas com IA</p>
     <h1 id="manchete"></h1>
     <p class="linha-fina">Você entrega as fotos que já existem no processo e o relato.
     O resto é reconstruído — sem locação, sem elenco, sem equipe em campo.</p>
-
-    <div class="pilulas" id="pilulas" role="tablist"></div>
 
     <div class="palco">
       <video id="seqVideo" playsinline muted loop autoplay controls preload="metadata"></video>
@@ -395,18 +478,18 @@ p{margin:0 0 13px}
 </section>
 
 <!-- A peça inteira em uma imagem -->
-<section class="faixa-cinza">
+<section id="salto" class="faixa-cinza">
   <div class="wrap rv">
-    <h2 class="secao-titulo">O que entra e o que sai</h2>
+    <h2 class="secao-titulo">O que foi recebido, o que foi produzido</h2>
     <div class="salto">
       <div class="lado">
-        <div class="rot"><b>Entrou</b><span id="rotEntrou"></span></div>
+        <div class="rot"><b>Recebido</b><span id="rotEntrou"></span></div>
         <div class="mini" id="entrou"></div>
         <p class="conta" id="contaEntrou"></p>
       </div>
       <div class="seta">→</div>
       <div class="lado">
-        <div class="rot"><b>Saiu</b><span id="rotSaiu"></span></div>
+        <div class="rot"><b>Produzido</b><span id="rotSaiu"></span></div>
         <div class="muitas" id="saiu"></div>
         <p class="conta" id="contaSaiu"></p>
       </div>
@@ -429,7 +512,7 @@ p{margin:0 0 13px}
 </section>
 
 <!-- As cenas -->
-<section class="faixa-cinza">
+<section id="cenas" class="faixa-cinza">
   <div class="wrap rv">
     <h2 class="secao-titulo" id="tituloCenas"></h2>
     <div class="player">
@@ -471,13 +554,14 @@ const vid=(c,k)=>'assets/'+c+'/vid/'+k+'.mp4';
 const pos=(c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
 
 /* ---------- seletor de caso ---------- */
-const elPil=document.getElementById('pilulas');
+const elPil=document.getElementById('casos');
 Object.keys(META).forEach(id=>{
   const m=META[id];
   const b=document.createElement('button');
-  b.className='pilula'; b.type='button'; b.setAttribute('role','tab');
+  b.className='caso'; b.type='button'; b.setAttribute('role','tab');
   b.setAttribute('aria-selected', id===casoAtual?'true':'false');
-  b.textContent='Caso '+m.num+' · '+m.titulo;
+  b.title=m.titulo;                      // o titulo nao cabe na barra
+  b.textContent='Caso '+m.num;
   b.addEventListener('click',()=>trocar(id));
   elPil.appendChild(b);
 });
@@ -487,12 +571,13 @@ function trocar(id){
   const m=META[id], r=RESUMO[id];
   [...elPil.children].forEach((b,i)=>
     b.setAttribute('aria-selected', Object.keys(META)[i]===id?'true':'false'));
-  document.getElementById('navCaso').textContent='Caso '+m.num;
 
   document.getElementById('manchete').textContent =
     r.ref_total+' fotos e um relato entraram. '+r.cenas+' cenas saíram.';
   document.getElementById('resumoLinha').innerHTML =
     '<b>'+m.titulo+'</b> — '+m.local+', '+m.quando+'. '+m.fonte_curta;
+  document.getElementById('fonteCaso').innerHTML =
+    '<b>Caso '+m.num+' · '+m.titulo+'</b><em>'+m.local+'</em>'+m.fonte_curta;
 
   // sequencia
   const s=m.seq, sv=document.getElementById('seqVideo');
@@ -612,12 +697,44 @@ document.addEventListener('click',e=>{
   if(im){ lbImg.src=im.src.replace('/poster/','/poster/'); lb.classList.add('on'); }
 });
 
+/* ---------- etapa corrente na segunda barra ----------
+   Por handler de scroll, nao por IntersectionObserver: o observer nao
+   dispara de forma confiavel nesta janela e a barra ficaria mentindo. */
+const abas=[...document.querySelectorAll('.etapa')]
+  .map(a=>({a, el:document.querySelector(a.getAttribute('href'))}))
+  .filter(x=>x.el);
+function marcarEtapa(){
+  const limite=document.querySelector('.topo').offsetHeight
+               +document.querySelector('.barra-etapas').offsetHeight+14;
+  let atual=abas[0];
+  for(const x of abas) if(x.el.getBoundingClientRect().top<=limite) atual=x;
+  // o rodape nao tem aba: no fim da pagina a ultima etapa continua valendo
+  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)
+    atual=abas[abas.length-1];
+  abas.forEach(x=>x.a.setAttribute('aria-current', x===atual?'true':'false'));
+  // no celular a fileira rola: trazer a etapa corrente para a vista, mas so
+  // quando ela muda, senao briga com quem esta arrastando a barra na mao
+  if(atual && atual!==ultimaAba){
+    ultimaAba=atual;
+    const rol=document.querySelector('.etapas-rol'), e=atual.a;
+    if(rol.scrollWidth>rol.clientWidth+1)
+      rol.scrollTo({left:Math.max(0, e.offsetLeft-(rol.clientWidth-e.offsetWidth)/2),
+                    behavior:'smooth'});
+  }
+}
+let ultimaAba=null;
+let agendado=false;
+addEventListener('scroll',()=>{ if(agendado) return; agendado=true;
+  requestAnimationFrame(()=>{ marcarEtapa(); agendado=false; }); },{passive:true});
+addEventListener('resize',marcarEtapa,{passive:true});
+
 const io2=new IntersectionObserver(es=>es.forEach(en=>{
   if(en.isIntersecting){ en.target.classList.add('in'); io2.unobserve(en.target); }
 }),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io2.observe(el));
 
 trocar('c1');
+marcarEtapa();
 </script>
 </body>
 </html>

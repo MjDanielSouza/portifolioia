@@ -66,22 +66,35 @@ HTML = """<!DOCTYPE html>
 <body>
 
 <header class="topo"><div class="wrap">
-  <a class="logo" href="#"><span><b>RECON</b><i>com IA</i></span></a>
-  <span class="aovivo"><em></em><span id="navCaso">Caso 01</span></span>
+  <a class="logo" href="#resultado"><span><b>RECON</b><i>com IA</i></span></a>
+  <div class="casos" id="casos" role="tablist" aria-label="Caso"></div>
   <a class="arroba" href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
 </div></header>
+
+<!-- Segunda barra grudada: a etapa do processo. Quem esta no fim da pagina
+     troca de caso ou de etapa sem ter de subir. -->
+<nav class="barra-etapas" aria-label="Etapa do processo"><div class="wrap">
+  <div class="etapas-rol">
+    <a class="etapa" href="#resultado" aria-current="true">A reconstituição</a>
+    <a class="etapa" href="#salto">Material recebido</a>
+    <a class="etapa" href="#prova">Origem das imagens</a>
+    <a class="etapa" href="#cenas">As cenas, uma a uma</a>
+  </div>
+  <!-- Sao casos reais. A barra e o lugar onde se troca de caso, entao a
+       identificacao e a reportagem publica tem de estar nela: quem troca
+       no fim da pagina precisa saber que caso passou a ver e de onde vem. -->
+  <span class="fonte-caso" id="fonteCaso"></span>
+</div></nav>
 
 <main>
 
 <!-- O resultado primeiro. Explicação depois, e pouca. -->
-<section>
+<section id="resultado">
   <div class="wrap">
     <p class="chapeu">Reconstituição de cenas com IA</p>
     <h1 id="manchete"></h1>
     <p class="linha-fina">Você entrega as fotos que já existem no processo e o relato.
     O resto é reconstruído — sem locação, sem elenco, sem equipe em campo.</p>
-
-    <div class="pilulas" id="pilulas" role="tablist"></div>
 
     <div class="palco">
       <video id="seqVideo" playsinline muted loop autoplay controls preload="metadata"></video>
@@ -93,18 +106,18 @@ HTML = """<!DOCTYPE html>
 </section>
 
 <!-- A peça inteira em uma imagem -->
-<section class="faixa-cinza">
+<section id="salto" class="faixa-cinza">
   <div class="wrap rv">
-    <h2 class="secao-titulo">O que entra e o que sai</h2>
+    <h2 class="secao-titulo">O que foi recebido, o que foi produzido</h2>
     <div class="salto">
       <div class="lado">
-        <div class="rot"><b>Entrou</b><span id="rotEntrou"></span></div>
+        <div class="rot"><b>Recebido</b><span id="rotEntrou"></span></div>
         <div class="mini" id="entrou"></div>
         <p class="conta" id="contaEntrou"></p>
       </div>
       <div class="seta">→</div>
       <div class="lado">
-        <div class="rot"><b>Saiu</b><span id="rotSaiu"></span></div>
+        <div class="rot"><b>Produzido</b><span id="rotSaiu"></span></div>
         <div class="muitas" id="saiu"></div>
         <p class="conta" id="contaSaiu"></p>
       </div>
@@ -127,7 +140,7 @@ HTML = """<!DOCTYPE html>
 </section>
 
 <!-- As cenas -->
-<section class="faixa-cinza">
+<section id="cenas" class="faixa-cinza">
   <div class="wrap rv">
     <h2 class="secao-titulo" id="tituloCenas"></h2>
     <div class="player">
@@ -169,13 +182,14 @@ const vid=(c,k)=>'assets/'+c+'/vid/'+k+'.mp4';
 const pos=(c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
 
 /* ---------- seletor de caso ---------- */
-const elPil=document.getElementById('pilulas');
+const elPil=document.getElementById('casos');
 Object.keys(META).forEach(id=>{
   const m=META[id];
   const b=document.createElement('button');
-  b.className='pilula'; b.type='button'; b.setAttribute('role','tab');
+  b.className='caso'; b.type='button'; b.setAttribute('role','tab');
   b.setAttribute('aria-selected', id===casoAtual?'true':'false');
-  b.textContent='Caso '+m.num+' · '+m.titulo;
+  b.title=m.titulo;                      // o titulo nao cabe na barra
+  b.textContent='Caso '+m.num;
   b.addEventListener('click',()=>trocar(id));
   elPil.appendChild(b);
 });
@@ -185,12 +199,13 @@ function trocar(id){
   const m=META[id], r=RESUMO[id];
   [...elPil.children].forEach((b,i)=>
     b.setAttribute('aria-selected', Object.keys(META)[i]===id?'true':'false'));
-  document.getElementById('navCaso').textContent='Caso '+m.num;
 
   document.getElementById('manchete').textContent =
     r.ref_total+' fotos e um relato entraram. '+r.cenas+' cenas saíram.';
   document.getElementById('resumoLinha').innerHTML =
     '<b>'+m.titulo+'</b> — '+m.local+', '+m.quando+'. '+m.fonte_curta;
+  document.getElementById('fonteCaso').innerHTML =
+    '<b>Caso '+m.num+' · '+m.titulo+'</b><em>'+m.local+'</em>'+m.fonte_curta;
 
   // sequencia
   const s=m.seq, sv=document.getElementById('seqVideo');
@@ -310,12 +325,44 @@ document.addEventListener('click',e=>{
   if(im){ lbImg.src=im.src.replace('/poster/','/poster/'); lb.classList.add('on'); }
 });
 
+/* ---------- etapa corrente na segunda barra ----------
+   Por handler de scroll, nao por IntersectionObserver: o observer nao
+   dispara de forma confiavel nesta janela e a barra ficaria mentindo. */
+const abas=[...document.querySelectorAll('.etapa')]
+  .map(a=>({a, el:document.querySelector(a.getAttribute('href'))}))
+  .filter(x=>x.el);
+function marcarEtapa(){
+  const limite=document.querySelector('.topo').offsetHeight
+               +document.querySelector('.barra-etapas').offsetHeight+14;
+  let atual=abas[0];
+  for(const x of abas) if(x.el.getBoundingClientRect().top<=limite) atual=x;
+  // o rodape nao tem aba: no fim da pagina a ultima etapa continua valendo
+  if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)
+    atual=abas[abas.length-1];
+  abas.forEach(x=>x.a.setAttribute('aria-current', x===atual?'true':'false'));
+  // no celular a fileira rola: trazer a etapa corrente para a vista, mas so
+  // quando ela muda, senao briga com quem esta arrastando a barra na mao
+  if(atual && atual!==ultimaAba){
+    ultimaAba=atual;
+    const rol=document.querySelector('.etapas-rol'), e=atual.a;
+    if(rol.scrollWidth>rol.clientWidth+1)
+      rol.scrollTo({left:Math.max(0, e.offsetLeft-(rol.clientWidth-e.offsetWidth)/2),
+                    behavior:'smooth'});
+  }
+}
+let ultimaAba=null;
+let agendado=false;
+addEventListener('scroll',()=>{ if(agendado) return; agendado=true;
+  requestAnimationFrame(()=>{ marcarEtapa(); agendado=false; }); },{passive:true});
+addEventListener('resize',marcarEtapa,{passive:true});
+
 const io2=new IntersectionObserver(es=>es.forEach(en=>{
   if(en.isIntersecting){ en.target.classList.add('in'); io2.unobserve(en.target); }
 }),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io2.observe(el));
 
 trocar('c1');
+marcarEtapa();
 </script>
 </body>
 </html>
