@@ -25,30 +25,30 @@ dos fatos · comparativo com reconstituição filmada.
 A **sequência dos fatos** é o material gerado colado na ordem, com cortes
 secos — 45 s no caso 01, 48 s no caso 02. Não é montagem final.
 
-## Sistema visual — portal
+## Sistema visual — portal por assinatura
 
-Registro de site de notícia brasileiro. Tokens medidos no g1.globo.com:
+Tokens medidos no cnnbrasil.com.br:
 
 | | |
 |---|---|
-| Chão | `#F9F9F9` · card `#FFFFFF` · leito `#EFEFEF` |
-| Texto | corpo `#333333` · apoio `#555555` · fraco `#888888` |
-| Régua | `#E4E4E4` |
-| Vermelho | `#C4170C` |
-| Faixa superior | `#1A1A1A` |
+| Fundo | `#FFFFFF` · faixa `#FAFAFA` · leito `#F5F5F5` |
+| Manchete | `#000000` — **preta**, tracking normal |
+| Título de seção | `#DC2626` — o vermelho é da **seção**, não da manchete |
+| Corpo | `#171717` · apoio `#525252` · fraco `#737373` |
+| Barra do topo | `#000000`, grudada |
+| Régua | `#E5E5E5` |
 
-Tipografia **Open Sans** (400/600/700/800). A assinatura do gênero é a
-manchete em **700 com tracking negativo apertado** (−0,035em) e entrelinha
-1,1 — é o que faz a página ser reconhecida como portal antes de qualquer
-leitura.
+Tipografia **Inter** — a fonte do veículo (`cnnSans`) é proprietária; Inter é
+a neutra livre mais próxima.
 
-Estrutura: faixa preta de seções, barra vermelha da marca, nav grudada no
-topo, conteúdo em cards brancos sobre cinza, rodapé escuro.
+O que distingue este registro do g1, e por isso define o sistema: lá a
+manchete é vermelha e com tracking apertado; aqui é **preta e com tracking
+normal**, e o vermelho fica reservado a título de seção, chapéu, marcador
+e quadradinho de lista.
 
 **A gramática é de portal; a marca é do autor.** Nenhum logo, wordmark ou
-nome de veículo de imprensa aparece na página — copiar marca alheia num
-portfólio queima justamente com o cliente que se quer atender. O rodapé
-declara que o site não tem vínculo com nenhum veículo.
+nome de veículo aparece na página, e o rodapé declara que o site não tem
+vínculo com imprensa.
 
 ## Estrutura
 
