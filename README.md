@@ -10,7 +10,7 @@ viram uma reconstituição.
 | | Caso | Etapas | Imagens | Planos |
 |---|---|---|---|---|
 | 01 | Dívida de R$ 400 — homicídio e ocultação de cadáver | 5 | 60 | 14 |
-| 02 | Confusão na Ilha do Mel — importunação e desacato | 4 | 42 | 15 |
+| 02 | Confusão na Ilha do Mel — importunação e desacato | 4 | 42 | 11 |
 
 Cada caso tem fonte pública linkada na própria página. **Nomes omitidos por
 escolha editorial** — a imprensa não nomeia os envolvidos, e portfólio
@@ -23,7 +23,7 @@ Seletor de casos · o caso · as etapas navegáveis · antes/depois arrastável
 dos fatos · comparativo com reconstituição filmada.
 
 A **sequência dos fatos** é o material gerado colado na ordem, com cortes
-secos — 45 s no caso 01, 48 s no caso 02. Não é montagem final.
+secos — 45 s no caso 01, 35 s no caso 02. Não é montagem final.
 
 ## Sistema visual — portal por assinatura
 

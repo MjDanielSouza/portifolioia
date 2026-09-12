@@ -296,64 +296,64 @@
      "nome": "VÍDEOS IA",
      "conta": "14 planos",
      "sub": "Cada frame aprovado vira movimento. 24 fps, planos de cinco segundos.",
-     "nota": "Estão aqui <b>os 14 planos gerados</b>, na ordem da narrativa, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.",
+     "nota": "Os <b>14 planos gerados</b>, <b>na ordem dos fatos</b>, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.",
      "tipo": "video",
      "itens": [
       [
        "t_01",
-       "Take 01"
+       "Cena 01"
       ],
       [
        "t_02",
-       "Take 02"
+       "Cena 02"
       ],
       [
        "t_03",
-       "Take 03"
+       "Cena 03"
       ],
       [
        "t_04",
-       "Take 04"
+       "Cena 04"
       ],
       [
        "t_05",
-       "Take 05"
+       "Cena 05"
       ],
       [
        "t_06",
-       "Take 06"
+       "Cena 06"
       ],
       [
        "t_07",
-       "Take 07"
+       "Cena 07"
       ],
       [
        "t_08",
-       "Take 08"
+       "Cena 08"
       ],
       [
        "t_09",
-       "Take 09"
+       "Cena 09"
       ],
       [
        "t_10",
-       "Take 10"
+       "Cena 10"
       ],
       [
        "t_11",
-       "Take 11"
+       "Cena 11"
       ],
       [
        "t_12",
-       "Take 12"
+       "Cena 12"
       ],
       [
        "t_13",
-       "Take 13"
+       "Cena 13"
       ],
       [
        "t_14",
-       "Take 14"
+       "Cena 14"
       ]
      ]
     }
@@ -569,70 +569,54 @@
     {
      "tag": "04",
      "nome": "VÍDEOS IA",
-     "conta": "15 planos",
+     "conta": "11 planos",
      "sub": "Cada frame vira movimento; depois, montagem e finalização.",
-     "nota": "Os <b>15 planos gerados</b>, cortados em ~3 s e em loop.",
+     "nota": "Os <b>11 planos gerados</b>, <b>na ordem dos fatos</b>, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.",
      "tipo": "video",
      "itens": [
       [
        "t_01",
-       "Take 01"
+       "Cena 01"
       ],
       [
        "t_02",
-       "Take 02"
+       "Cena 02"
       ],
       [
        "t_03",
-       "Take 03"
+       "Cena 03"
       ],
       [
        "t_04",
-       "Take 04"
+       "Cena 04"
       ],
       [
        "t_05",
-       "Take 05"
+       "Cena 05"
       ],
       [
        "t_06",
-       "Take 06"
+       "Cena 06"
       ],
       [
        "t_07",
-       "Take 07"
+       "Cena 07"
       ],
       [
        "t_08",
-       "Take 08"
+       "Cena 08"
       ],
       [
        "t_09",
-       "Take 09"
+       "Cena 09"
       ],
       [
        "t_10",
-       "Take 10"
+       "Cena 10"
       ],
       [
        "t_11",
-       "Take 11"
-      ],
-      [
-       "t_12",
-       "Take 12"
-      ],
-      [
-       "t_13",
-       "Take 13"
-      ],
-      [
-       "t_14",
-       "Take 14"
-      ],
-      [
-       "t_15",
-       "Take 15"
+       "Cena 11"
       ]
      ]
     }
