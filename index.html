@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reconstituição com IA — dois casos</title>
-<meta name="description" content="Dois casos reconstituídos com IA: de fotos de inquérito e um relato ao plano em movimento.">
+<title>Reconstituição de cenas com IA</title>
+<meta name="description" content="De poucas fotos e um relato a uma reconstituição com dezenas de cenas.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23DC2626'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='19' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Reconstituição com IA — dois casos">
-<meta property="og:description" content="De fotos de inquérito e um relato ao plano em movimento.">
+<meta property="og:title" content="Reconstituição de cenas com IA">
+<meta property="og:description" content="De poucas fotos e um relato a uma reconstituição com dezenas de cenas.">
 <meta property="og:image" content="assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <style>@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/Inter-400.woff2) format('woff2')}
@@ -308,128 +308,139 @@ p{margin:0 0 13px}
   .rv{opacity:1; transform:none}
   html{scroll-behavior:auto}
 }
+
+/* =====================================================================
+   BLOCO ENTROU -> SAIU
+   O argumento da peça é a desproporção: pouca referência de um lado,
+   muita cena do outro. Por isso a coluna da esquerda é estreita e a da
+   direita ocupa o resto — a diferença de área é o argumento.
+   ===================================================================== */
+.salto{display:grid; grid-template-columns:minmax(0,.42fr) 52px minmax(0,1fr);
+  align-items:start; gap:0; margin-top:26px}
+.salto .lado{min-width:0}
+.salto .rot{display:flex; align-items:baseline; gap:9px; margin:0 0 12px}
+.salto .rot b{font-size:12.5px; font-weight:700; color:var(--vermelho);
+  text-transform:uppercase; letter-spacing:.06em}
+.salto .rot span{font-size:12.5px; color:var(--fraco)}
+.salto .mini{display:grid; grid-template-columns:repeat(3,1fr); gap:5px}
+.salto .mini img{width:100%; aspect-ratio:1; object-fit:cover; display:block;
+  background:var(--cinza2)}
+.salto .muitas{display:grid; grid-template-columns:repeat(6,1fr); gap:5px}
+.salto .muitas img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+  background:var(--cinza2)}
+.salto .seta{display:flex; align-items:center; justify-content:center;
+  color:var(--vermelho); font-size:26px; font-weight:800; padding-top:34px}
+.salto .conta{margin-top:10px; font-size:13px; color:var(--tinta2); font-weight:600}
+.salto .conta em{font-style:normal; color:var(--vermelho); font-weight:800}
+
+/* vídeo de abertura, o resultado antes de qualquer explicação */
+.palco{margin-top:24px; background:#000; position:relative; overflow:hidden}
+.palco video{width:100%; display:block; aspect-ratio:16/9; background:#000}
+.palco .barra{display:flex; align-items:center; gap:9px; padding:10px 14px;
+  background:var(--preto); color:#BBB; font-size:12.5px}
+.palco .barra b{color:#FFF; font-weight:700}
+.palco .barra span{margin-left:auto}
+.palco .barra em{width:7px;height:7px;border-radius:50%;background:var(--vermelho);
+  display:block; animation:pisca 1.8s ease-in-out infinite}
+
+/* seletor de caso enxuto, em pílulas */
+.pilulas{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
+.pilula{background:var(--cinza2); border:0; padding:9px 16px; cursor:pointer;
+  font-family:inherit; font-size:13.5px; font-weight:700; color:var(--tinta2)}
+.pilula:hover{background:var(--regua)}
+.pilula[aria-selected="true"]{background:var(--vermelho); color:#FFF}
+
+.resumo-linha{font-size:15px; color:var(--tinta2); margin:14px 0 0; max-width:72ch}
+.resumo-linha a{font-weight:700; text-decoration:none}
+
+@media (max-width:860px){
+  .salto{grid-template-columns:1fr; gap:22px}
+  .salto .seta{transform:rotate(90deg); padding:0; height:30px}
+  .salto .muitas{grid-template-columns:repeat(4,1fr)}
+  .salto .mini{grid-template-columns:repeat(6,1fr)}
+}
+@media (max-width:460px){
+  .salto .muitas{grid-template-columns:repeat(3,1fr)}
+  .salto .mini{grid-template-columns:repeat(4,1fr)}
+}
 </style>
 </head>
 <body>
 
-<!-- Barra preta unica, grudada no topo. A marca e do autor: nenhum
-     logo, wordmark ou nome de veiculo de imprensa aparece aqui. -->
 <header class="topo"><div class="wrap">
   <a class="logo" href="#"><span><b>RECON</b><i>com IA</i></span></a>
-  <span class="aovivo"><em></em><span id="navCaso">2 casos</span></span>
-  <a class="link" href="#casos">Casos</a>
-  <a class="link" href="#caso">O caso</a>
-  <a class="link" href="#metodo">Etapas</a>
-  <a class="link" href="#antesdepois">Antes e depois</a>
-  <a class="link" href="#derivacao">Personagens</a>
-  <a class="link" href="#sequencia">Sequência</a>
-  <a class="link" href="#comparativo">O que muda</a>
+  <span class="aovivo"><em></em><span id="navCaso">Caso 01</span></span>
   <a class="arroba" href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
 </div></header>
 
 <main>
 
+<!-- O resultado primeiro. Explicação depois, e pouca. -->
 <section>
   <div class="wrap">
-    <p class="chapeu">Portfólio · Reconstituição forense</p>
-    <h1>Fotos de inquérito e um relato entram. Uma reconstituição sai.</h1>
-    <p class="linha-fina">Sem locação, sem elenco, sem equipe em campo. O cenário já
-    está na foto que o processo tem; o resto é derivado dela.</p>
-    <ul class="itens">
-      <li>Dois casos reais, com fonte pública linkada em cada um</li>
-      <li>O acervo inteiro em quadro, etapa por etapa</li>
-      <li>Os planos gerados e a sequência dos fatos montada</li>
-    </ul>
-    <dl class="numeros">
-      <div><dt>Casos</dt><dd>2 reconstituídos</dd></div>
-      <div><dt>Material em quadro</dt><dd>102 imagens</dd></div>
-      <div><dt>Planos gerados</dt><dd>25</dd></div>
-    </dl>
-    <p class="meta-linha"><b>Daniel Souza</b> · atualizado em 2026 · fontes públicas linkadas em cada caso</p>
+    <p class="chapeu">Reconstituição de cenas com IA</p>
+    <h1 id="manchete"></h1>
+    <p class="linha-fina">Você entrega as fotos que já existem no processo e o relato.
+    O resto é reconstruído — sem locação, sem elenco, sem equipe em campo.</p>
+
+    <div class="pilulas" id="pilulas" role="tablist"></div>
+
+    <div class="palco">
+      <video id="seqVideo" playsinline muted loop autoplay controls preload="metadata"></video>
+      <div class="barra"><em></em><b id="seqNome"></b> a reconstituição montada
+        <span id="seqDur"></span></div>
+    </div>
+    <p class="resumo-linha" id="resumoLinha"></p>
   </div>
 </section>
 
-<section id="casos">
+<!-- A peça inteira em uma imagem -->
+<section class="faixa-cinza">
   <div class="wrap rv">
-      <h2 class="secao-titulo">Dois casos, o mesmo método<span class="thin">escolha um para percorrer</span></h2>
-      <div class="casos" id="casosGrade" role="tablist"></div>
-  </div>
-</section>
-
-<section id="caso">
-  <div class="wrap rv">
-      <p class="chapeu" id="casoChapeu"></p>
-      <h2 id="casoTitulo" class="secao-titulo"></h2>
-      <div id="casoTexto"></div>
-      <p class="meta-linha" id="casoMeta"></p>
-  </div>
-</section>
-
-<section id="metodo" class="faixa-cinza">
-  <div class="wrap rv">
-      <h2 class="secao-titulo">As etapas<span class="thin">do acervo bruto ao plano em movimento</span></h2>
-      <p class="lead" style="margin-bottom:18px">Toque numa etapa para ver o que entra e
-      o que sai dela. No computador as setas ← → também funcionam.</p>
-      <div class="steps" role="tablist" id="steps"></div>
-      <div id="panel"></div>
-  </div>
-</section>
-
-<section id="antesdepois">
-  <div class="wrap rv">
-      <h2 class="secao-titulo">Antes e depois<span class="thin">a mesma foto, esvaziada de gente</span></h2>
-      <p class="lead" style="margin-bottom:16px">A perícia sai de quadro e o local
-      permanece. É esta chapa limpa que vira cenário para os personagens — a geometria,
-      a luz e a textura do lugar real continuam ali. Arraste.</p>
-      <div class="batabs" id="batabs"></div>
-      <div class="ba" id="ba">
-        <img id="baBefore" alt="Foto original do local"><img id="baAfter" class="after" alt="O mesmo local sem pessoas">
-        <div class="handle"></div><div class="knob">↔</div>
-        <span class="lbl l">Inquérito</span><span class="lbl r">Cenário limpo</span>
+    <h2 class="secao-titulo">O que entra e o que sai</h2>
+    <div class="salto">
+      <div class="lado">
+        <div class="rot"><b>Entrou</b><span id="rotEntrou"></span></div>
+        <div class="mini" id="entrou"></div>
+        <p class="conta" id="contaEntrou"></p>
       </div>
-  </div>
-</section>
-
-<section id="derivacao" class="faixa-cinza">
-  <div class="wrap rv">
-      <h2 class="secao-titulo">Da foto ao personagem<span class="thin">o elenco não foi inventado, foi derivado</span></h2>
-      <p class="lead" style="margin-bottom:18px">Cada pessoa envolvida vira um character
-      sheet de três vistas. É esse arquivo que garante que o personagem não mude de rosto,
-      de roupa ou de altura entre um plano e outro — o problema que derruba a maioria das
-      tentativas de vídeo com IA.</p>
-      <div class="deriv" id="deriv"></div>
-  </div>
-</section>
-
-<section id="sequencia">
-  <div class="wrap rv">
-      <h2 class="secao-titulo">A sequência dos fatos<span class="thin">os planos colados na ordem</span></h2>
-      <p class="lead" id="seqTexto" style="margin-bottom:18px"></p>
-      <div class="seq">
-        <video id="seqVideo" controls preload="metadata" playsinline></video>
-        <div class="cap"><b id="seqNome"></b> cortes secos <span id="seqDur"></span></div>
+      <div class="seta">→</div>
+      <div class="lado">
+        <div class="rot"><b>Saiu</b><span id="rotSaiu"></span></div>
+        <div class="muitas" id="saiu"></div>
+        <p class="conta" id="contaSaiu"></p>
       </div>
+    </div>
   </div>
 </section>
 
-<section id="comparativo" class="faixa-cinza">
+<!-- Prova visual, sem texto -->
+<section id="prova">
   <div class="wrap rv">
-      <h2 class="secao-titulo">Contra a reconstituição filmada<span class="thin">onde o método ganha, e onde não ganha</span></h2>
-      <table class="cmp">
-        <thead><tr><th>&nbsp;</th><th>Filmada</th><th>Com IA</th></tr></thead>
-        <tbody>
-          <tr><th>Locação</th><td data-col="Filmada">Local original ou similar, com autorização e janela de acesso</td><td data-col="Com IA">Reconstruída a partir das fotos que já existem no inquérito</td></tr>
-          <tr><th>Elenco</th><td data-col="Filmada">Atores, direção, figurino, caracterização</td><td data-col="Com IA">Character sheets derivados das fotos, consistentes entre planos</td></tr>
-          <tr><th>Equipe em campo</th><td data-col="Filmada">Câmera, luz, som, produção, transporte</td><td data-col="Com IA">Nenhuma</td></tr>
-          <tr><th>Refazer um plano</th><td data-col="Filmada">Nova diária, reagendar local e elenco</td><td data-col="Com IA">Novo frame a partir do mesmo cenário e do mesmo personagem</td></tr>
-          <tr><th>Exposição de pessoas</th><td data-col="Filmada">Atores reencenam o crime; o local é ocupado de novo</td><td data-col="Com IA">Ninguém é filmado e ninguém volta ao local</td></tr>
-          <tr><th>Onde não ganha</th><td data-col="Filmada">Movimento longo e contínuo, plano-sequência, ação física complexa</td><td data-col="Com IA">Cada plano nasce curto; continuidade longa exige montagem</td></tr>
-          <tr><th>Prazo</th><td data-col="Filmada">2 a 3 semanas — o trabalho são poucos dias; o que come o prazo é agendar local, autorização e elenco</td><td data-col="Com IA"><span class="destaque">3 a 4 dias.</span> Dia 1: relato, pesquisa e frames. Dia 2: vídeos. Dia 3: montagem</td></tr>
-        </tbody>
-      </table>
-      <p class="panel-note"><b>O prazo com IA é medido nestes dois casos.</b> O da filmada
-      é estimativa de produção pequena — a maior parte é calendário de agendamento, não
-      dia de trabalho. Confira antes de levar a uma proposta.</p>
+    <h2 class="secao-titulo" id="tituloProva"></h2>
+    <div class="batabs" id="batabs"></div>
+    <div class="ba" id="ba">
+      <img id="baBefore" alt="Foto do local"><img id="baAfter" class="after" alt="O mesmo local sem pessoas">
+      <div class="handle"></div><div class="knob">↔</div>
+      <span class="lbl l">Foto real</span><span class="lbl r">Cenário</span>
+    </div>
+    <div class="deriv" id="deriv"></div>
+  </div>
+</section>
+
+<!-- As cenas -->
+<section class="faixa-cinza">
+  <div class="wrap rv">
+    <h2 class="secao-titulo" id="tituloCenas"></h2>
+    <div class="player">
+      <div class="screen">
+        <video id="vMain" playsinline muted loop autoplay preload="metadata"></video>
+        <button class="playbtn" id="playbtn" type="button" aria-label="Reproduzir"><i>&#9654;</i></button>
+        <div class="screenbar"><em></em><b id="vLabel"></b>
+          <span>loop · sem áudio · toque para pausar</span></div>
+      </div>
+      <div class="takes" id="takes"></div>
+    </div>
   </div>
 </section>
 
@@ -437,16 +448,14 @@ p{margin:0 0 13px}
 
 <footer class="rodape">
   <div class="wrap">
-    <h2 class="secao-titulo">Fotos e um relato entram.<span class="thin">Uma reconstituição sai.</span></h2>
-    <p class="lead">O que existia era um inquérito. O que saiu dá para assistir — e pode
-    ser refeito, corrigido e reenquadrado sem voltar ao local.</p>
+    <h2 class="secao-titulo">Entrega em 3 a 4 dias<span class="thin">de poucas fotos e um relato a uma reconstituição que dá para assistir</span></h2>
     <div class="assin">
       <b>Daniel Souza</b>
       <a href="https://instagram.com/7danielsouza" target="_blank" rel="noopener">@7danielsouza</a>
     </div>
-    <p class="aviso">As imagens integram processos criminais com reportagem pública. Uso
-    restrito à demonstração do método. Nomes omitidos por escolha editorial. Este site é
-    portfólio pessoal e não tem vínculo com nenhum veículo de imprensa.</p>
+    <p class="aviso">Casos reais, com reportagem pública. As imagens integram processos
+    criminais e o uso aqui é restrito à demonstração do método. Nomes omitidos por escolha
+    editorial. Este site é portfólio pessoal e não tem vínculo com nenhum veículo de imprensa.</p>
   </div>
 </footer>
 
@@ -454,120 +463,82 @@ p{margin:0 0 13px}
 
 <script>
 const MANIFESTO = {"casos": [{"id": "c1", "etapas": [{"tag": "01", "nome": "REFERÊNCIA", "conta": "12 arquivos", "sub": "O que já existia: fotos do inquérito, do local e das pessoas envolvidas.", "nota": "<b>Só isto é matéria-prima real.</b> Tudo o que vem depois é derivado daqui — e é por isso que a reconstituição pode ser conferida contra o que está no processo.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["01_01", "Autor · frontal"], ["01_02", "Autor · corredor"], ["01_03", "Autor · perfil"], ["01_04", "Autor · três quartos"], ["01_05", "Segundo envolvido"], ["01_06", "Segundo envolvido · 02"], ["01_07", "Vítima"], ["01_08", "Local · onde o corpo estava"], ["01_09", "Local · escada e garagem"], ["01_10", "Local · remoção"], ["01_11", "Local · fundos"], ["01_12", "Local · terreno"]]}, {"tag": "02", "nome": "CENÁRIO", "conta": "17 arquivos", "sub": "O local esvaziado de gente, e os objetos do caso isolados em chapa própria.", "nota": "A chapa limpa preserva a geometria e a luz do lugar real. A <b>frigideira</b> e o <b>cobertor</b> — os dois objetos que aparecem no relato — foram recortados para poderem ser recolocados em qualquer plano.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["02_01", "Garagem · limpa"], ["02_02", "Frente da casa"], ["02_03", "Fundos · limpo"], ["02_04", "Terreno"], ["02_05", "Local da ocultação"], ["02_06", "Terreno · original"], ["02_07", "Sala · panorâmica"], ["02_08", "Sala · variação"], ["02_09", "Sala com o objeto"], ["02_10", "Sala · reconstruída"], ["02_11", "Sala · ampla"], ["02_12", "Interior · referência"], ["02_13", "Objetos · referência"], ["02_14", "Objeto isolado · 9 ângulos"], ["02_15", "Cobertor isolado"]]}, {"tag": "03", "nome": "PERSONAGENS", "conta": "3 arquivos", "sub": "Cada envolvido vira um character sheet de três vistas, para não variar entre planos.", "nota": "<b>É a etapa que sustenta todas as outras.</b> Sem o sheet, o mesmo personagem sai com outro rosto a cada geração e a sequência deixa de ler como uma cena única.", "tipo": "grid", "cols": "g1", "tall": true, "itens": [["03_01", "Personagem A · três vistas"], ["03_02", "Personagem B · três vistas"], ["03_03", "Personagem C · três vistas"]]}, {"tag": "04", "nome": "STILL FRAMES", "conta": "94 arquivos", "sub": "A cena desenhada quadro a quadro, com continuidade de luz e timecode em quadro.", "nota": "Trinta dos 94 frames, cobrindo o percurso inteiro do relato — do encontro à ocultação. É o volume real do trabalho de storyboard.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["04_01", "Frame 003"], ["04_02", "Frame 007"], ["04_03", "Frame 011"], ["04_04", "Frame 015"], ["04_05", "Frame 017"], ["04_06", "Frame 021"], ["04_07", "Frame 024"], ["04_08", "Frame 028"], ["04_09", "Frame 031"], ["04_10", "Frame 034"], ["04_11", "Frame 037"], ["04_12", "Frame 041"], ["04_13", "Frame 044"], ["04_14", "Frame 046"], ["04_15", "Frame 049"], ["04_16", "Frame 052"], ["04_17", "Frame 055"], ["04_18", "Frame 058"], ["04_19", "Frame 061"], ["04_20", "Frame 064"], ["04_21", "Frame 067"], ["04_22", "Frame 071"], ["04_23", "Frame 074"], ["04_24", "Frame 077"], ["04_25", "Frame 080"], ["04_26", "Frame 083"], ["04_27", "Frame 086"], ["04_28", "Frame 089"], ["04_29", "Frame 092"], ["04_30", "Frame 094"]]}, {"tag": "05", "nome": "VÍDEOS IA", "conta": "14 planos", "sub": "Cada frame aprovado vira movimento. 24 fps, planos de cinco segundos.", "nota": "Os <b>14 planos gerados</b>, <b>na ordem dos fatos</b>, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.", "tipo": "video", "itens": [["t_01", "Cena 01"], ["t_02", "Cena 02"], ["t_03", "Cena 03"], ["t_04", "Cena 04"], ["t_05", "Cena 05"], ["t_06", "Cena 06"], ["t_07", "Cena 07"], ["t_08", "Cena 08"], ["t_09", "Cena 09"], ["t_10", "Cena 10"], ["t_11", "Cena 11"], ["t_12", "Cena 12"], ["t_13", "Cena 13"], ["t_14", "Cena 14"]]}]}, {"id": "c2", "etapas": [{"tag": "01", "nome": "REFERÊNCIA", "conta": "13 arquivos", "sub": "O ponto de partida: fotos do local, das pessoas e do contexto.", "nota": "<b>Nada aqui foi gerado.</b> São as imagens que existiam antes — o restaurante, a praia e os envolvidos.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["01_01", "Restaurante · fachada"], ["01_02", "Salão · balcão"], ["01_03", "Salão · outro ângulo"], ["01_04", "Praia · faixa de areia"], ["01_05", "Praia · vista ampla"], ["01_06", "Restaurante · aérea"], ["01_07", "Envolvido A · 01"], ["01_08", "Envolvido A · 02"], ["01_09", "Envolvido A · 03"], ["01_10", "Envolvido A · 04"], ["01_11", "Envolvido A · 05"], ["01_12", "Envolvido B"], ["01_13", "Acompanhante"]]}, {"tag": "02", "nome": "PERSONAGENS", "conta": "4 arquivos", "sub": "Character sheets de três vistas, gerados a partir das referências.", "nota": "Mesma lógica do outro caso: o sheet é o que trava a aparência do personagem entre um plano e outro.", "tipo": "grid", "cols": "g1", "tall": true, "itens": [["02_01", "Personagem A · três vistas"], ["02_02", "Personagem B · três vistas"], ["02_03", "Personagem C · três vistas"], ["02_04", "Guarnição · referência"]]}, {"tag": "03", "nome": "FRAMES", "conta": "25 arquivos", "sub": "Storyboard e frames-chave: cada cena definida antes de animar.", "nota": "Os <b>25 frames</b> do caso, na ordem do storyboard — da chegada ao restaurante até a saída com a guarnição.", "tipo": "grid", "cols": "g4", "tall": false, "itens": [["03_01", "Frame 01"], ["03_02", "Frame 02"], ["03_03", "Frame 03"], ["03_04", "Frame 04"], ["03_05", "Frame 05"], ["03_06", "Frame 06"], ["03_07", "Frame 07"], ["03_08", "Frame 08"], ["03_09", "Frame 09"], ["03_10", "Frame 10"], ["03_11", "Frame 11"], ["03_12", "Frame 12"], ["03_13", "Frame 13"], ["03_14", "Frame 14"], ["03_15", "Frame 15"], ["03_16", "Frame 16"], ["03_17", "Frame 17"], ["03_18", "Frame 18"], ["03_19", "Frame 19"], ["03_20", "Frame 20"], ["03_21", "Frame 21"], ["03_22", "Frame 22"], ["03_23", "Frame 23"], ["03_24", "Frame 24"], ["03_25", "Frame 25"]]}, {"tag": "04", "nome": "VÍDEOS IA", "conta": "11 planos", "sub": "Cada frame vira movimento; depois, montagem e finalização.", "nota": "Os <b>11 planos gerados</b>, <b>na ordem dos fatos</b>, cortados em ~3 s e em loop. Os originais têm cinco segundos cheios.", "tipo": "video", "itens": [["t_01", "Cena 01"], ["t_02", "Cena 02"], ["t_03", "Cena 03"], ["t_04", "Cena 04"], ["t_05", "Cena 05"], ["t_06", "Cena 06"], ["t_07", "Cena 07"], ["t_08", "Cena 08"], ["t_09", "Cena 09"], ["t_10", "Cena 10"], ["t_11", "Cena 11"]]}]}]};
-const META = {"c1": {"num": "01", "titulo": "Dívida de R$ 400", "linha": "Homicídio e ocultação de cadáver", "local": "São José dos Pinhais · PR", "quando": "Maio de 2023 · júri em janeiro de 2026", "capa": "assets/c1/img/04_01.jpg", "resumo": "\n     <p>Uma mulher de 35 anos desapareceu no fim de maio de 2023, numa área rural da\n     Região Metropolitana de Curitiba. Em 1º de junho, um morador encontrou o corpo\n     <strong>enterrado num terreno</strong> da localidade.</p>\n     <p>A investigação apontou que ela foi morta dentro da casa de um vizinho, com quem\n     tinha uma dívida de <strong>R$ 400</strong> referente a um celular. Com ajuda de um\n     segundo homem, o corpo foi retirado do local e levado até o terreno em frente, onde\n     foi enterrado. Em janeiro de 2026, o júri popular condenou o autor a\n     <strong>oito anos e quatro meses</strong> por homicídio e ocultação de cadáver.</p>\n     <p>A reconstituição foi montada a partir das fotos do inquérito e do relato do\n     próprio acusado. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/vizinho-condenado-matar-ocultar-corpo-mulher-grande-curitiba/\" target=\"_blank\" rel=\"noopener\">Banda B — 21/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [{"rot": "Garagem e escada", "a": "01_09", "b": "02_01"}, {"rot": "Fundos da casa", "a": "01_11", "b": "02_03"}], "deriv": [{"de": "01_01", "para": "03_01", "cap": "Foto do inquérito", "cap2": "Personagem A · três vistas"}, {"de": "01_06", "para": "03_02", "cap": "Foto do inquérito", "cap2": "Personagem B · três vistas"}, {"de": "01_07", "para": "03_03", "cap": "Foto de referência", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c1/vid/sequencia.mp4", "poster": "assets/c1/poster/sequencia.jpg", "texto": "Os 14 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material bruto em sequência, para dar noção do percurso inteiro."}}, "c2": {"num": "02", "titulo": "Confusão na Ilha do Mel", "linha": "Importunação, desacato e termo circunstanciado", "local": "Ilha do Mel · litoral do PR", "quando": "Janeiro de 2026", "capa": "assets/c2/img/03_22.jpg", "resumo": "\n     <p>Num comércio da Ilha do Mel, no litoral do Paraná, um influenciador digital de\n     32 anos se aproximou de um cliente que estava com a esposa e\n     <strong>passou a mão no peito do homem</strong>. O cliente reagiu com um tapa no\n     rosto.</p>\n     <p>Depois da reação, o influenciador passou a <strong>quebrar objetos do\n     estabelecimento</strong>. A Polícia Militar foi acionada e conduziu os envolvidos\n     à delegacia, onde ele acabou detido por desacato a um investigador — acusação que\n     negou. Assinou termo circunstanciado e foi liberado.</p>\n     <p>A reconstituição recria o percurso a partir das fotos do local, das imagens dos\n     envolvidos e do relato. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/influencer-confusao-ilha-do-mel-delegacia-parana/\" target=\"_blank\" rel=\"noopener\">Banda B — 14/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [], "deriv": [{"de": "01_07", "para": "02_01", "cap": "Referência do envolvido", "cap2": "Personagem A · três vistas"}, {"de": "01_12", "para": "02_02", "cap": "Referência do cliente", "cap2": "Personagem B · três vistas"}, {"de": "01_13", "para": "02_03", "cap": "Referência da acompanhante", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c2/vid/sequencia.mp4", "poster": "assets/c2/poster/sequencia.jpg", "texto": "Os 11 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material gerado em sequência, para dar noção do percurso inteiro."}}};
-let casoAtual='c1', etapaAtual=0;
+const META = {"c1": {"num": "01", "titulo": "Dívida de R$ 400", "linha": "Homicídio e ocultação de cadáver", "local": "São José dos Pinhais · PR", "quando": "Maio de 2023 · júri em janeiro de 2026", "capa": "assets/c1/img/04_01.jpg", "resumo": "\n     <p>Uma mulher de 35 anos desapareceu no fim de maio de 2023, numa área rural da\n     Região Metropolitana de Curitiba. Em 1º de junho, um morador encontrou o corpo\n     <strong>enterrado num terreno</strong> da localidade.</p>\n     <p>A investigação apontou que ela foi morta dentro da casa de um vizinho, com quem\n     tinha uma dívida de <strong>R$ 400</strong> referente a um celular. Com ajuda de um\n     segundo homem, o corpo foi retirado do local e levado até o terreno em frente, onde\n     foi enterrado. Em janeiro de 2026, o júri popular condenou o autor a\n     <strong>oito anos e quatro meses</strong> por homicídio e ocultação de cadáver.</p>\n     <p>A reconstituição foi montada a partir das fotos do inquérito e do relato do\n     próprio acusado. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/vizinho-condenado-matar-ocultar-corpo-mulher-grande-curitiba/\" target=\"_blank\" rel=\"noopener\">Banda B — 21/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [{"rot": "Garagem e escada", "a": "01_09", "b": "02_01"}, {"rot": "Fundos da casa", "a": "01_11", "b": "02_03"}], "deriv": [{"de": "01_01", "para": "03_01", "cap": "Foto do inquérito", "cap2": "Personagem A · três vistas"}, {"de": "01_06", "para": "03_02", "cap": "Foto do inquérito", "cap2": "Personagem B · três vistas"}, {"de": "01_07", "para": "03_03", "cap": "Foto de referência", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c1/vid/sequencia.mp4", "poster": "assets/c1/poster/sequencia.jpg", "texto": "Os 14 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material bruto em sequência, para dar noção do percurso inteiro."}, "fonte_curta": "<a href=\"https://www.bandab.com.br/seguranca/vizinho-condenado-matar-ocultar-corpo-mulher-grande-curitiba/\" target=\"_blank\" rel=\"noopener\">Ver a reportagem</a>"}, "c2": {"num": "02", "titulo": "Confusão na Ilha do Mel", "linha": "Importunação, desacato e termo circunstanciado", "local": "Ilha do Mel · litoral do PR", "quando": "Janeiro de 2026", "capa": "assets/c2/img/03_22.jpg", "resumo": "\n     <p>Num comércio da Ilha do Mel, no litoral do Paraná, um influenciador digital de\n     32 anos se aproximou de um cliente que estava com a esposa e\n     <strong>passou a mão no peito do homem</strong>. O cliente reagiu com um tapa no\n     rosto.</p>\n     <p>Depois da reação, o influenciador passou a <strong>quebrar objetos do\n     estabelecimento</strong>. A Polícia Militar foi acionada e conduziu os envolvidos\n     à delegacia, onde ele acabou detido por desacato a um investigador — acusação que\n     negou. Assinou termo circunstanciado e foi liberado.</p>\n     <p>A reconstituição recria o percurso a partir das fotos do local, das imagens dos\n     envolvidos e do relato. <strong>Nenhuma pessoa foi filmada.</strong></p>\n     <p class=\"fonte\">Fonte pública do caso:\n     <a href=\"https://www.bandab.com.br/seguranca/influencer-confusao-ilha-do-mel-delegacia-parana/\" target=\"_blank\" rel=\"noopener\">Banda B — 14/01/2026</a>\n     · Nomes omitidos por escolha editorial.</p>", "ba": [], "deriv": [{"de": "01_07", "para": "02_01", "cap": "Referência do envolvido", "cap2": "Personagem A · três vistas"}, {"de": "01_12", "para": "02_02", "cap": "Referência do cliente", "cap2": "Personagem B · três vistas"}, {"de": "01_13", "para": "02_03", "cap": "Referência da acompanhante", "cap2": "Personagem C · três vistas"}], "seq": {"arquivo": "assets/c2/vid/sequencia.mp4", "poster": "assets/c2/poster/sequencia.jpg", "texto": "Os 11 planos colados na ordem dos fatos, com cortes secos. Não é a montagem final — é o material gerado em sequência, para dar noção do percurso inteiro."}, "fonte_curta": "<a href=\"https://www.bandab.com.br/seguranca/influencer-confusao-ilha-do-mel-delegacia-parana/\" target=\"_blank\" rel=\"noopener\">Ver a reportagem</a>"}};
+const RESUMO = {"c1": {"ref_total": 12, "ref_itens": ["01_01", "01_02", "01_03", "01_04", "01_05", "01_06", "01_07", "01_08", "01_09", "01_10", "01_11", "01_12"], "frames_total": 94, "cenas": 14, "cenas_itens": ["t_01", "t_02", "t_03", "t_04", "t_05", "t_06", "t_07", "t_08", "t_09", "t_10", "t_11", "t_12", "t_13", "t_14"]}, "c2": {"ref_total": 13, "ref_itens": ["01_01", "01_02", "01_03", "01_04", "01_05", "01_06", "01_07", "01_08", "01_09", "01_10", "01_11", "01_12", "01_13"], "frames_total": 25, "cenas": 11, "cenas_itens": ["t_01", "t_02", "t_03", "t_04", "t_05", "t_06", "t_07", "t_08", "t_09", "t_10", "t_11"]}};
+let casoAtual='c1';
 const img=(c,k)=>'assets/'+c+'/img/'+k+'.jpg';
 const vid=(c,k)=>'assets/'+c+'/vid/'+k+'.mp4';
 const pos=(c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
-const dados=c=>MANIFESTO.casos.find(x=>x.id===c);
 
-const elCasos=document.getElementById('casosGrade');
+/* ---------- seletor de caso ---------- */
+const elPil=document.getElementById('pilulas');
 Object.keys(META).forEach(id=>{
   const m=META[id];
   const b=document.createElement('button');
-  b.className='caso-card'; b.type='button'; b.setAttribute('role','tab');
+  b.className='pilula'; b.type='button'; b.setAttribute('role','tab');
   b.setAttribute('aria-selected', id===casoAtual?'true':'false');
-  b.innerHTML='<div class="capa"><img src="'+m.capa+'" alt="" loading="lazy">'
-    +'<span class="n">Caso '+m.num+'</span></div>'
-    +'<h3>'+m.titulo+'</h3><p>'+m.linha+'</p>';
-  b.addEventListener('click',()=>trocarCaso(id));
-  elCasos.appendChild(b);
+  b.textContent='Caso '+m.num+' · '+m.titulo;
+  b.addEventListener('click',()=>trocar(id));
+  elPil.appendChild(b);
 });
 
-function trocarCaso(id){
-  casoAtual=id; etapaAtual=0;
-  [...elCasos.children].forEach((b,i)=>
+function trocar(id){
+  casoAtual=id;
+  const m=META[id], r=RESUMO[id];
+  [...elPil.children].forEach((b,i)=>
     b.setAttribute('aria-selected', Object.keys(META)[i]===id?'true':'false'));
-  const m=META[id];
-  document.getElementById('casoChapeu').textContent='Caso '+m.num+' · '+m.linha;
-  document.getElementById('casoTitulo').textContent=m.titulo;
-  document.getElementById('casoTexto').innerHTML=m.resumo;
-  document.getElementById('casoMeta').innerHTML='<b>'+m.local+'</b> · '+m.quando;
   document.getElementById('navCaso').textContent='Caso '+m.num;
-  montarEtapas(); montarBA(); montarDeriv(); montarSeq();
+
+  document.getElementById('manchete').textContent =
+    r.ref_total+' fotos e um relato entraram. '+r.cenas+' cenas saíram.';
+  document.getElementById('resumoLinha').innerHTML =
+    '<b>'+m.titulo+'</b> — '+m.local+', '+m.quando+'. '+m.fonte_curta;
+
+  // sequencia
+  const s=m.seq, sv=document.getElementById('seqVideo');
+  sv.poster=s.poster; sv.src=s.arquivo;
+  document.getElementById('seqNome').textContent='Caso '+m.num;
+  sv.addEventListener('loadedmetadata',()=>{
+    document.getElementById('seqDur').textContent=Math.round(sv.duration)+' s';},{once:true});
+  sv.play().catch(()=>{});
+
+  montarSalto(r);
+  montarBA(m);
+  montarDeriv(m);
+  // o subtitulo so promete arrastar quando existe chapa limpa para arrastar
+  document.getElementById('tituloProva').innerHTML = m.ba.length
+    ? 'Tudo sai do que já existe<span class="thin">o local real, esvaziado de gente — arraste</span>'
+    : 'Tudo sai do que já existe<span class="thin">as pessoas do processo viram personagens consistentes</span>';
+  montarCenas(r);
 }
 
-const elSteps=document.getElementById('steps'), elPanel=document.getElementById('panel');
-function montarEtapas(){
-  const et=dados(casoAtual).etapas;
-  elSteps.innerHTML='';
-  et.forEach((e,i)=>{
-    const b=document.createElement('button');
-    b.className='step'; b.type='button'; b.setAttribute('role','tab');
-    b.setAttribute('aria-selected', i===etapaAtual?'true':'false');
-    b.innerHTML='<span class="n">'+e.tag+'</span><span class="t">'+e.nome+'</span><span class="c">'+e.conta+'</span>';
-    b.addEventListener('click',()=>irPara(i));
-    elSteps.appendChild(b);
-  });
-  render(et[etapaAtual]);
-}
-function irPara(i){
-  const et=dados(casoAtual).etapas;
-  etapaAtual=(i+et.length)%et.length;
-  [...elSteps.children].forEach((b,k)=>b.setAttribute('aria-selected',k===etapaAtual?'true':'false'));
-  render(et[etapaAtual]);
-}
-function render(e){
+/* ---------- entrou -> saiu ---------- */
+function montarSalto(r){
   const c=casoAtual;
-  let corpo='';
-  if(e.tipo==='video'){
-    corpo='<div class="player"><div class="screen">'
-      +'<video id="vMain" playsinline muted loop autoplay preload="metadata" poster="'+pos(c,e.itens[0][0])+'"></video>'
-      +'<button class="playbtn" id="playbtn" type="button" aria-label="Reproduzir"><i>&#9654;</i></button>'
-      +'<div class="screenbar"><em></em><b id="vLabel"></b><span>loop · sem áudio · toque para pausar</span></div>'
-      +'</div><div class="takes" id="takes"></div></div>';
-  } else {
-    const tall=e.tall?' tall':'';
-    corpo='<div class="grid '+e.cols+'">'+e.itens.map(([k,t])=>
-      '<figure class="shot'+tall+'" data-k="'+k+'"><div class="bed">'
-      +'<img src="'+img(c,k)+'" alt="'+t+'" loading="lazy" decoding="async"></div>'
-      +'<figcaption>'+t+'</figcaption></figure>').join('')+'</div>';
-  }
-  elPanel.innerHTML='<div class="panel-head"><span class="tag">Etapa '+e.tag+'</span><h3>'+e.nome+'</h3></div>'
-    +'<p class="panel-sub">'+e.sub+'</p><p class="panel-note">'+e.nota+'</p>'+corpo;
-  if(e.tipo==='video') montarPlayer(e);
-  else elPanel.querySelectorAll('.shot').forEach(f=>f.addEventListener('click',()=>abrirLb(f.dataset.k)));
+  document.getElementById('rotEntrou').textContent='fotos do processo';
+  document.getElementById('rotSaiu').textContent='cenas reconstruídas';
+  document.getElementById('entrou').innerHTML =
+    r.ref_itens.map(k=>'<img src="'+img(c,k)+'" alt="" loading="lazy">').join('');
+  document.getElementById('saiu').innerHTML =
+    r.cenas_itens.map(k=>'<img src="'+pos(c,k)+'" alt="" loading="lazy">').join('');
+  document.getElementById('contaEntrou').innerHTML =
+    '<em>'+r.ref_total+'</em> fotos e um relato';
+  document.getElementById('contaSaiu').innerHTML =
+    '<em>'+r.frames_total+'</em> quadros desenhados · <em>'+r.cenas+'</em> cenas em movimento';
 }
-function montarPlayer(e){
-  const c=casoAtual;
-  const v=document.getElementById('vMain'), lab=document.getElementById('vLabel'),
-        box=document.getElementById('takes'), btn=document.getElementById('playbtn');
-  const sinc=()=>btn.classList.toggle('on', v.paused);
-  v.addEventListener('play',sinc); v.addEventListener('pause',sinc);
-  btn.addEventListener('click',()=>v.play().catch(()=>{}));
-  v.style.cursor='pointer';
-  v.addEventListener('click',()=>{ v.paused?v.play().catch(()=>{}):v.pause(); });
-  const trocar=(k,t,b)=>{ v.poster=pos(c,k); v.src=vid(c,k); lab.textContent=t;
-    v.play().catch(()=>{});
-    [...box.children].forEach(x=>x.setAttribute('aria-current', x===b?'true':'false')); };
-  e.itens.forEach(([k,t],i)=>{
-    const b=document.createElement('button');
-    b.className='take'; b.type='button'; b.title=t;
-    b.setAttribute('aria-current', i===0?'true':'false');
-    b.innerHTML='<img src="'+pos(c,k)+'" alt="'+t+'" decoding="async"><span>'+String(i+1).padStart(2,'0')+'</span>';
-    b.addEventListener('click',()=>trocar(k,t,b));
-    box.appendChild(b);
-  });
-  const [k0,t0]=e.itens[0];
-  v.src=vid(c,k0); lab.textContent=t0; v.play().catch(()=>{});
-  setTimeout(sinc,500);
-}
-document.addEventListener('keydown',ev=>{
-  if(document.getElementById('lb').classList.contains('on')) return;
-  if(ev.key==='ArrowRight') irPara(etapaAtual+1);
-  if(ev.key==='ArrowLeft')  irPara(etapaAtual-1);
-});
 
-const secBA=document.getElementById('antesdepois');
+/* ---------- antes / depois ---------- */
+const secProva=document.getElementById('prova');
 const ba=document.getElementById('ba'), baB=document.getElementById('baBefore'),
       baA=document.getElementById('baAfter'), baTabs=document.getElementById('batabs');
-let baIdx=0;
-function montarBA(){
-  const pares=META[casoAtual].ba;
-  secBA.classList.toggle('oculto', pares.length===0);
-  if(!pares.length) return;
+let baIdx=0, baPares=[];
+function montarBA(m){
+  baPares=m.ba;
+  baTabs.style.display = baPares.length>1 ? '' : 'none';
+  ba.style.display = baPares.length ? '' : 'none';
+  if(!baPares.length) return;
   baIdx=0; baTabs.innerHTML='';
-  pares.forEach((p,i)=>{
+  baPares.forEach((p,i)=>{
     const b=document.createElement('button');
     b.className='batab'; b.type='button'; b.textContent=p.rot;
     b.setAttribute('aria-selected', i===0?'true':'false');
@@ -578,7 +549,7 @@ function montarBA(){
   });
   carregarBA();
 }
-function carregarBA(){ const p=META[casoAtual].ba[baIdx];
+function carregarBA(){ const p=baPares[baIdx];
   baB.src=img(casoAtual,p.a); baA.src=img(casoAtual,p.b); posic(50); }
 function posic(p){ ba.style.setProperty('--pos', Math.max(0,Math.min(100,p))+'%'); }
 function daEvento(ev){ const r=ba.getBoundingClientRect();
@@ -589,34 +560,64 @@ ba.addEventListener('pointermove',e=>{ if(arrastando) daEvento(e); });
 ba.addEventListener('pointerup',()=>arrastando=false);
 ba.addEventListener('pointercancel',()=>arrastando=false);
 
-function montarDeriv(){
+/* ---------- foto real -> personagem ---------- */
+function montarDeriv(m){
   const c=casoAtual;
-  document.getElementById('deriv').innerHTML=META[c].deriv.map(d=>
-    '<div class="pair"><div class="from"><img src="'+img(c,d.de)+'" alt="'+d.cap+'" loading="lazy">'
-    +'<div class="cap">'+d.cap+'</div></div><div class="arrow">→</div>'
-    +'<div class="to"><img src="'+img(c,d.para)+'" alt="'+d.cap2+'" loading="lazy">'
-    +'<div class="cap">'+d.cap2+'</div></div></div>').join('');
-}
-function montarSeq(){
-  const s=META[casoAtual].seq, v=document.getElementById('seqVideo');
-  v.poster=s.poster; v.src=s.arquivo;
-  document.getElementById('seqTexto').textContent=s.texto;
-  document.getElementById('seqNome').textContent='Caso '+META[casoAtual].num;
-  v.addEventListener('loadedmetadata',()=>{
-    document.getElementById('seqDur').textContent=Math.round(v.duration)+' s';},{once:true});
+  document.getElementById('deriv').innerHTML = m.deriv.map(d=>
+    '<div class="pair"><div class="from"><img src="'+img(c,d.de)+'" alt="" loading="lazy">'
+    +'<div class="cap">Foto real</div></div><div class="arrow">→</div>'
+    +'<div class="to"><img src="'+img(c,d.para)+'" alt="" loading="lazy">'
+    +'<div class="cap">Personagem gerado, três vistas</div></div></div>').join('');
 }
 
+/* ---------- cenas ---------- */
+function montarCenas(r){
+  const c=casoAtual;
+  document.getElementById('tituloCenas').innerHTML =
+    'As '+r.cenas+' cenas<span class="thin">na ordem dos fatos · toque para trocar</span>';
+  const v=document.getElementById('vMain'), lab=document.getElementById('vLabel'),
+        box=document.getElementById('takes'), btn=document.getElementById('playbtn');
+  box.innerHTML='';
+  const sinc=()=>btn.classList.toggle('on', v.paused);
+  if(!v.dataset.pronto){
+    v.addEventListener('play',sinc); v.addEventListener('pause',sinc);
+    btn.addEventListener('click',()=>v.play().catch(()=>{}));
+    v.style.cursor='pointer';
+    v.addEventListener('click',()=>{ v.paused?v.play().catch(()=>{}):v.pause(); });
+    v.dataset.pronto='1';
+  }
+  const trocarCena=(k,t,b)=>{ v.poster=pos(c,k); v.src=vid(c,k); lab.textContent=t;
+    v.play().catch(()=>{});
+    [...box.children].forEach(x=>x.setAttribute('aria-current', x===b?'true':'false')); };
+  r.cenas_itens.forEach((k,i)=>{
+    const t='Cena '+String(i+1).padStart(2,'0');
+    const b=document.createElement('button');
+    b.className='take'; b.type='button'; b.title=t;
+    b.setAttribute('aria-current', i===0?'true':'false');
+    b.innerHTML='<img src="'+pos(c,k)+'" alt="'+t+'" decoding="async"><span>'+String(i+1).padStart(2,'0')+'</span>';
+    b.addEventListener('click',()=>trocarCena(k,t,b));
+    box.appendChild(b);
+  });
+  const k0=r.cenas_itens[0];
+  v.poster=pos(c,k0); v.src=vid(c,k0); lab.textContent='Cena 01';
+  v.play().catch(()=>{}); setTimeout(sinc,500);
+}
+
+/* ---------- lightbox ---------- */
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
-function abrirLb(k){ lbImg.src=img(casoAtual,k); lb.classList.add('on'); }
 lb.addEventListener('click',()=>lb.classList.remove('on'));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('on'); });
+document.addEventListener('click',e=>{
+  const im=e.target.closest('.salto img, .pair img');
+  if(im){ lbImg.src=im.src.replace('/poster/','/poster/'); lb.classList.add('on'); }
+});
 
 const io2=new IntersectionObserver(es=>es.forEach(en=>{
   if(en.isIntersecting){ en.target.classList.add('in'); io2.unobserve(en.target); }
 }),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io2.observe(el));
 
-trocarCaso('c1');
+trocar('c1');
 </script>
 </body>
 </html>
