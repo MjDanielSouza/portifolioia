@@ -1,0 +1,5 @@
+Inter|400|normal|Inter-400.woff2
+Inter|500|normal|Inter-500.woff2
+Inter|600|normal|Inter-600.woff2
+Inter|700|normal|Inter-700.woff2
+Inter|800|normal|Inter-800.woff2
