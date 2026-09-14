@@ -38,7 +38,10 @@ MAN = json.load(io.open(os.path.join(G, "assets", "manifest.json"), encoding="ut
 # ---- o que a pagina referencia, pela mesma fonte de verdade que a monta ----
 alvo = set()
 for c in MAN["casos"]:
-    cid = c["id"]; m = CASOS[cid]
+    cid = c["id"]
+    if cid not in CASOS:          # caso estacionado em CASOS_FORA
+        continue
+    m = CASOS[cid]
     ref   = c["etapas"][0]
     video = [e for e in c["etapas"] if e["tipo"] == "video"][0]
     for k, _ in ref["itens"]:

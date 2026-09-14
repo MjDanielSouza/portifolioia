@@ -34,6 +34,8 @@ FAVICON = ("data:image/svg+xml,"
 # ---- numeros de cada caso, tirados do proprio manifesto ----
 RESUMO = {}
 for c in MAN["casos"]:
+    if c["id"] not in CASOS:      # caso estacionado em CASOS_FORA
+        continue
     et = {e["tag"]: e for e in c["etapas"]}
     ref   = c["etapas"][0]                      # etapa 01 = referencia
     frames= [e for e in c["etapas"] if "FRAME" in e["nome"].upper()][0]
@@ -183,7 +185,11 @@ const pos=(c,k)=>'assets/'+c+'/poster/'+k+'.jpg';
 
 /* ---------- seletor de caso ---------- */
 const elPil=document.getElementById('casos');
-Object.keys(META).forEach(id=>{
+/* Com um caso so o seletor nao tem para onde levar, e um botao aceso que
+   nao faz nada e pior que botao nenhum. A barra segue identificando o caso
+   pelo fonteCaso, e no celular pela linha abaixo do video. */
+if(Object.keys(META).length<2) elPil.hidden=true;
+else Object.keys(META).forEach(id=>{
   const m=META[id];
   const b=document.createElement('button');
   b.className='caso'; b.type='button'; b.setAttribute('role','tab');
@@ -374,9 +380,14 @@ for cid, m in CASOS.items():
     url = _re.search(r'href="(https://www\.bandab[^"]+)"', m["resumo"]).group(1)
     m["fonte_curta"] = '<a href="%s" target="_blank" rel="noopener">Ver a reportagem</a>' % url
 
+# O manifesto vai embutido inteiro na pagina. Filtrado, senao leva junto o
+# inventario do caso estacionado — nomes de arquivo e contagens de um caso
+# que saiu do ar. (Nada no JS le MANIFESTO hoje; fica por ser barato.)
+MAN_NO_AR = {"casos": [c for c in MAN["casos"] if c["id"] in CASOS]}
+
 html = (HTML.replace("__FONTES__", FONTES).replace("__CSS__", CSS)
             .replace("__FAVICON__", FAVICON)
-            .replace("__MANIFESTO__", json.dumps(MAN, ensure_ascii=False))
+            .replace("__MANIFESTO__", json.dumps(MAN_NO_AR, ensure_ascii=False))
             .replace("__META__", json.dumps(CASOS, ensure_ascii=False))
             .replace("__RESUMO__", json.dumps(RESUMO, ensure_ascii=False)))
 io.open(os.path.join(G,"index.html"),"w",encoding="utf-8",newline="").write(html)

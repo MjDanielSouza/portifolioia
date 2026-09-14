@@ -5,8 +5,13 @@ import os as _os
 SP = _os.path.dirname(_os.path.abspath(__file__))   # .../SITE_GITHUB/build
 G  = _os.path.dirname(SP)                           # .../SITE_GITHUB
 # -*- coding: utf-8 -*-
-"""Copy dos dois casos. Fica separado do manifesto porque manifesto e
-inventario de arquivos; isto e texto, e texto se revisa a mao."""
+"""Copy dos casos. Fica separado do manifesto porque manifesto e inventario
+de arquivos; isto e texto, e texto se revisa a mao.
+
+CASOS e a lista do que a pagina publica. O montar.py so monta o que estiver
+aqui, entao tirar um caso do ar e mover o bloco dele para CASOS_FORA — o
+prep_assets.py pode reler as pastas de origem sem ressuscitar o caso.
+"""
 
 CASOS = {
  "c1": {
@@ -41,8 +46,14 @@ CASOS = {
            "texto":"Os 14 planos colados na ordem dos fatos, com cortes secos. "
                    "Não é a montagem final — é o material bruto em sequência, para "
                    "dar noção do percurso inteiro."},
- },
+ }
+}
 
+# Fora do ar desde 14/09/2026, a pedido do Daniel: a peca passou a mostrar
+# so o caso 01. Para trazer de volta, mova o bloco para CASOS acima — o
+# resto da pagina se ajusta sozinho, inclusive a barra de casos, que so
+# aparece quando ha mais de um.
+CASOS_FORA = {
  "c2": {
    "num": "02",
    "titulo": "Confusão na Ilha do Mel",
